@@ -15,6 +15,7 @@ import mimetypes
 import os
 import platform
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -213,7 +214,13 @@ def section_aitv(embed: bool) -> str:
         if embed:
             src = file_uri(_compact(p))
         else:
-            src = "../aitv/library/" + it["file"]
+            # Copy into report/assets so the checked-in report also works from a fresh clone
+            # (aitv/library is runtime state and is not tracked).
+            os.makedirs(ASSETS, exist_ok=True)
+            local = os.path.join(ASSETS, "sample_" + it["file"])
+            if not os.path.exists(local):
+                shutil.copy(_compact(p), local)
+            src = "assets/" + os.path.basename(local)
         clips += (f'<figure class="sample small"><video controls preload="metadata" playsinline src="{src}"></video>'
                   f'<figcaption><b>{html.escape(it.get("program",""))}</b><span>{html.escape(it.get("caption",""))}</span></figcaption></figure>')
     shot = asset_uri("aitv_player.png", embed)

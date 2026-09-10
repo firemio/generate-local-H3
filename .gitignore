@@ -16,3 +16,7 @@ report/.small/
 aitv/hls/
 aitv/library/
 output/station.pid
+
+# keep the report self-contained: its sample videos are tracked
+!report/assets/*.mp4
+.tools/

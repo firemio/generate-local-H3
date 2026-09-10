@@ -234,7 +234,8 @@ def section_aitv(embed: bool) -> str:
    /playlist.json, /clips/…            /hls/live.m3u8  (VLC / OBS / hls.js)</pre>
 {shot_html}
 <h3>24 時間運用の現実</h3>
-<p>制作は実時間の約 1/60（6.6 秒のクリップに約 400 秒）なので、1 日回しても新作は約 25 分ぶん。放送局として止まらないことと、毎日 24 時間ぶんの新作ができることは別で、後者はこの GPU では無理。配信側は「まだ流していないクリップを新しい順に即座に流す → 無ければ直近を避けつつ新しいものほど重みを高くしたランダム選択」という並び順で、固定ループに見えないようにしている（<code>aitv/hls.py: pick_next</code>、プレイヤーも同じ方針）。<code>scripts/run_station.ps1</code> で ComfyUI・プレイヤー・HLS・制作ループを常駐起動する。</p>
+<p>制作は実時間の約 1/60（6.6 秒のクリップに約 400 秒）なので、1 日回しても新作は約 25 分ぶん。放送局として止まらないことと、毎日 24 時間ぶんの新作ができることは別で、後者はこの GPU では無理。配信側は「まだ流していないクリップを新しい順に即座に流す → 無ければ直近を避けつつ新しいものほど重みを高くしたランダム選択」という並び順で、固定ループに見えないようにしている（<code>aitv/hls.py: pick_next</code>、プレイヤーも同じ方針）。<code>scripts/run_station.ps1</code> で ComfyUI・プレイヤー・HLS・制作ループを常駐起動する（<code>-Status</code> / <code>-Stop</code> / <code>-Restart</code>）。</p>
+<p>数日の連続運転を前提にコードをレビューし、確認できた不具合を直した。主なものは、HLS エンコーダが落ちたときに remux が排出先を失ってブロックし復帰処理に到達しない件、<code>-fflags +igndts</code> がクリップ境界以降のタイムスタンプを潰していた件（実測 71 % のフレーム。<code>+genpts</code> のみにして 1/24 秒刻みに復帰）、<code>index.json</code> の置き換えが Windows の共有違反で失敗し約 400 秒かけたクリップが索引に載らない件、HIP ハング時も <code>/system_stats</code> が応答するため生成が無期限に止まる件（無反応タイムアウトと <code>/interrupt</code> を追加）、停止スクリプトがコマンドライン部分一致で無関係なプロセスまで落としていた件。詳細は <code>docs/aitv.md</code>。</p>
 <h3>制作ログ（実走）</h3>
 <pre class="log">{html.escape(log) or '（未実行）'}</pre>
 <h3>生成された番組クリップ</h3>

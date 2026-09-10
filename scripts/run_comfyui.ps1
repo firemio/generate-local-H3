@@ -35,8 +35,10 @@ Remove-Item Env:PYTORCH_CUDA_ALLOC_CONF -ErrorAction SilentlyContinue
 # --- ComfyUI flags -----------------------------------------------------------
 # --highvram  : 96 GB of VRAM; keep models resident instead of paging to the 32 GB of system RAM.
 # --bf16-unet : gfx1151 has bf16 WMMA; H3 is trained in bf16.
-# --use-pytorch-cross-attention : SDPA (aotriton flash/mem-efficient) is auto-enabled for gfx1151 on torch>=2.7,
-#                                 the flag forces it if the auto-probe declines.
+# --use-ck-attention : comfy-kitchen INT8 attention through its HIP backend (gfx1151 has WMMA). Measured on
+#                      832x480x124f: 27.8 s/step vs 71.4 s/step with pytorch SDPA (aotriton), same image quality.
+#                      Per-graph override: ModelAttentionBackend node / `h3gen --attention "pytorch attention"`.
+#                      (SDPA via aotriton is auto-enabled for gfx1151 on torch>=2.7 when this flag is absent.)
 # --disable-pinned-memory : pinned host memory is a known slowdown on unified-memory APUs.
 # --reserve-vram 2 : leave a little for the desktop compositor.
 $Args = @(
@@ -45,7 +47,7 @@ $Args = @(
     "--port", "$Port",
     "--highvram",
     "--bf16-unet",
-    "--use-pytorch-cross-attention",
+    "--use-ck-attention",
     "--disable-pinned-memory",
     "--reserve-vram", "2",
     "--output-directory", (Join-Path $Root "output"),

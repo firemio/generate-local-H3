@@ -109,6 +109,7 @@ class ComfyClient:
         cur, cur_t = None, t0
         ok, err = False, None
         last_progress = ("", -1)
+        t_exec = None  # first executing event for this prompt (excludes queue wait)
         while time.time() - t0 < timeout:
             try:
                 msg = ws.recv()
@@ -129,6 +130,8 @@ class ComfyClient:
             now = time.time()
             if typ == "executing":
                 node = data.get("node")
+                if t_exec is None and node is not None:
+                    t_exec = now
                 if cur is not None:
                     node_times[cur] = node_times.get(cur, 0.0) + (now - cur_t)
                 cur, cur_t = node, now
@@ -149,7 +152,7 @@ class ComfyClient:
                 err = "interrupted"
                 break
         ws.close()
-        total = time.time() - t0
+        total = time.time() - (t_exec or t0)  # wall time of execution only (queue wait excluded)
         outputs, local = [], []
         try:
             hist = self._get(f"/history/{pid}").get(pid, {})

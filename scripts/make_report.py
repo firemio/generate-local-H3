@@ -71,15 +71,41 @@ def env_facts() -> list[tuple[str, str]]:
     return f
 
 
+SMALL = os.path.join(ROOT, "report", ".small")
+
+
+def _compact(path: str) -> str:
+    """Smaller derivative for single-file embedding: 640px H.264 CRF 27 for video, JPEG q82 for PNG."""
+    os.makedirs(SMALL, exist_ok=True)
+    base, ext = os.path.splitext(os.path.basename(path))
+    if ext.lower() == ".mp4":
+        out = os.path.join(SMALL, base + ".mp4")
+        if not os.path.exists(out) or os.path.getmtime(out) < os.path.getmtime(path):
+            subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", path, "-vf", "scale=640:-2",
+                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "27", "-pix_fmt", "yuv420p",
+                            "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", out], check=True)
+        return out
+    if ext.lower() == ".png":
+        out = os.path.join(SMALL, base + ".jpg")
+        if not os.path.exists(out) or os.path.getmtime(out) < os.path.getmtime(path):
+            subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", path, "-q:v", "4", out], check=True)
+        return out
+    return path
+
+
+def file_uri(path: str) -> str:
+    mime = mimetypes.guess_type(path)[0] or "application/octet-stream"
+    with open(path, "rb") as fh:
+        return f"data:{mime};base64,{base64.b64encode(fh.read()).decode()}"
+
+
 def asset_uri(name: str, embed: bool) -> str:
     p = os.path.join(ASSETS, name)
     if not os.path.exists(p):
         return ""
     if not embed:
         return "assets/" + name
-    mime = mimetypes.guess_type(p)[0] or "application/octet-stream"
-    with open(p, "rb") as fh:
-        return f"data:{mime};base64,{base64.b64encode(fh.read()).decode()}"
+    return file_uri(_compact(p))
 
 
 def s(x, nd=0) -> str:
@@ -178,13 +204,14 @@ def section_aitv(embed: bool) -> str:
                  f"<td class=n>{it.get('seconds',0):.1f} s</td><td class=n>{s(it.get('render_s'))} s</td>"
                  f"<td class=prompt>{html.escape(it.get('prompt','')[:260])}…</td></tr>")
     clips = ""
-    for it in items[:6]:
+    seen = set()
+    picks = [it for it in items if not (it.get("format") in seen or seen.add(it.get("format")))][:3]  # one clip per programme type
+    for it in picks:
         p = os.path.join(LIB, it["file"])
         if not os.path.exists(p):
             continue
         if embed:
-            with open(p, "rb") as fh:
-                src = "data:video/mp4;base64," + base64.b64encode(fh.read()).decode()
+            src = file_uri(_compact(p))
         else:
             src = "../aitv/library/" + it["file"]
         clips += (f'<figure class="sample small"><video controls preload="metadata" playsinline src="{src}"></video>'

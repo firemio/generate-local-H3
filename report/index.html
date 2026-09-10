@@ -86,10 +86,10 @@ footer { margin-top:50px; padding-top:16px; border-top:1px solid var(--line); fo
 <body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">検証レポート · 2026-09-10 18:17</div>
+  <div class="eyebrow">検証レポート · 2026-09-10 18:51</div>
   <h1>MiniMax H3 をローカルで動かす — GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S）· Windows · ROCm</h1>
   <p class="lede">テクノエッジ 2026/09/06 の松尾公也氏の記事（RTX 5090 で MiniMax H3 を高速化）を、NVIDIA GPU の無い AMD Strix Halo ミニPC・Windows 11 で再現し、さらにローカル LLM と組み合わせた「AIテレビ局」まで動かした記録。</p>
-  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ 682b0e6</span><span>元記事: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
+  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ 8ca3df3</span><span>元記事: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
 </header>
 
 <div class="verdict">
@@ -174,14 +174,22 @@ pip install -r ComfyUI\requirements.txt   # torch 行を除いて入れ、AMD in
               ▼                               ▼
    aitv.server :8800  (プレイヤー)      aitv.hls (ffmpeg -re → HLS)
    /playlist.json, /clips/…            /hls/live.m3u8  (VLC / OBS / hls.js)</pre>
-
+<figure class="shot"><img src="assets/aitv_player.png" alt="EVO-X2 TV プレイヤー画面"><figcaption>ブラウザのプレイヤー（http://127.0.0.1:8800/）。ライブラリの新着クリップから順に再生し、下部のティッカーに各番組のキャプションを流す。</figcaption></figure>
 <h3>制作ログ（実走）</h3>
-<pre class="log">（未実行）</pre>
+<pre class="log">[aitv] writer LLM: gemma4:latest @ http://127.0.0.1:11434
+[aitv] === AIニュース: EVO-X2 TV - AIニュース速報 (3 seg)
+[aitv] + news-20260910-182422-72da74.mp4  (6.6s clip, rendered in 481s, sampling 351s) 「今日のトップニュース」
+[aitv] + news-20260910-183059-58a8f3.mp4  (6.6s clip, rendered in 397s, sampling 314s) 「革新的エネルギー技術」
+[aitv] + news-20260910-183736-d7608d.mp4  (6.6s clip, rendered in 396s, sampling 314s) 「地域の緑化活動」
+[aitv] === CM: オーロラベリーブースト CM (1 seg)
+[aitv] + cm-20260910-184522-64ba79.mp4  (6.6s clip, rendered in 399s, sampling 316s) 「太陽とベリーの魔法！」
+[aitv] === ステーションID: Station Ident: EVO-X2 TV (1 seg)
+[aitv] + ident-20260910-185023-9ef62c.mp4  (4.5s clip, rendered in 238s, sampling 183s) 「EVO-X2 TV ローカルAI放送局」</pre>
 <h3>生成された番組クリップ</h3>
-<div class="samples"><p class=dim>（ライブラリなし）</p></div>
+<div class="samples"><figure class="sample small"><video controls preload="metadata" playsinline src="../aitv/library/news-20260910-182422-72da74.mp4"></video><figcaption><b>EVO-X2 TV - AIニュース速報</b><span>今日のトップニュース</span></figcaption></figure><figure class="sample small"><video controls preload="metadata" playsinline src="../aitv/library/cm-20260910-184522-64ba79.mp4"></video><figcaption><b>オーロラベリーブースト CM</b><span>太陽とベリーの魔法！</span></figcaption></figure><figure class="sample small"><video controls preload="metadata" playsinline src="../aitv/library/ident-20260910-185023-9ef62c.mp4"></video><figcaption><b>Station Ident: EVO-X2 TV</b><span>EVO-X2 TV ローカルAI放送局</span></figcaption></figure></div>
 <div class="tbl"><table>
 <tr><th>番組</th><th>キャプション（ティッカー）</th><th>長さ</th><th>生成</th><th>LLM が書いたプロンプト（冒頭）</th></tr>
-<tr><td colspan=5 class=dim>（未実行）</td></tr>
+<tr><td>EVO-X2 TV - AIニュース速報</td><td>今日のトップニュース</td><td class=n>6.6 s</td><td class=n>481 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;ultra-modern, cool tones&gt;, &lt;medium&gt; frames &lt;A professional-looking, gender-neutral AI news anchor wearing a sharp suit, seated at a sleek, minimalist news desk&gt;.&lt;The camera pushes in with small amplitude at slow spe…</td></tr><tr><td>EVO-X2 TV - AIニュース速報</td><td>革新的エネルギー技術</td><td class=n>6.6 s</td><td class=n>397 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;bright, scientific, highly stylized&gt;, &lt;wide&gt; frames &lt;Abstract depiction of glowing, sustainable energy flowing through crystalline structures in a futuristic laboratory setting&gt;.&lt;The camera tracks left at slow speed…</td></tr><tr><td>EVO-X2 TV - AIニュース速報</td><td>地域の緑化活動</td><td class=n>6.6 s</td><td class=n>396 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;lush, natural, soft daytime lighting&gt;, &lt;full&gt; frames &lt;A picturesque, thriving local park filled with diverse, vibrant greenery and clean walkways&gt;.&lt;The camera pans right at slow speed, showing various types of ficti…</td></tr><tr><td>オーロラベリーブースト CM</td><td>太陽とベリーの魔法！</td><td class=n>6.6 s</td><td class=n>399 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;style words&gt;Hyper-saturated, magical realism, joyful&lt;/style&gt;, &lt;shot size&gt;medium shot&lt;/shot size&gt; frames &lt;a stylized forest sprite, glowing slightly, holding a glowing bottle of berry juice, standing in a lush, sun-d…</td></tr><tr><td>Station Ident: EVO-X2 TV</td><td>EVO-X2 TV ローカルAI放送局</td><td class=n>4.5 s</td><td class=n>238 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] neon vaporwave style, wide shot frames abstract, glowing geometric shapes rapidly assembling and rotating in deep space. The camera pushes out slowly with a small amplitude at slow speed. A friendly, bright voice (S1…</td></tr>
 </table></div>
 
 
@@ -204,7 +212,7 @@ pip install -r ComfyUI\requirements.txt   # torch 行を除いて入れ、AMD in
 <li><a href="https://repo.amd.com/rocm/whl/gfx1151/">AMD ROCm PyTorch wheels for gfx1151</a> / <a href="https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html">ROCm 10 multi-arch PyTorch</a></li>
 <li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/33">HF discussion #33: Strix Halo 8060S での H3</a></li>
 </ul>
-<footer>generate-local-H3 · 2026-09-10 18:17 · 全ての計測はこの PC 上の実行ログ（output/runs.jsonl）から生成</footer>
+<footer>generate-local-H3 · 2026-09-10 18:51 · 全ての計測はこの PC 上の実行ログ（output/runs.jsonl）から生成</footer>
 </div>
 </body>
 </html>

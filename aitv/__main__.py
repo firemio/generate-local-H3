@@ -10,6 +10,7 @@ import argparse
 import os
 import sys
 import threading
+import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -71,15 +72,29 @@ def main(argv=None) -> int:
     elif a.cmd == "station":
         serve(a.host, a.port, background=True)
         if not a.no_hls:
-            threading.Thread(target=broadcast, daemon=True).start()
-        prod = _producer(a)
-        try:
-            prod.run(a.count, a.formats.split(",") if a.formats else None)
-            if a.count:
-                print("[aitv] production finished; station keeps playing (Ctrl+C to stop)")
-                threading.Event().wait()
-        except KeyboardInterrupt:
-            pass
+            def _hls_forever():
+                while True:  # the broadcaster restarts its encoder itself; this guards the thread as a whole
+                    try:
+                        broadcast()
+                    except Exception as e:  # noqa
+                        print(f"[aitv] HLS broadcaster crashed ({e}); restarting in 10s", flush=True)
+                        time.sleep(10)
+            threading.Thread(target=_hls_forever, daemon=True).start()
+        while True:  # production loop; re-created if it ever dies (ComfyUI down at start, etc.)
+            try:
+                prod = _producer(a)
+                prod.run(a.count, a.formats.split(",") if a.formats else None)
+                if a.count:
+                    print("[aitv] production finished; station keeps playing (Ctrl+C to stop)", flush=True)
+                    threading.Event().wait()
+            except KeyboardInterrupt:
+                break
+            except SystemExit as e:  # _producer raises SystemExit when ComfyUI is not reachable yet
+                print(f"[aitv] {e}; retrying in 30s", flush=True)
+                time.sleep(30)
+            except Exception as e:  # noqa
+                print(f"[aitv] producer crashed ({e}); restarting in 30s", flush=True)
+                time.sleep(30)
     return 0
 
 

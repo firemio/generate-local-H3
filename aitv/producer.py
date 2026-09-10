@@ -129,9 +129,34 @@ class Producer:
                 save_index(items)
         return made
 
+    def wait_for_comfy(self, poll: float = 15.0) -> None:
+        """Block until the ComfyUI API answers (server restart, driver reset, ...)."""
+        warned = False
+        while not self.comfy.alive():
+            if not warned:
+                self.log(f"[aitv] ComfyUI at {self.comfy.base} not reachable; waiting...")
+                warned = True
+            time.sleep(poll)
+        if warned:
+            self.log("[aitv] ComfyUI is back")
+
     def run(self, count: int | None = None, formats: list[str] | None = None) -> None:
-        n = 0
+        """Production loop. count=None -> run forever (24/7 station); every failure is logged and retried
+        with a growing pause so one bad programme never stops the channel."""
+        n, failures = 0, 0
         while count is None or n < count:
             fmt = formats[n % len(formats)] if formats else None
-            self.produce_one(fmt)
-            n += 1
+            try:
+                self.wait_for_comfy()
+                made = self.produce_one(fmt)
+                n += 1
+                failures = 0 if made else failures + 1
+            except KeyboardInterrupt:
+                raise
+            except Exception as e:  # LLM/HTTP/ffmpeg/... keep the station alive
+                failures += 1
+                self.log(f"[aitv] programme failed ({type(e).__name__}: {e}); retrying")
+            if failures:
+                pause = min(300, 20 * failures)
+                self.log(f"[aitv] {failures} consecutive failure(s); pausing {pause}s")
+                time.sleep(pause)

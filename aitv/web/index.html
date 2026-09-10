@@ -43,7 +43,7 @@
 <script>
 const v = document.getElementById('v'), title = document.getElementById('title'), tick = document.getElementById('tick');
 const idle = document.getElementById('idle'), tap = document.getElementById('tap');
-let items = [], station = {name: 'EVO-X2 TV'}, cursor = -1, playedIds = new Set();
+let items = [], station = {name: 'EVO-X2 TV'}, cursor = -1, playedIds = new Set(), recent = [];
 
 async function refresh() {
   try {
@@ -57,18 +57,24 @@ async function refresh() {
 }
 function pickNext() {
   if (!items.length) return null;
-  // newest-first preference: play unplayed clips first, then loop everything
-  const unplayed = items.filter(i => !playedIds.has(i.id));
+  // 1) anything not yet aired in this session, newest first (fresh programmes air as soon as they land)
+  const unplayed = items.filter(i => !playedIds.has(i.id)).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
   if (unplayed.length) return unplayed[0];
-  playedIds.clear();
-  return items[0];
+  // 2) otherwise a weighted random pick that avoids the most recently aired clips and favours newer ones
+  const avoid = new Set(recent.slice(-Math.max(1, Math.min(items.length - 1, Math.floor(items.length / 2)))));
+  const pool = items.filter(i => !avoid.has(i.id));
+  const ranked = (pool.length ? pool : items).slice().sort((a, b) => (a.created || '').localeCompare(b.created || ''));
+  const weights = ranked.map((_, k) => 1 + (k / Math.max(1, ranked.length - 1)) * 2);
+  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let k = 0; k < ranked.length; k++) { r -= weights[k]; if (r <= 0) return ranked[k]; }
+  return ranked[ranked.length - 1];
 }
 async function playNext() {
   await refresh();
   const it = pickNext();
   if (!it) { idle.style.display = 'flex'; setTimeout(playNext, 5000); return; }
   idle.style.display = 'none';
-  playedIds.add(it.id);
+  playedIds.add(it.id); recent.push(it.id); if (recent.length > 50) recent.shift();
   title.innerHTML = `${it.program}<small>${it.caption}　·　${it.seconds.toFixed(0)}s · seed ${it.seed} · 生成 ${it.render_s}s</small>`;
   v.src = '/clips/' + encodeURIComponent(it.file);
   const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0');   // ?t=3 → start offset (screenshots/debug)

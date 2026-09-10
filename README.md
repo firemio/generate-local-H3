@@ -60,10 +60,23 @@ report/                      HTML レポート
 | VAE | `minimax_h3_video_vae_fp16` / `minimax_h3_audio_vae_fp32` | 5.8 GB | |
 | Turbo LoRA | fl2v 8step / 4step, ref2v 4step | 各 2 GB | 20 step → 8 step |
 
+## 実測（このPC、8-step turbo LoRA、INT8 DiT + INT8 テキストエンコーダ）
+
+| 解像度 × 長さ | attention | サンプリング | VAE デコード | 合計（実行時間） |
+|---|---|---|---|---|
+| 832×480 × 124f (5.2s) | pytorch SDPA (aotriton) | 571 s (71.4 s/step) | 59 s | 636 s |
+| 832×480 × 124f (5.2s) | **comfy kitchen INT8 (hip)** | **223 s (27.8 s/step)** | 59 s | **285 s** |
+| 832×480 × 158f (6.6s) 日本語セリフ | INT8 | 319 s (39.9 s/step) | 76 s | 403 s |
+| 640×352 × 124f (5.2s) | INT8 | 108 s (13.4 s/step) | 29 s | 142 s |
+
+- 初回のみモデルロード（TE 26 GB + DiT 20 GB + VAE 5.5 GB）で +60〜90 s。以後は常駐（`--highvram`）。
+- ピーク VRAM 約 78 GB（832×480×124f）。1 プロセスの確保上限 ~85 GB。
+- ROCm 10.0.0（torch 2.13）でも動作: サンプリング ~10% 遅く、VAE デコード ~16% 速い（`docs/setup.md`）。
+
 ## 動作原理（要点）
 
 - **ROCm on Windows**: AMD が `repo.amd.com/rocm/whl/gfx1151/` で配布する PyTorch 2.11 + ROCm 7.13 の Windows wheel を使用。WSL も HIP SDK も不要。`torch.cuda.is_available()` が True になり、HIP デバイスとして 8060S が見える。
-- **ComfyUI フラグ**: `--highvram --bf16-unet --use-pytorch-cross-attention --disable-pinned-memory --reserve-vram 2`。gfx1151 は torch 2.7+ で aotriton の SDPA が自動有効。
+- **ComfyUI フラグ**: `--highvram --bf16-unet --use-ck-attention --disable-pinned-memory --reserve-vram 2`。INT8 アテンション（comfy-kitchen hip）はサンプリングを 2.6 倍高速化。外すと gfx1151 では aotriton の SDPA が自動で有効になる。
 - **INT8**: ComfyUI 0.35 の comfy-kitchen 0.2.33 は `hip` バックエンドを持ち、`int8_linear` / `dequantize_int8_convrot_weight_dtype` / `sol_attn` が gfx1151 で使える（Triton 不要）。
 - **グラフ**: 公式テンプレートと同一（UNETLoader → LoraLoaderModelOnly → BasicGuider/BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo(24fps) → SaveVideo）。`h3gen/graph.py` が API 形式で組み立てる。
 

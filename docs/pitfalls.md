@@ -50,3 +50,14 @@ comfy-kitchen の INT8 Triton カーネルは使えない（`No module named 'tr
 非管理者・winget がハングする環境だったため、GitHub releases の zip を `.tools/gh/` に展開して使用。
 GCM に保存済みトークンは `read:org` スコープが無く `gh auth login --with-token` に拒否されるので、
 `GH_TOKEN` 環境変数で直接渡す。
+
+## 8. `/free`（モデルのアンロード）で access violation（ROCm 10.0 スタック）
+
+ROCm 10.0.0 + torch 2.13 + comfy-kitchen 0.2.33 で、INT8(convrot) の DiT を常駐させた状態で
+`POST /free {"unload_models": true}` を呼ぶと、`comfy_kitchen/tensor/base.py: _handle_to`（量子化テンソルの
+GPU→CPU 移動）で `Windows fatal exception: access violation` となりサーバごと落ちた（2026-09-10）。
+comfy-kitchen の Windows 用 HIP `.pyd` は別の ROCm SDK でビルドされており、10.0 との組み合わせは未検証扱い。
+
+→ 対策: 量子化モデルをアンロードしない運用にする。fl2va と ref2va を切り替える場合はサーバを再起動する
+（`--highvram` のため自動アンロードも起きにくいが、85 GB 上限を超えると OOM→アンロードが走る）。
+既定の 7.13 スタックではこの経路は未検証。

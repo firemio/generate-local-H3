@@ -35,11 +35,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             with open(os.path.join(WEB, "index.html"), "rb") as fh:
                 return self._send(200, "text/html; charset=utf-8", fh.read())
         if path == "/playlist.json":
-            items = []
-            idx = os.path.join(LIB, "index.json")
-            if os.path.exists(idx):
-                with open(idx, encoding="utf-8") as fh:
-                    items = json.load(fh)
+            from . import index_store
+            items = index_store.load()   # reads bytes then parses; never holds the file open
             from .programs import STATION
             body = json.dumps({"station": STATION, "items": items[-200:]}, ensure_ascii=False).encode()
             return self._send(200, "application/json; charset=utf-8", body)
@@ -87,7 +84,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 class Server(socketserver.ThreadingTCPServer):
-    allow_reuse_address = True
+    # On Windows SO_REUSEADDR lets a SECOND process bind a port that is already being listened on,
+    # so a duplicate station would start silently (two producers, two HLS encoders, one index.json).
+    # Refuse instead: the second launch fails with WinError 10048 and says so.
+    allow_reuse_address = os.name != "nt"
     daemon_threads = True
 
 

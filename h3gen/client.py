@@ -68,6 +68,20 @@ class ComfyClient:
         except Exception:
             pass
 
+    def interrupt(self) -> None:
+        """Cancel whatever is executing. Use before giving up on a wedged prompt: without it the
+        job keeps the GPU and every later prompt queues behind it forever."""
+        try:
+            self._post("/interrupt", {})
+        except Exception:
+            pass
+
+    def dequeue(self, prompt_id: str) -> None:
+        try:
+            self._post("/queue", {"delete": [prompt_id]})
+        except Exception:
+            pass
+
     # ---- uploads ------------------------------------------------------------
     def upload(self, path: str, kind: str = "image", subfolder: str = "h3gen", overwrite: bool = True) -> str:
         """Upload an image/audio file to ComfyUI's input dir; returns the name to use in LoadImage/LoadAudio."""
@@ -95,8 +109,14 @@ class ComfyClient:
             raise RuntimeError(json.dumps(res, ensure_ascii=False)[:2000])
         return res["prompt_id"]
 
-    def run(self, graph: dict, timeout: float = 3 * 3600, log=print, download_dir: Optional[str] = None) -> RunResult:
-        """Queue graph, follow websocket events, time each node, return outputs."""
+    def run(self, graph: dict, timeout: float = 3 * 3600, log=print, download_dir: Optional[str] = None,
+            stall_timeout: Optional[float] = None) -> RunResult:
+        """Queue graph, follow websocket events, time each node, return outputs.
+
+        stall_timeout: give up after this many seconds without any event for this prompt. A HIP hang
+        on ROCm/Windows leaves the HTTP server answering while execution never progresses, so a
+        liveness check alone would wait out the full `timeout`. On give-up the prompt is interrupted
+        and dequeued so the next job is not stuck behind it."""
         if websocket is None:
             raise RuntimeError("pip install websocket-client")
         ws = websocket.WebSocket()
@@ -110,7 +130,14 @@ class ComfyClient:
         ok, err = False, None
         last_progress = ("", -1)
         t_exec = None  # first executing event for this prompt (excludes queue wait)
+        last_event = time.time()
         while time.time() - t0 < timeout:
+            if stall_timeout and time.time() - last_event > stall_timeout:
+                err = f"no progress for {stall_timeout:.0f}s (stalled)"
+                log(f"[h3gen] {err}; interrupting {pid}")
+                self.interrupt()
+                self.dequeue(pid)
+                break
             try:
                 msg = ws.recv()
             except websocket.WebSocketTimeoutException:
@@ -118,6 +145,9 @@ class ComfyClient:
                     err = "server unreachable"
                     break
                 continue
+            except Exception as e:  # socket closed by a restarting server
+                err = f"websocket closed: {e}"
+                break
             if isinstance(msg, (bytes, bytearray)):
                 continue  # preview images
             try:
@@ -127,6 +157,7 @@ class ComfyClient:
             typ, data = ev.get("type"), ev.get("data", {})
             if data.get("prompt_id") not in (None, pid):
                 continue
+            last_event = time.time()
             now = time.time()
             if typ == "executing":
                 node = data.get("node")
@@ -151,7 +182,14 @@ class ComfyClient:
             elif typ == "execution_interrupted":
                 err = "interrupted"
                 break
-        ws.close()
+        try:
+            ws.close()
+        except Exception:
+            pass
+        if err is None and not ok and time.time() - t0 >= timeout:
+            err = f"timed out after {timeout:.0f}s"
+            self.interrupt()
+            self.dequeue(pid)
         total = time.time() - (t_exec or t0)  # wall time of execution only (queue wait excluded)
         outputs, local = [], []
         try:

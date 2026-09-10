@@ -79,8 +79,11 @@ async function playNext() {
   v.src = '/clips/' + encodeURIComponent(it.file);
   const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0');   // ?t=3 → start offset (screenshots/debug)
   if (t0 > 0) v.addEventListener('loadedmetadata', () => { v.currentTime = t0; }, { once: true });
-  try { await v.play(); } catch (e) { tap.style.display = 'flex'; }
+  // Only a real autoplay block deserves the click-to-start overlay. A missing/404 clip rejects with
+  // NotSupportedError and the 'error' handler already advances to the next programme.
+  try { await v.play(); } catch (e) { if (e && e.name === 'NotAllowedError') tap.style.display = 'flex'; }
 }
+v.addEventListener('playing', () => { tap.style.display = 'none'; });
 v.addEventListener('ended', playNext);
 v.addEventListener('error', () => setTimeout(playNext, 1500));
 tap.addEventListener('click', () => { tap.style.display = 'none'; v.muted = false; v.play().catch(() => {}); });

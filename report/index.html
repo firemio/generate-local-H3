@@ -86,10 +86,10 @@ footer { margin-top:50px; padding-top:16px; border-top:1px solid var(--line); fo
 <body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">検証レポート · 2026-09-10 18:51</div>
+  <div class="eyebrow">検証レポート · 2026-09-10 19:27</div>
   <h1>MiniMax H3 をローカルで動かす — GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S）· Windows · ROCm</h1>
   <p class="lede">テクノエッジ 2026/09/06 の松尾公也氏の記事（RTX 5090 で MiniMax H3 を高速化）を、NVIDIA GPU の無い AMD Strix Halo ミニPC・Windows 11 で再現し、さらにローカル LLM と組み合わせた「AIテレビ局」まで動かした記録。</p>
-  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ 8ca3df3</span><span>元記事: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
+  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ bc544b8</span><span>元記事: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
 </header>
 
 <div class="verdict">
@@ -175,6 +175,8 @@ pip install -r ComfyUI\requirements.txt   # torch 行を除いて入れ、AMD in
    aitv.server :8800  (プレイヤー)      aitv.hls (ffmpeg -re → HLS)
    /playlist.json, /clips/…            /hls/live.m3u8  (VLC / OBS / hls.js)</pre>
 <figure class="shot"><img src="assets/aitv_player.png" alt="EVO-X2 TV プレイヤー画面"><figcaption>ブラウザのプレイヤー（http://127.0.0.1:8800/）。ライブラリの新着クリップから順に再生し、下部のティッカーに各番組のキャプションを流す。</figcaption></figure>
+<h3>24 時間運用の現実</h3>
+<p>制作は実時間の約 1/60（6.6 秒のクリップに約 400 秒）なので、1 日回しても新作は約 25 分ぶん。放送局として止まらないことと、毎日 24 時間ぶんの新作ができることは別で、後者はこの GPU では無理。配信側は「まだ流していないクリップを新しい順に即座に流す → 無ければ直近を避けつつ新しいものほど重みを高くしたランダム選択」という並び順で、固定ループに見えないようにしている（<code>aitv/hls.py: pick_next</code>、プレイヤーも同じ方針）。<code>scripts/run_station.ps1</code> で ComfyUI・プレイヤー・HLS・制作ループを常駐起動する。</p>
 <h3>制作ログ（実走）</h3>
 <pre class="log">[aitv] writer LLM: gemma4:latest @ http://127.0.0.1:11434
 [aitv] === AIニュース: EVO-X2 TV - AIニュース速報 (3 seg)
@@ -212,7 +214,7 @@ pip install -r ComfyUI\requirements.txt   # torch 行を除いて入れ、AMD in
 <li><a href="https://repo.amd.com/rocm/whl/gfx1151/">AMD ROCm PyTorch wheels for gfx1151</a> / <a href="https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html">ROCm 10 multi-arch PyTorch</a></li>
 <li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/33">HF discussion #33: Strix Halo 8060S での H3</a></li>
 </ul>
-<footer>generate-local-H3 · 2026-09-10 18:51 · 全ての計測はこの PC 上の実行ログ（output/runs.jsonl）から生成</footer>
+<footer>generate-local-H3 · 2026-09-10 19:27 · 全ての計測はこの PC 上の実行ログ（output/runs.jsonl）から生成</footer>
 </div>
 </body>
 </html>

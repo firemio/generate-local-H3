@@ -233,6 +233,8 @@ def section_aitv(embed: bool) -> str:
    aitv.server :8800  (プレイヤー)      aitv.hls (ffmpeg -re → HLS)
    /playlist.json, /clips/…            /hls/live.m3u8  (VLC / OBS / hls.js)</pre>
 {shot_html}
+<h3>24 時間運用の現実</h3>
+<p>制作は実時間の約 1/60（6.6 秒のクリップに約 400 秒）なので、1 日回しても新作は約 25 分ぶん。放送局として止まらないことと、毎日 24 時間ぶんの新作ができることは別で、後者はこの GPU では無理。配信側は「まだ流していないクリップを新しい順に即座に流す → 無ければ直近を避けつつ新しいものほど重みを高くしたランダム選択」という並び順で、固定ループに見えないようにしている（<code>aitv/hls.py: pick_next</code>、プレイヤーも同じ方針）。<code>scripts/run_station.ps1</code> で ComfyUI・プレイヤー・HLS・制作ループを常駐起動する。</p>
 <h3>制作ログ（実走）</h3>
 <pre class="log">{html.escape(log) or '（未実行）'}</pre>
 <h3>生成された番組クリップ</h3>

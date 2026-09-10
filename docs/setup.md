@@ -86,3 +86,29 @@ ROCm 上では `hip` バックエンドが有効になる（INT8 GEMM / sol_attn
 
 `h3gen` は ComfyUI の `/prompt` に API 形式グラフを投げ、WebSocket の `executing` イベント間隔から
 ノード別所要時間を出す（松尾氏の profile_nodes.py と同じ考え方）。結果は `output/runs.jsonl`。
+
+## 6. 代替スタック: ROCm 10.0.0（torch 2.13, 2026-08-26 GA）
+
+ComfyUI の README が案内する新しい配布形式（`torch[device-gfx1151]` extras）。別 venv で検証済み:
+
+```powershell
+uv venv .venv-rocm10 --python 3.12 --seed
+.\.venv-rocm10\Scripts\python.exe -m pip install --index-url https://stable.repo.amd.com/rocm/whl-next/ `
+    "torch[device-gfx1151]==2.13.0+rocm10.0.0" "torchvision[device-gfx1151]==0.28.0+rocm10.0.0" "torchaudio==2.11.0.2+rocm10.0.0"
+# ComfyUI 依存は torch をピン留めして入れる
+.\.venv-rocm10\Scripts\python.exe -m pip freeze | Select-String "^(torch|rocm|amd)" > torch-pin.txt
+.\.venv-rocm10\Scripts\python.exe -m pip install -c torch-pin.txt -r ComfyUI\requirements.txt websocket-client
+.\scripts\run_comfyui.ps1 -Venv .venv-rocm10
+```
+
+`torch.version.hip` は 7.15.26333、ComfyUI は `ROCm version: (7, 15)` と表示。comfy-kitchen の hip バックエンドも有効。
+
+同一条件（832x480, 124f, 8-step turbo, INT8 attention, seed 2）の比較:
+
+| スタック | サンプリング | VAE デコード |
+|---|---|---|
+| torch 2.11 + ROCm 7.13（既定） | 27.8 s/step (223 s) | 59.1 s |
+| torch 2.13 + ROCm 10.0.0 | ~30.4 s/step (243 s) | 49.6 s |
+
+合計はほぼ同じ（282 s vs 293 s）。ROCm ≥ 7.14 系では ComfyUI の DynamicVRAM が既定で有効になり gfx1151/Windows で
+アクセス違反の報告があるため、`--highvram`（本リポジトリの既定）で無効化しておくこと。

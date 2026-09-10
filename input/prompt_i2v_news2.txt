@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] Live-action, broadcast look, the video starts exactly from the first frame: the composed Japanese woman anchor in a navy jacket at the glass news desk with the bright city skyline behind her. The camera stays static. She looks up from her papers to the camera and, with a clear, warm voice (S1), says: <d>[Japanese] まず、今日の主なニュースです。</d> She gives a small nod as she finishes.
+
+overall_soundscape: A quiet studio hum and a faint rustle of paper on the desk.
+
+non_diegetic_music: N/A

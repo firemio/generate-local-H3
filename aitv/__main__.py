@@ -27,7 +27,7 @@ def _producer(a) -> Producer:
         raise SystemExit("ComfyUI not reachable; start scripts\\run_comfyui.ps1")
     llm = None
     if not a.no_llm:
-        llm = LLM(a.llm_url, a.llm_model)
+        llm = LLM(a.llm_url, a.llm_model, num_gpu=a.llm_gpu_layers)
         if not llm.alive():
             print(f"[aitv] LLM at {llm.base_url} not reachable -> using built-in fallback scripts")
             llm = None
@@ -43,7 +43,8 @@ def main(argv=None) -> int:
     def common(p):
         p.add_argument("--comfy-host", default="127.0.0.1")
         p.add_argument("--comfy-port", type=int, default=8188)
-        p.add_argument("--llm-url", default=os.environ.get("AITV_LLM_URL", "http://127.0.0.1:11434/v1"))
+        p.add_argument("--llm-url", default=os.environ.get("AITV_LLM_URL", "http://127.0.0.1:11434"), help="Ollama root or an OpenAI-compatible /v1 base (LM Studio: http://127.0.0.1:1234/v1)")
+        p.add_argument("--llm-gpu-layers", type=int, default=int(os.environ.get("AITV_LLM_NUM_GPU", "0")), help="Ollama num_gpu (0 = CPU only, keeps the iGPU for H3)")
         p.add_argument("--llm-model", default=os.environ.get("AITV_LLM_MODEL", "gemma4:latest"))
         p.add_argument("--no-llm", action="store_true")
         p.add_argument("--width", type=int, default=832)

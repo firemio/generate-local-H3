@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] Live-action, broadcast look. <Picture 1> is the identity reference for the presenter: the same Japanese woman with short dark hair in a navy jacket. <Audio 1> is the voice timbre reference for her. A medium shot frames her standing beside a large stylised weather map of Japan in a bright studio, sunny icons over the map. The camera pushes in with small amplitude at slow speed. She smiles and, in the voice of <Audio 1> (S1), says: <d>[Japanese] 続いて、明日のお天気です。全国的に晴れるでしょう。</d>
+
+overall_soundscape: Soft studio ambience and a light click as she gestures at the map.
+
+non_diegetic_music: A gentle, bright marimba loop at a relaxed tempo, quiet under the voice.

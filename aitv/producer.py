@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -35,6 +36,18 @@ def save_index(items: list[dict]) -> None:
     with open(tmp, "w", encoding="utf-8") as fh:
         json.dump(items, fh, ensure_ascii=False, indent=1)
     os.replace(tmp, INDEX)
+
+
+LANG_TAG = "[Japanese]"
+
+
+def sanitize_prompt(prompt: str, lang_tag: str = LANG_TAG) -> str:
+    """Make LLM output safe for H3: every <d>...</d> gets the language tag, [ja]-style tags are expanded,
+    stray markdown fences are removed."""
+    prompt = re.sub(r"^```(?:\w+)?\s*|\s*```$", "", prompt.strip(), flags=re.S)
+    prompt = re.sub(r"<d>\s*\[(ja|jp|japanese|日本語)\]\s*", f"<d>{lang_tag} ", prompt, flags=re.I)
+    prompt = re.sub(r"<d>(?!\s*\[)\s*", f"<d>{lang_tag} ", prompt)
+    return prompt
 
 
 def normalize(src: str, dst: str, width: int, height: int) -> None:
@@ -76,6 +89,7 @@ class Producer:
         seconds = float(seg.get("seconds") or FORMATS[fmt_key]["seconds"])
         seconds = max(3.0, min(seconds, 10.0))
         seed = self.rng.randrange(1, 2**31)
+        seg["prompt"] = sanitize_prompt(seg["prompt"])
         spec = GenSpec(prompt=seg["prompt"], mode="t2v", width=self.width, height=self.height, seconds=seconds,
                        seed=seed, steps=self.steps, turbo=True, filename_prefix="aitv/seg")
         t = time.time()

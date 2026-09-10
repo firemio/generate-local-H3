@@ -18,7 +18,7 @@ integrated_multimodal_description: [Shot 1] <style words>, <shot size> frames <s
 overall_soundscape: 1-3 sentences of ambient and action sounds only (no dialogue, no music).
 non_diegetic_music: 1-2 sentences describing background score in instrumental terms, or N/A.
 
-Dialogue rules: on-screen speech is written as `The <person description> with a <voice description> (S1) says: <d>[Japanese] 日本語のセリフ。</d>`. Narration is `... says in an off-screen voiceover: <d>[Japanese] ...</d>` and note that lips stay closed. Keep speech short: at most ~4 seconds of Japanese speech per 6-second segment (about 25-35 Japanese characters). Never put text, captions, logos or subtitles on screen. No real people, brands or copyrighted characters.
+Dialogue rules: EVERY <d> tag MUST start with the language tag exactly like <d>[Japanese] ...</d> (never omit it). On-screen speech is written as `The <person description> with a <voice description> (S1) says: <d>[Japanese] 日本語のセリフ。</d>`. Narration is `... says in an off-screen voiceover: <d>[Japanese] ...</d>` and note that lips stay closed. Keep speech short: at most ~4 seconds of Japanese speech per 6-second segment (about 25-35 Japanese characters). Never put text, captions, logos or subtitles on screen. No real people, brands or copyrighted characters.
 Camera vocabulary: Zoom In/Out, Push In/Out, Pan Left/Right, Truck Left/Right, Tilt Up/Down, Arc Shot, Tracking Shot, Static Shot, with small/large amplitude, at slow/fast speed."""
 
 FORMATS = {

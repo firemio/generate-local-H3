@@ -6,12 +6,13 @@ param(
     [int]$Port = 8188,
     [string]$Listen = "127.0.0.1",
     [string]$ExtraArgs = "",
+    [string]$Venv = ".venv",          # e.g. -Venv .venv-rocm10 to try the ROCm 10.0 stack
     [switch]$NoLaunchBrowser = $true
 )
 
 $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
-$Py = Join-Path $Root ".venv\Scripts\python.exe"
+$Py = Join-Path $Root "$Venv\Scripts\python.exe"
 if (-not (Test-Path $Py)) { throw "venv not found: run scripts\setup.ps1 first" }
 
 # --- ROCm / HIP environment -------------------------------------------------

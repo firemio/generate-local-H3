@@ -81,3 +81,13 @@ report/                      HTML レポート
 - **グラフ**: 公式テンプレートと同一（UNETLoader → LoraLoaderModelOnly → BasicGuider/BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo(24fps) → SaveVideo）。`h3gen/graph.py` が API 形式で組み立てる。
 
 詳細・計測値・落とし穴は `docs/` と `report/` を参照。
+
+## ライセンス
+
+このリポジトリのコード（`scripts/`, `h3gen/`, `aitv/`, `config/`, `docs/`）は MIT です（[LICENSE](LICENSE)）。
+
+同梱の ComfyUI 公式テンプレート（`workflows/templates/`, MIT, Comfy Org）と、MiniMax H3 で生成した
+動画・静止画（`input/`, `report/assets/`）は別条件です。生成物はモデル提供元の
+MiniMax H3 Community License Agreement に従います。詳細は [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+
+ComfyUI 本体（GPL-3.0）とモデルの重みはセットアップ時に取得するもので、このリポジトリには含まれません。

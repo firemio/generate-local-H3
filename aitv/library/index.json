@@ -1,0 +1,14 @@
+[
+ {
+  "id": "20260910-182422-72da74",
+  "file": "news-20260910-182422-72da74.mp4",
+  "format": "news",
+  "program": "EVO-X2 TV - AIニュース速報",
+  "caption": "今日のトップニュース",
+  "seconds": 6.583333333333333,
+  "seed": 695425565,
+  "render_s": 480.9,
+  "created": "2026-09-10T18:24:22",
+  "prompt": "integrated_multimodal_description: [Shot 1] <ultra-modern, cool tones>, <medium> frames <A professional-looking, gender-neutral AI news anchor wearing a sharp suit, seated at a sleek, minimalist news desk>.<The camera pushes in with small amplitude at slow speed>. The professional-looking, gender-neutral AI news anchor with a calming, authoritative voice (S1) says: <d>[Japanese] 皆さん、こんばんは。今日の主なニュースをお伝えします。</d> [Shot 2] At 00:03.000, the camera pushes out with small amplitude at slow speed, revealing the large, illuminated graphical screen behind the anchor. Overall soundscape: The faint hum of advanced electronics and the subtle 'tick' of timekeeping devices. non_diegetic_music: A sophisticated, steady synth arpeggio underpins the segment, suggesting authority and reliability."
+ }
+]

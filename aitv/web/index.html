@@ -71,6 +71,8 @@ async function playNext() {
   playedIds.add(it.id);
   title.innerHTML = `${it.program}<small>${it.caption}　·　${it.seconds.toFixed(0)}s · seed ${it.seed} · 生成 ${it.render_s}s</small>`;
   v.src = '/clips/' + encodeURIComponent(it.file);
+  const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0');   // ?t=3 → start offset (screenshots/debug)
+  if (t0 > 0) v.addEventListener('loadedmetadata', () => { v.currentTime = t0; }, { once: true });
   try { await v.play(); } catch (e) { tap.style.display = 'flex'; }
 }
 v.addEventListener('ended', playNext);

@@ -1,0 +1,14 @@
+# local runtime (not reproducible artifacts)
+.venv/
+ComfyUI/
+models/
+output/
+*.safetensors
+*.gguf
+*.mp4
+*.wav
+*.log
+__pycache__/
+*.pyc
+.uv-cache/
+report/*.mp4

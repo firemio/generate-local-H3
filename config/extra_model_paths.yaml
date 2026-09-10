@@ -1,0 +1,9 @@
+# generate-local-H3: models live outside the ComfyUI checkout so the checkout can be re-cloned freely
+h3_local:
+  base_path: ../models
+  diffusion_models: diffusion_models
+  text_encoders: text_encoders
+  vae: vae
+  loras: loras
+  embeddings: embeddings
+  model_patches: model_patches

@@ -56,7 +56,7 @@ def _producer(a, wait: bool = True) -> Producer:
               + ("" if llm.alive() else "  (not answering yet; will retry per programme)"), flush=True)
     restart = _restart_comfy_hook() if os.name == "nt" else None
     prod = Producer(comfy, llm, width=a.width, height=a.height, steps=a.steps, seed=a.seed,
-                    restart_comfy=restart)
+                    restart_comfy=restart, turbo=not a.no_turbo)
     if wait:
         prod.wait_for_comfy()
     return prod
@@ -78,6 +78,8 @@ def main(argv=None) -> int:
         p.add_argument("--width", type=int, default=832)
         p.add_argument("--height", type=int, default=480)
         p.add_argument("--steps", type=int, default=8)
+        p.add_argument("--no-turbo", action="store_true",
+                       help="skip the turbo LoRA (its weight merge can OOM-crash ComfyUI on this box; see docs/pitfalls.md)")
         p.add_argument("--seed", type=int)
         p.add_argument("--count", type=int, help="number of programmes to produce (default: forever)")
         p.add_argument("--formats", help="comma list, cycles in order (news,cm,nature,...)")

@@ -61,3 +61,23 @@ comfy-kitchen の Windows 用 HIP `.pyd` は別の ROCm SDK でビルドされ�
 → 対策: 量子化モデルをアンロードしない運用にする。fl2va と ref2va を切り替える場合はサーバを再起動する
 （`--highvram` のため自動アンロードも起きにくいが、85 GB 上限を超えると OOM→アンロードが走る）。
 既定の 7.13 スタックではこの経路は未検証。
+
+## 9. turbo LoRA の適用中に OOM → アンロードで access violation（既定の 7.13 スタック）
+
+2026-09-14、`h3gen gen`（t2v, turbo=True）でサーバ起動直後の 1 回目の生成が、`lora` ノードの重みマージ中に落ちた。
+`comfy/ops.py: set_weight` → `comfy_kitchen ... quantize_int8_convrot_weight` で
+
+```
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 222.00 MiB.
+GPU 0 has a total capacity of 107.87 GiB of which 57.83 GiB is free.
+Of the allocated memory 49.01 GiB is allocated by PyTorch
+```
+
+50 GB しか使っていないのに（上限 ~85 GB、`check_gpu.py` では 115 GB 空き）確保に失敗し、続く OOM 回復の
+`unload_all_models` → `unpatch_model` が §8 と同じ access violation でサーバごと落ちる。h3gen 側には
+`websocket closed: [WinError 10054]` としか出ないので、原因は **ComfyUI のログ**を見ないと分からない。
+解像度を 832x480 → 640x352 に落としても同じ場所で落ちる（LoRA マージはモデル固定サイズの処理で、解像度と無関係）。
+9/12 までは同じ設定で局が回っていたので、再起動後に何かが変わった可能性があるが未特定。
+
+→ 対策: `--no-turbo`（LoRA を使わず 8 ステップ。640x352x124f で 209 s、2 本目以降 140 s）。
+`python -m aitv ... --no-turbo` / `run_station.ps1 -NoTurbo` も同じ。

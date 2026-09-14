@@ -14,6 +14,7 @@ param(
     [int]$Width = 832,
     [int]$Height = 480,
     [int]$Steps = 8,
+    [switch]$NoTurbo,               # skip the turbo LoRA (its weight merge can OOM-crash ComfyUI; docs/pitfalls.md)
     [string]$Formats = "",          # e.g. "news,cm,ident" to cycle; empty = weighted random schedule
     [string]$LlmModel = "gemma4:latest"
 )
@@ -93,6 +94,7 @@ catch { Write-Host "[station] Ollama not answering yet; the station retries per 
 $stationArgs = @("-u", "-m", "aitv", "station", "--host", "127.0.0.1", "--port", "$Port",
                  "--width", "$Width", "--height", "$Height", "--steps", "$Steps", "--llm-model", $LlmModel)
 if ($Formats) { $stationArgs += @("--formats", $Formats) }
+if ($NoTurbo) { $stationArgs += "--no-turbo" }
 $env:PYTHONIOENCODING = "utf-8"
 $env:PYTHONUTF8 = "1"
 $env:AITV_LLM_NUM_GPU = "0"

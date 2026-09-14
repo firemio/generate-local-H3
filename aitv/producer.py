@@ -20,9 +20,9 @@ sys.path.insert(0, ROOT)
 
 from h3gen.client import ComfyClient  # noqa: E402
 from h3gen.graph import GenSpec, build  # noqa: E402
-from . import index_store  # noqa: E402
+from . import index_store, sources  # noqa: E402
 from .llm import LLM  # noqa: E402
-from .programs import FORMATS, fallback_programme, pick_format, writer_prompt  # noqa: E402
+from .programs import FORMATS, fallback_programme, pick_format, template_programme, writer_prompt  # noqa: E402
 
 LIB = index_store.LIB
 RAW_DIR = os.path.join(ROOT, "output", "aitv")  # ComfyUI SaveVideo target for aitv/ prefixed jobs
@@ -74,19 +74,19 @@ def sweep_raw(older_than_s: float = 3600, log=print) -> int:
 
 class Producer:
     def __init__(self, comfy: ComfyClient, llm: LLM | None, width: int = 832, height: int = 480,
-                 steps: int = 8, seed: int | None = None, log=print, restart_comfy=None):
+                 steps: int = 8, seed: int | None = None, log=print, restart_comfy=None, turbo: bool = True):
         self.comfy, self.llm = comfy, llm
-        self.width, self.height, self.steps = width, height, steps
+        self.width, self.height, self.steps, self.turbo = width, height, steps, turbo
         self.rng = random.Random(seed)
         self.log = log
         self.last_format = None
         self.restart_comfy = restart_comfy  # optional callable to relaunch ComfyUI
 
     # ---- script ------------------------------------------------------------
-    def write_programme(self, fmt_key: str) -> dict:
+    def write_programme(self, fmt_key: str, material: sources.Material | None = None) -> dict:
         if self.llm is not None:
             try:
-                system, user = writer_prompt(fmt_key)
+                system, user = writer_prompt(fmt_key, material=material.text if material else None)
                 prog = self.llm.chat_json(system, user)
                 segs = [s for s in prog.get("segments", []) if isinstance(s, dict) and s.get("prompt")]
                 if segs:
@@ -96,16 +96,34 @@ class Producer:
                 self.log("[aitv] LLM returned no segments, using fallback")
             except Exception as e:
                 self.log(f"[aitv] LLM failed ({e}); using fallback script")
+        if material:
+            prog = template_programme(fmt_key, material.items)
+            if prog:
+                return prog
         return fallback_programme(fmt_key)
 
+    def choose(self, fmt_key: str | None) -> tuple[str, sources.Material | None]:
+        """Pick a format and fetch its real material. Formats that need material (news, weather, variety)
+        are never faked: if nothing could be fetched they are skipped for this slot."""
+        tried: set[str] = set()
+        while True:
+            key = fmt_key or pick_format(self.rng, exclude=tried | {self.last_format})
+            material = sources.material_for(key, self.rng)
+            if material or not FORMATS[key].get("needs_material"):
+                return key, material
+            self.log(f"[aitv] no real material for {key} (offline?); skipping it this slot")
+            if fmt_key:  # an explicit request that cannot be honoured
+                return key, None
+            tried.add(key)
+
     # ---- render ------------------------------------------------------------
-    def render_segment(self, fmt_key: str, prog_title: str, seg: dict) -> dict | None:
+    def render_segment(self, fmt_key: str, prog_title: str, seg: dict, refs: list[str] | None = None) -> dict | None:
         seconds = float(seg.get("seconds") or FORMATS[fmt_key]["seconds"])
         seconds = max(3.0, min(seconds, 10.0))
         seed = self.rng.randrange(1, 2**31)
         seg["prompt"] = sanitize_prompt(seg["prompt"])
         spec = GenSpec(prompt=seg["prompt"], mode="t2v", width=self.width, height=self.height, seconds=seconds,
-                       seed=seed, steps=self.steps, turbo=True, filename_prefix="aitv/seg")
+                       seed=seed, steps=self.steps, turbo=self.turbo, filename_prefix="aitv/seg")
         res = self.comfy.run(build(spec), log=lambda *_: None, stall_timeout=1200)
         if not res.ok or not res.local_files:
             self.log(f"[aitv] render failed: {res.error}")
@@ -132,19 +150,25 @@ class Producer:
                 "caption": seg.get("caption") or prog_title, "seconds": spec.length / 24.0, "seed": seed,
                 "render_s": round(res.seconds, 1), "created": time.strftime("%Y-%m-%dT%H:%M:%S"),
                 "prompt": seg["prompt"]}
+        if refs:
+            item["sources"] = refs
         self.log(f"[aitv] + {item['file']}  ({item['seconds']:.1f}s clip, rendered in {res.seconds:.0f}s, "
                  f"sampling {res.node_times.get('sample', 0):.0f}s) [{item['caption']}]")
         return item
 
-    def produce_one(self, fmt_key: str | None = None) -> list[dict]:
-        fmt_key = fmt_key or pick_format(self.rng, exclude=self.last_format)
+    def produce_one(self, fmt_key: str | None = None) -> list[dict] | None:
+        """None = skipped (no real material for a requested format); [] = every render failed."""
+        fmt_key, material = self.choose(fmt_key)
         self.last_format = fmt_key
-        prog = self.write_programme(fmt_key)
+        if material is None and FORMATS[fmt_key].get("needs_material"):
+            return None
+        prog = self.write_programme(fmt_key, material)
         title = prog.get("title", FORMATS[fmt_key]["title"])
-        self.log(f"[aitv] === {FORMATS[fmt_key]['title']}: {title} ({len(prog['segments'])} seg)")
+        self.log(f"[aitv] === {FORMATS[fmt_key]['title']}: {title} ({len(prog['segments'])} seg)"
+                 + (f"  sources: {' / '.join(material.refs[:3])}" if material else ""))
         made = []
         for seg in prog["segments"]:
-            item = self.render_segment(fmt_key, title, seg)
+            item = self.render_segment(fmt_key, title, seg, material.refs if material else None)
             if item:
                 made.append(item)
                 try:
@@ -200,6 +224,9 @@ class Producer:
                 self.wait_for_comfy()
                 made = self.produce_one(fmt)
                 n += 1
+                if made is None:  # feed unavailable, not a GPU problem: no recovery, just wait a little
+                    time.sleep(60)
+                    continue
                 if made:
                     failures = 0
                     sweep_raw(log=self.log)

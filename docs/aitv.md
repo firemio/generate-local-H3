@@ -1,16 +1,18 @@
 # AIテレビ局 (aitv)
 
 「ローカル LLM が番組を書き、MiniMax H3 が映像と音声（日本語のセリフ込み）を生成し、
-ブラウザ／HLS で流し続ける」放送局。外部 API は一切使わない。
+ブラウザ／HLS で流し続ける」放送局。生成は完全ローカル。ネットワークは**素材の読み取りだけ**
+（気象庁の予報 JSON と NHK の RSS 見出し。どちらも API キー不要）。
 
 ```
-             ┌───────────────┐   番組表(重み付き乱択)   ┌──────────────────────┐
-             │ aitv.programs │ ───────────────────────▶ │  aitv.producer        │
-             │  news/weather │                          │  LLM(Ollama/LM Studio)│─┐ H3 プロンプト(JSON)
-             │  nature/cm/.. │                          │  → h3gen → ComfyUI    │ │
-             └───────────────┘                          │  → ffmpeg normalize   │◀┘
-                                                        └──────────┬───────────┘
-                                                                   │ aitv/library/*.mp4 + index.json
+   気象庁 forecast JSON ─┐                                 ┌──────────────────────┐
+   NHK RSS (主要/科学/スポーツ)┴▶ aitv.sources ─ 素材 ─────▶ │  aitv.producer        │
+             ┌───────────────┐   番組表(重み付き乱択)      │  LLM(Ollama/LM Studio)│─┐ H3 プロンプト(JSON)
+             │ aitv.programs │ ──────────────────────────▶ │  → h3gen → ComfyUI    │ │
+             │  news/weather │                             │  → ffmpeg normalize   │◀┘
+             │  variety/..   │                             └──────────┬───────────┘
+             └───────────────┘                                        │
+                                                                   aitv/library/*.mp4 + index.json
                                      ┌─────────────────────────────┼──────────────────────────┐
                                      ▼                             ▼                          ▼
                             aitv.server (:8800)              aitv.hls (ffmpeg)          任意の再生ソフト
@@ -43,19 +45,27 @@ python -m aitv hls                                           # HLS 配信だけ
 
 ## 番組フォーマット（`aitv/programs.py`）
 
-| key | 番組 | セグメント | 内容 |
-|---|---|---|---|
-| news | AIニュース | 3×6s | アンカーが日本語で架空のニュースを読む |
-| weather | お天気 | 2×6s | 天気図の前で予報、屋外カット＋ナレーション |
-| nature | 自然ドキュメンタリー | 3×8s | 環境音＋日本語ナレーション |
-| cm | CM | 1×6s | 架空商品の CM、日本語キャッチコピー |
-| cooking | 3分クッキング | 2×6s | シェフのトーク＋調理音 |
-| music | ミュージックブレイク | 1×8s | セリフ無し、音楽指定 |
-| ident | ステーションID | 1×4s | マスコット＋ジングル |
+| key | 番組 | セグメント | 素材 | 内容 |
+|---|---|---|---|---|
+| news | ニュース | 3×6s | NHK 主要見出し | アンカーが**実際の見出し**を読む。映像は人物・ロゴを出さない象徴的な風景 |
+| weather | お天気 | 2×6s | 気象庁予報 | 指定地域（既定 130000=東京）の今日・明日の天気、気温、降水確率 |
+| variety | バラエティー | 3×6s | NHK スポーツ・科学文化 | 2人の司会が今日の話題でクイズ。実在人物は名前を出さない |
+| music_show | ミュージックステージ | 3×8s | – | 司会の紹介＋架空アーティストの演奏 2 カット |
+| nature | 自然ドキュメンタリー | 3×8s | – | 環境音＋日本語ナレーション |
+| cm | CM | 1×6s | – | 架空商品の CM、日本語キャッチコピー |
+| cooking | 3分クッキング | 2×6s | – | シェフのトーク＋調理音 |
+| music | ミュージックブレイク | 1×8s | – | セリフ無し、音楽指定 |
+| ident | ステーションID | 1×4s | – | マスコット＋ジングル |
 
 LLM には H3 公式のプロンプト構造（`integrated_multimodal_description` / `overall_soundscape` /
 `non_diegetic_music`、セリフは `<d>[Japanese] …</d>`、話者は `(S1)`）を system prompt で教え、
-JSON で `{title, segments:[{caption, seconds, prompt}]}` を返させる。LLM が落ちていれば内蔵台本にフォールバック。
+JSON で `{title, segments:[{caption, seconds, prompt}]}` を返させる。
+
+**素材（`aitv/sources.py`）**: 素材が要る番組（news / weather / variety）は架空の内容で埋めない。
+取得できなければその枠は別の番組に差し替える（明示指定なら 60 秒待って次へ）。取得結果は 20〜60 分キャッシュ、
+オフラインでも落ちない（`AITV_OFFLINE=1` で取得自体を止める、地域は `AITV_JMA_AREA`）。
+LLM が落ちているときは、見出しをそのまま読み上げる固定テンプレート（news / weather）→ 内蔵台本の順にフォールバック。
+各クリップの `index.json` には `sources`（使った見出し）が残る。
 
 ## 24 時間運用と「同じ番組が回る」問題
 
@@ -63,6 +73,7 @@ JSON で `{title, segments:[{caption, seconds, prompt}]}` を返させる。LLM 
 .\scripts\run_station.ps1            # ComfyUI（未起動なら）+ プレイヤー + HLS + 制作ループ（無限）を常駐起動
 .\scripts\run_station.ps1 -Restart   # 作り直し
 .\scripts\run_station.ps1 -Stop
+.\scripts\run_station.ps1 -NoTurbo   # turbo LoRA を使わない（LoRA 適用時に ComfyUI が OOM で落ちる場合、docs/pitfalls.md）
 ```
 
 制作速度は実時間の約 1/60（832×480 で 6.6 秒のクリップに約 400 秒）。つまり **1 日回しても新作は約 25 分ぶん**。

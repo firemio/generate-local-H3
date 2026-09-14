@@ -23,16 +23,18 @@ Camera vocabulary: Zoom In/Out, Push In/Out, Pan Left/Right, Truck Left/Right, T
 
 FORMATS = {
     "news": {
-        "title": "AIニュース",
+        "title": "ニュース",
         "segments": 3,
         "seconds": 6,
-        "brief": "A Japanese TV news bulletin. Segment 1: a calm anchor at a modern news desk greets viewers and reads the top headline. Segments 2-3: one fictional, harmless, upbeat news item each (technology, science, local events, weather), delivered by the same anchor or as a voiceover over a related scene. Invent plausible but clearly fictional news; no real politicians, companies or disasters.",
+        "needs_material": True,
+        "brief": "A Japanese TV news bulletin built ONLY from the real headlines provided below. Segment 1: a calm anchor at a modern news desk greets viewers and reads the top headline. Segments 2-3: one more headline each, read by the same anchor or as a voiceover over a generic, symbolic scene that fits the subject (a city skyline, a stadium, a laboratory, a harbour, a field...). Condense each headline to one spoken sentence of at most ~30 Japanese characters; the caption is the headline itself. Title: a short Japanese programme name with the date (e.g. 'ニュース 9月14日'); the material comes from a news agency but this channel is not that agency, so never put its name in the title or the speech. Never show real people, real logos, flags or recognisable landmarks; never add facts that are not in the headline.",
     },
     "weather": {
         "title": "お天気",
         "segments": 2,
         "seconds": 6,
-        "brief": "A cheerful Japanese weather forecast. Segment 1: a presenter in front of a large weather map speaks about tomorrow. Segment 2: an outdoor scene matching the forecast with an off-screen voiceover.",
+        "needs_material": True,
+        "brief": "A cheerful Japanese weather forecast based ONLY on the real JMA forecast provided below. Segment 1: a presenter in front of a large stylised weather map says what today and tomorrow will be like in the named area (weather, temperature, rain chance). Segment 2: an outdoor scene matching tomorrow's forecast with an off-screen voiceover giving one practical tip (umbrella, sunscreen, a light jacket...).",
     },
     "nature": {
         "title": "自然ドキュメンタリー",
@@ -58,6 +60,19 @@ FORMATS = {
         "seconds": 8,
         "brief": "An atmospheric music interlude: one beautiful cinematic scene (city at dusk, ocean, mountain, night train) with a specific instrumental style described in non_diegetic_music. No dialogue at all.",
     },
+    "music_show": {
+        "title": "ミュージックステージ",
+        "segments": 3,
+        "seconds": 8,
+        "brief": "A live music show. Invent a fictional artist or band (a made-up Japanese or English name; never a real artist) and a song title. Segment 1: a stylish host on a neon-lit stage introduces the artist and song in Japanese. Segments 2-3: two performance shots (wide shot of the band, close-up of the singer or an instrument) in the genre you chose (city pop, jazz trio, idol pop, rock, acoustic folk, electronic...). The music is the performance itself: describe it precisely in non_diegetic_music (instruments, tempo, mood); a short sung Japanese line inside <d>[Japanese] ...</d> is allowed in one performance shot, otherwise no speech. Stage lights, audience silhouettes and applause in the soundscape.",
+    },
+    "variety": {
+        "title": "バラエティー",
+        "segments": 3,
+        "seconds": 6,
+        "needs_material": True,
+        "brief": "A Japanese TV variety show in a bright, colourful studio with two hosts (one lively, one deadpan; fictional people). Segment 1: the hosts open the show and announce today's topic, taken from the real light news items provided below (sports, science, culture) — refer to it by subject, never by a real person's name. Segment 2: a quiz question or a small challenge about that topic, with a big reaction. Segment 3: the answer or punchline, studio laughter and applause, and a one-line sign-off. Keep it warm and silly, not mean.",
+    },
     "ident": {
         "title": "ステーションID",
         "segments": 1,
@@ -67,16 +82,18 @@ FORMATS = {
 }
 
 # a broadcast day: weights for random schedule
-SCHEDULE_WEIGHTS = {"news": 3, "weather": 1, "nature": 2, "cm": 3, "cooking": 1, "music": 2, "ident": 2}
+SCHEDULE_WEIGHTS = {"news": 3, "weather": 1, "nature": 2, "cm": 2, "cooking": 1, "music": 1,
+                    "music_show": 2, "variety": 2, "ident": 2}
 
 
-def pick_format(rng: random.Random | None = None, exclude: str | None = None) -> str:
+def pick_format(rng: random.Random | None = None, exclude: str | set[str] | None = None) -> str:
     rng = rng or random
-    keys = [k for k in SCHEDULE_WEIGHTS if k != exclude]
+    excluded = {exclude} if isinstance(exclude, str) else set(exclude or ())
+    keys = [k for k in SCHEDULE_WEIGHTS if k not in excluded]
     return rng.choices(keys, weights=[SCHEDULE_WEIGHTS[k] for k in keys])[0]
 
 
-def writer_prompt(fmt_key: str, now: _dt.datetime | None = None, seed_topic: str | None = None) -> tuple[str, str]:
+def writer_prompt(fmt_key: str, now: _dt.datetime | None = None, material: str | None = None) -> tuple[str, str]:
     fmt = FORMATS[fmt_key]
     now = now or _dt.datetime.now()
     system = (f"You are the head writer of '{STATION['name']}', {STATION['tagline']}. "
@@ -85,19 +102,57 @@ def writer_prompt(fmt_key: str, now: _dt.datetime | None = None, seed_topic: str
                 "\"seconds\": int, \"prompt\": str (the full H3 prompt, English descriptions, Japanese dialogue)}]}")
     user = (f"Programme format: {fmt['title']} ({fmt_key}). Date/time: {now:%Y-%m-%d %H:%M} (mention only if natural). "
             f"Write exactly {fmt['segments']} segment(s), each {fmt['seconds']} seconds. Brief: {fmt['brief']}"
-            + (f" Topic hint: {seed_topic}." if seed_topic else "")
-            + " Keep every segment self-contained (a new clip starts each segment; the same character must be re-described each time).")
+            + " Keep every segment self-contained (a new clip starts each segment; the same character must be re-described each time)."
+            + (f"\n\nMaterial:\n{material}" if material else ""))
     return system, user
 
 
+def _speech(text: str, limit: int = 34) -> str:
+    """Trim a headline to what fits in a 6-second segment (H3 speaks ~30 Japanese characters in ~4 s)."""
+    text = text.strip()
+    return text if len(text) <= limit else text[:limit - 1] + "…"
+
+
+def _prompt(d: str, s: str, m: str) -> str:
+    return f"integrated_multimodal_description: [Shot 1] {d}\n\noverall_soundscape: {s}\n\nnon_diegetic_music: {m}"
+
+
+ANCHOR = ("Live-action, broadcast look, a medium shot frames a composed Japanese woman anchor in a navy jacket at a sleek glass "
+          "news desk, soft studio lights, a blurred blue cityscape wall behind. The camera pushes in with small amplitude at slow speed. "
+          "The anchor with a clear, warm voice (S1) says: ")
+STUDIO_SOUND = "A quiet studio hum, a faint page turn, and the soft click of a desk microphone."
+NEWS_STING = "A restrained electronic news sting with soft synth pads, fading out quickly."
+
+
+def template_programme(fmt_key: str, items: list[dict]) -> dict | None:
+    """Real material read straight from a fixed template, for when the LLM is down. Only the formats whose
+    material maps onto a single spoken line have one."""
+    fmt = FORMATS[fmt_key]
+    if fmt_key == "news" and items:
+        segs = []
+        for i, it in enumerate(items[:fmt["segments"]]):
+            lead = "こんばんは、ニュースです。" if i == 0 else ""
+            line = _speech(it["title"], 34 - len(lead))
+            segs.append({"caption": it["title"], "seconds": fmt["seconds"],
+                         "prompt": _prompt(ANCHOR + f"<d>[Japanese] {lead}{line}</d>", STUDIO_SOUND, NEWS_STING)})
+        return {"title": "ニュース", "segments": segs}
+    if fmt_key == "weather" and items:
+        d = items[min(1, len(items) - 1)]
+        weather = d["weather"].replace(" ", "")
+        line = _speech(f"明日の{d['area']}は、{weather}でしょう。", 40)
+        return {"title": "お天気", "segments": [{"caption": f"{d['area']}の天気 {weather}", "seconds": fmt["seconds"], "prompt": _prompt(
+            "Live-action, bright studio, a medium shot of a smiling young presenter in a yellow cardigan standing beside a large stylised "
+            "weather map of an island nation. The camera stays static. The presenter with a lively voice (S1) says: "
+            f"<d>[Japanese] {line}</d>", "Soft studio ambience and the presenter's light footsteps.", "A gentle ukulele loop at a relaxed tempo.")}]}
+    return None
+
+
 def fallback_programme(fmt_key: str) -> dict:
-    """Used when the LLM is unavailable: one hard-coded segment per format."""
+    """Used when the LLM is unavailable and there is no material to template: one hard-coded segment per format."""
     fmt = FORMATS[fmt_key]
     base = {
-        "news": ("Live-action, broadcast look, a medium shot frames a composed Japanese woman anchor in a navy jacket at a sleek glass news desk, soft studio lights, a blurred blue cityscape wall behind. The camera pushes in with small amplitude at slow speed. The anchor with a clear, warm voice (S1) says: <d>[Japanese] こんばんは、AIニュースの時間です。</d>",
-                 "A quiet studio hum, a faint page turn, and the soft click of a desk microphone.",
-                 "A restrained electronic news sting with soft synth pads, fading out quickly."),
-        "weather": ("Live-action, bright studio, a medium shot of a smiling young presenter in a yellow cardigan standing beside a large stylised weather map of an island nation. The camera stays static. The presenter with a lively voice (S1) says: <d>[Japanese] 明日は全国的に晴れるでしょう。</d>",
+        "news": (ANCHOR + "<d>[Japanese] こんばんは、ニュースの時間です。</d>", STUDIO_SOUND, NEWS_STING),
+        "weather": ("Live-action, bright studio, a medium shot of a smiling young presenter in a yellow cardigan standing beside a large stylised weather map of an island nation. The camera stays static. The presenter with a lively voice (S1) says: <d>[Japanese] お天気の時間です。</d>",
                     "Soft studio ambience and the presenter's light footsteps.",
                     "A gentle ukulele loop at a relaxed tempo."),
         "nature": ("Live-action, wildlife documentary, a wide shot of a misty rainforest canopy at dawn, sunbeams through fog, a toucan landing on a branch. The camera tilts up with small amplitude at slow speed. A narrator with a deep, calm voice says in an off-screen voiceover, lips never shown: <d>[Japanese] 夜明けの森が、静かに目を覚まします。</d>",
@@ -112,10 +167,15 @@ def fallback_programme(fmt_key: str) -> dict:
         "music": ("Live-action, cinematic, a wide shot of a neon-lit city street in the rain at dusk, umbrellas, reflections on wet asphalt, a tram passing. The camera trucks right with small amplitude at slow speed. No dialogue.",
                   "Rain on pavement, a tram bell, distant traffic, footsteps under umbrellas.",
                   "A mellow lo-fi hip hop beat with a warm electric piano, moderate tempo."),
+        "music_show": ("Live-action, concert film look, a wide shot of a four-piece band on a small neon-lit club stage, a woman singer at a vintage microphone, guitarist, bassist and drummer behind her, haze and coloured spotlights, audience silhouettes in the foreground. The camera arcs around with small amplitude at slow speed. No speech.",
+                       "A packed club: crowd murmur, whistles and applause under the music, a snare hit echoing off the walls.",
+                       "Upbeat Japanese city pop: bright electric piano chords, a funky bass line, tight drums and a soaring synth lead at a moderate-fast tempo."),
+        "variety": ("Live-action, TV variety look, a medium shot of two hosts at a glossy desk in a colourful studio with big pastel panels and balloons, one in a sparkly jacket grinning, one in a grey suit unimpressed. The camera pushes in with small amplitude at slow speed. The host in the sparkly jacket with an energetic voice (S1) says: <d>[Japanese] さあ、今日のクイズです！</d>",
+                    "Studio laughter, a drum-roll sting, applause from a small audience.",
+                    "A bouncy brass and xylophone jingle at a fast tempo."),
         "ident": ("3D animation, glossy and colourful, a round fluffy blue mascot creature with big eyes hops onto a floating cloud and waves at the camera against a pastel gradient background. The camera zooms in with small amplitude at fast speed. The mascot with a bright, squeaky voice (S1) says: <d>[Japanese] イーボエックスツーテレビ！</d>",
                   "A soft boing as the mascot lands, a whoosh of the cloud.",
                   "A three-note marimba jingle."),
     }
     d, s, m = base[fmt_key]
-    prompt = f"integrated_multimodal_description: [Shot 1] {d}\n\noverall_soundscape: {s}\n\nnon_diegetic_music: {m}"
-    return {"title": fmt["title"], "segments": [{"caption": fmt["title"], "seconds": fmt["seconds"], "prompt": prompt}]}
+    return {"title": fmt["title"], "segments": [{"caption": fmt["title"], "seconds": fmt["seconds"], "prompt": _prompt(d, s, m)}]}

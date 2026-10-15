@@ -1,0 +1,39 @@
+[
+ {
+  "id": "20260910-182422-72da74",
+  "file": "news-20260910-182422-72da74.mp4",
+  "format": "news",
+  "program": "EVO-X2 TV - AIニュース速報",
+  "caption": "今日のトップニュース",
+  "seconds": 6.583333333333333,
+  "seed": 695425565,
+  "render_s": 480.9,
+  "created": "2026-09-10T18:24:22",
+  "prompt": "integrated_multimodal_description: [Shot 1] <ultra-modern, cool tones>, <medium> frames <A professional-looking, gender-neutral AI news anchor wearing a sharp suit, seated at a sleek, minimalist news desk>.<The camera pushes in with small amplitude at slow speed>. The professional-looking, gender-neutral AI news anchor with a calming, authoritative voice (S1) says: <d>[Japanese] 皆さん、こんばんは。今日の主なニュースをお伝えします。</d> [Shot 2] At 00:03.000, the camera pushes out with small amplitude at slow speed, revealing the large, illuminated graphical screen behind the anchor. Overall soundscape: The faint hum of advanced electronics and the subtle 'tick' of timekeeping devices. non_diegetic_music: A sophisticated, steady synth arpeggio underpins the segment, suggesting authority and reliability."
+ },
+ {
+  "id": "20260916-200830-1672e4-35",
+  "file": "variety-20260916-200830-1672e4-35.mp4",
+  "format": "variety",
+  "program": "今日のキャラはどっち？モノマネ大作戦！",
+  "programme_id": "20260916-170056-1672e4",
+  "slot": 2,
+  "section": "エンディング：ささやかな発見の共有",
+  "segment_index": 35,
+  "segments_total": 36,
+  "caption": "番組終了を告げながら。",
+  "seconds": 7.291666666666667,
+  "seed": 1678778741,
+  "render_s": 224.4,
+  "created": "2026-09-16T20:08:31",
+  "prompt": "integrated_multimodal_description: [Shot 1] Cinematic, wide-angle shot, full shot of the entire set. The camera executes a very slow, steady push-out shot, slowly receding from the central desk. The camera pushes out with small amplitude at slow speed. (No one speaks). [Shot 2] At 00:00.000, the camera remains steady, allowing the image to slowly fade to black. (No one speaks). overall_soundscape: Final sustained, lingering applause that gradually fades into silence. Non-diegetic mood. non_diegetic_music: The music slowly fades out completely, leaving a sense of warmth and resolution.",
+  "sources": [
+   "国産AIプロジェクトで開発のロボット試作機公開",
+   "ドジャース 山本由伸 7回無失点で14勝目 チームはマジック1に",
+   "メッツ 千賀滉大 9回に登板 同点ホームラン打たれる",
+   "愛知・名古屋アジア大会 開幕前に選手団歓迎セレモニー",
+   "ドジャース 大谷翔平 打撃練習再開「継続して段階上げていく」",
+   "「米留学ビザ4年上限は根拠が乏しい」連邦地裁が一時差し止め"
+  ]
+ }
+]

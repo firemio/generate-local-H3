@@ -1,0 +1,234 @@
+{
+ "id": "20260916-015323-f61ac9",
+ "format": "cooking",
+ "slot": 5,
+ "title": "太陽を浴びたトマトのポタージュ",
+ "theme": "スープ",
+ "summary": "トマトとバジルを使った、体が温まる優しいポタージュの作り方を、一から丁寧に紹介しました。",
+ "next_time": "来週は、ランチタイムにぴったりの簡単パンケーキの焼き方をご紹介します。お楽しみに！",
+ "cast": [
+  {
+   "role": "料理人 (Chef)",
+   "name": "さくら (Sakura)",
+   "look": "A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen.",
+   "voice": "Bright, energetic, and friendly",
+   "regular": true
+  },
+  {
+   "role": "料理人",
+   "name": "さくら",
+   "look": "A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen.",
+   "voice": "Bright, energetic, and friendly",
+   "regular": true
+  }
+ ],
+ "minutes": 5.0,
+ "sources": [],
+ "written": "2026-09-16T01:53:23",
+ "sections": [
+  {
+   "name": "オープニング：トマトの魔法",
+   "plan": "integrated_multimodal_description: [Shot 1] Medium shot, frames 1-50, さくら standing in a modern, brightly lit kitchen. The camera pushes out with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] こんにちは！さくらです。今日は温かくて優しいスープを作りますよ！</d> [Shot 2] At 00:05.000, the camera cuts to a close-up shot, frames 5-50, a bowl of bright red cherry tomatoes on a wooden counter. The camera racks focus from the tomatoes to さくら. The camera pushes in with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] トマトとバジルを使った、ポタージュです。初めての方も安心ですよ！</d>\noverall_soundscape: The gentle clinking of utensils and the soft sound of water running in the background. Non-diegetic_music: A bright, acoustic guitar melody begins, suggesting warmth and comfort.",
+   "seconds": 50,
+   "segments": [
+    {
+     "caption": "今日のメニューは、優しい味わいのポタージュです",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 1-9, さくら standing in a modern, brightly lit kitchen. The camera pushes out with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] こんにちは！さくらです。今日は温かくて優しいスープを作りますよ！</d> [Shot 2] At 00:09.000, the camera cuts to a wide shot, frames 9-9, the bright kitchen setting. The camera slowly pans left to reveal fresh ingredients on a counter. overall_soundscape: The gentle clinking of utensils and the soft sound of water running in the background. non_diegetic_music: A bright, acoustic guitar melody begins, suggesting warmth and comfort."
+    },
+    {
+     "caption": "まずは、新鮮なトマトを準備しましょう",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 1-8, さくら standing next to a wooden cutting board in a modern, brightly lit kitchen. The camera tracks right with small amplitude at slow speed, following her hand. さくら says in a light, energetic voice: <d>[Japanese] まず、新鮮なトマトをたっぷり用意しますね。</d> [Shot 2] At 00:08.000, the camera cuts to a close-up shot, frames 8-8, a bowl of bright red cherry tomatoes on a wooden counter. The camera tilts down slightly. overall_soundscape: The gentle clinking of utensils and the soft sound of water running in the background. non_diegetic_music: A bright, acoustic guitar melody maintains a gentle rhythm."
+    },
+    {
+     "caption": "色鮮やかなトマトたちを見てください",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 1-10, a vibrant pile of various ripe red tomatoes and green basil leaves on a wooden counter. The camera slowly arcs around the ingredients. No people speak. [Shot 2] At 00:10.000, the camera cuts to a medium shot, frames 10-10, さくら gesturing excitedly toward the ingredients. The camera zooms in with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] 太陽の恵みたっぷりの、色鮮やかなトマトたちです。</d> overall_soundscape: The gentle rustle of fresh herbs and the soft sound of light tapping on the counter. non_diegetic_music: The acoustic guitar becomes slightly more uplifting, building gentle anticipation."
+    },
+    {
+     "caption": "バジルは、香りの決め手になりますよ",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 1-7, a pair of hands gently picking fresh basil leaves. The camera focuses intensely on the texture of the leaves. The camera pushes in with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] そして、このバジルが風味をぐっと引き立ててくれます。</d> [Shot 2] At 00:07.000, the camera cuts to a shallow depth of field shot, frames 7-7, the tomatoes and basil side-by-side. The camera holds static. overall_soundscape: The satisfying, crisp sound of basil leaves being plucked. non_diegetic_music: The background music softens slightly, emphasizing the natural sounds."
+    },
+    {
+     "caption": "さあ、ポタージュのステップに入りましょう",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 1-8, さくら standing near the stovetop in a modern, brightly lit kitchen, holding a pot. The camera tilts down from her face to the ingredients. さくら says in a light, energetic voice: <d>[Japanese] トマトとバジルを使ったポタージュです。一緒に作りましょう！</d> [Shot 2] At 00:08.000, the camera cuts to a macro shot, frames 8-8, oil sizzling in a pan. The camera pushes in with small amplitude at slow speed. overall_soundscape: The distinct, satisfying sizzle of vegetables hitting hot oil. non_diegetic_music: The acoustic guitar tempo increases slightly, signaling the start of the cooking process."
+    },
+    {
+     "caption": "初めての方も、大丈夫ですよ",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 1-8, さくら smiling reassuringly directly at the camera in the bright kitchen. The camera tracks left with small amplitude at slow speed. さくら says in a light, energetic voice: <d>[Japanese] 初めての方も安心して作れる、簡単な一品なんです。</d> [Shot 2] At 00:08.000, the camera cuts to a static shot, frames 8-8, a beautifully plated potage. The camera holds the shot. overall_soundscape: The faint sound of simmering liquid and a sigh of satisfaction. non_diegetic_music: The music returns to a gentle, comforting motif, creating a feeling of accomplishment."
+    }
+   ]
+  },
+  {
+   "name": "ステップ1：下準備",
+   "plan": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら chopping onions and garlic on a wooden cutting board. The camera follows the hand movements with a tracking shot. さくら says in a bright, energetic voice: <d>[Japanese] まずは材料を準備しましょう。玉ねぎとニンニクをみじん切りにしますよ。</d> [Shot 2] At 00:08.000, the camera cuts to a medium shot, frames 8-70, さくら arranging tomatoes, basil, and broth on the counter. The camera pans right slowly. さくら says in a bright, energetic voice: <d>[Japanese] トマトは色々な大きさがいいんです。このバジルが香りを引き出してくれますね。</d> [Shot 3] At 00:25.000, the camera cuts to a close-up shot, frames 25-70, sa-kura adding olive oil to a pan. The camera tilts down at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] オリーブオイルをひいて、まずは玉ねぎから炒めていきます。</d>\noverall_soundscape: The rhythmic chopping sounds are prominent, followed by the gentle sizzle of onions hitting hot oil. Non-diegetic_music: The acoustic guitar continues softly, adding a gentle, warm rhythm.",
+   "seconds": 70,
+   "segments": [
+    {
+     "caption": "オープニング：準備を始めます",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) is standing near a clean wooden cutting board, looking at the ingredients. The camera performs a small, slow arc shot around her. さくら says in a bright, energetic voice: <d>[Japanese] 皆さん、こんにちは！今日のポタージュは、とっても簡単ですよ。</d> [Shot 2] At 00:04.000, the camera cuts to a static shot, frames 4-8, focusing on a basket of fresh vegetables and herbs. The camera does not move. The camera remains focused on the fresh ingredients. さくら says in a bright, energetic voice: <d>[Japanese] さあ、一緒に準備を始めましょうか。</d> [Shot 3] At 00:08.000, the camera cuts to a wide shot, frames 8-8, showing the complete cooking station setup. The camera pushes out slowly. The camera does not move. overall_soundscape: Soft ambient sounds of a professional kitchen—distant refrigerator hums, gentle clinking of glass. non_diegetic_music: The acoustic guitar continues softly, adding a gentle, warm rhythm. \noverall_soundscape: The gentle clinking of kitchen implements and the soft rustling of fresh herbs are audible.\nnon_diegetic_music: The acoustic guitar maintains a gentle, warm rhythm, supporting the cozy cooking atmosphere."
+    },
+    {
+     "caption": "玉ねぎとニンニクをみじん切りに",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) is chopping onions and garlic on a wooden cutting board. The camera follows the hand movements with a tracking shot. さくら says in a bright, energetic voice: <d>[Japanese] まずは材料を準備しましょう。玉ねぎとニンニクをみじん切りにしますよ。</d> [Shot 2] At 00:06.000, the camera cuts to a high-angle shot, frames 6-10, emphasizing the sheer volume of chopped ingredients accumulating on the board. The camera remains static. The camera focuses on the technique and precision of the cutting. さくら says in a bright, energetic voice: <d>[Japanese] 細かいのがコツですね。</d> [Shot 3] At 00:10.000, the camera cuts to a medium shot, frames 10-10, showing さくら pausing, looking pleased with her work. The camera slightly tilts up. さくら says in a bright, energetic voice:  [Shot 4] At 00:10.000, the camera cuts to a medium shot, frames 10-10, showing さくら wiping her hands on her apron. The camera tracks left slightly. The camera focuses on the preparation process. overall_soundscape: The rhythmic chopping sounds are prominent, giving a steady tempo to the segment. non_diegetic_music: The acoustic guitar maintains a steady, encouraging tempo, syncing subtly with the chopping rhythm."
+    },
+    {
+     "caption": "トマトの色の美しさ",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) is arranging fresh tomatoes, basil, and broth on the counter. The camera pans right slowly, following the ingredients. さくら says in a bright, energetic voice: <d>[Japanese] トマトは色々な大きさがいいんです。</d> [Shot 2] At 00:04.000, the camera cuts to a close-up shot, frames 4-9, focusing on a mix of red, yellow, and green tomatoes. The camera slowly zooms in with small amplitude. The camera highlights the natural colors of the tomatoes. さくら says in a bright, energetic voice: <d>[Japanese] 色のコントラストが素敵ですよね。</d> [Shot 3] At 00:09.000, the camera cuts to a medium shot, frames 9-9, showing さくら gently touching the basil leaves. The camera tilts down slightly. さくら says in a bright, energetic voice: <d>[Japanese] これが香りを引き出してくれますね。</d> [Shot 4] At 00:09.000, the camera cuts to a wide shot, frames 9-9, showing all the prepared ingredients laid out neatly. The camera remains static. The camera emphasizes the beautiful setup. overall_soundscape: Soft handling sounds as さくら arranges the fresh produce, accompanied by the faint rustle of basil leaves. non_diegetic_music: The acoustic guitar softens slightly, becoming more reflective, enhancing the visual beauty of the ingredients."
+    },
+    {
+     "caption": "オリーブオイルをひく",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) is pouring olive oil into a pan placed on the stove. The camera follows the stream of oil. さくら says in a bright, energetic voice: <d>[Japanese] オリーブオイルをひいて、</d> [Shot 2] At 00:03.000, the camera cuts to a close-up shot, frames 3-7, focusing on the pan and the shimmering oil surface. The camera zooms in slowly with small amplitude. The camera highlights the temperature and sheen of the oil. さくら says in a bright, energetic voice: <d>[Japanese] 煙が出るくらい温めますね。</d> [Shot 3] At 00:07.000, the camera cuts to a medium shot, frames 7-7, showing さくら adjusting the heat setting on the stove. The camera tracks left slightly. さくら says in a bright, energetic voice: <d>[Japanese] これがスタートラインです。</d> overall_soundscape: The smooth sound of the oil pouring into the pan, followed by a subtle hiss as the pan heats up. non_diegetic_music: The acoustic guitar tempo increases slightly, building anticipation for the cooking action."
+    },
+    {
+     "caption": "玉ねぎを炒める様子",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) adds the chopped onions to the heated pan. The camera focuses on the impact and initial sizzle. さくら says in a bright, energetic voice: <d>[Japanese] まずは玉ねぎから炒めていきます。</d> [Shot 2] At 00:04.000, the camera cuts to a medium-close shot, frames 4-8, showing the onions caramelizing. The camera tracks slowly left, observing the changing color of the onions. さくら says in a bright, energetic voice: <d>[Japanese] 香りが出てきたら、次の工程です。</d> [Shot 3] At 00:08.000, the camera cuts to a static shot, frames 8-8, showing the onions glistening in the oil. The camera holds the shot. The camera emphasizes the browning process. overall_soundscape: The loud, pronounced sizzling sound of onions hitting hot oil is the primary sound effect, followed by soft popping noises. non_diegetic_music: The music becomes slightly more rhythmic and focused, building tension towards the next ingredient addition."
+    },
+    {
+     "caption": "火の通った玉ねぎの香り",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) stirs the onions gently with a wooden spatula. The camera performs a small, slow push in. さくら says in a bright, energetic voice: <d>[Japanese] 焦がさないように、優しく混ぜてあげましょうね。</d> [Shot 2] At 00:05.000, the camera cuts to a close-up shot, frames 5-10, focusing on the glossy texture of the softened onions in the pan. The camera slowly tilts up, revealing the steam rising. さくら says in a bright, energetic voice: <d>[Japanese] 甘い香りが広がってきましたよ。</d> [Shot 3] At 00:10.000, the camera cuts to a wide shot, frames 10-10, showing the steam rising dramatically from the pan. The camera remains static. The camera emphasizes the aromatic quality. overall_soundscape: Soft scraping sounds of the spatula against the pan bottom, mixed with the continuous, gentle sizzle. non_diegetic_music: The music maintains a warm, comforting melody, suggesting comfort food and relaxation."
+    },
+    {
+     "caption": "バジルを加えて風味アップ",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) sprinkles fresh basil leaves over the onions in the pan. The camera follows the falling herbs. さくら says in a bright, energetic voice: <d>[Japanese] 最後にバジルを加えて、香りを立たせてあげましょう。</d> [Shot 2] At 00:03.000, the camera cuts to a macro shot, frames 3-7, emphasizing the vibrant green leaves of the basil hitting the hot surface. The camera slightly zooms in. さくら says in a bright, energetic voice: <d>[Japanese] この香りがポイントなんです。</d> [Shot 3] At 00:07.000, the camera cuts to a medium shot, frames 7-7, showing さくら smiling at the camera, satisfied with the aroma. The camera performs a slight arc shot around her. overall_soundscape: The light, papery rustle of the basil leaves being sprinkled onto the hot pan surface. non_diegetic_music: A bright, uplifting arpeggio enters the background score, matching the freshness of the basil."
+    },
+    {
+     "caption": "ポタージュのベースの完成",
+     "seconds": 6,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen) carefully pours the broth over the sautéed onions and basil mixture. The camera tracks slowly up the sides of the pan. さくら says in a bright, energetic voice: <d>[Japanese] さあ、スープのベースができましたよ。</d> [Shot 2] At 00:02.000, the camera cuts to a close-up shot, frames 2-6, focusing on the liquid filling the pan and steam rising dramatically. The camera performs a small push out. さくら says in a bright, energetic voice: <d>[Japanese] これで味が本格的になりますね。</d> [Shot 3] At 00:06.000, the camera cuts to a static shot, frames 6-6, showing the simmering liquid gently bubbling. The camera remains still. The camera emphasizes the warmth and color of the liquid. overall_soundscape: The sound of the broth being poured into the pan, followed by a soft, steady bubbling sound that continues throughout the segment. non_diegetic_music: The music softens to a calm, steady chord progression, signaling the transition to the simmering phase."
+    }
+   ]
+  },
+  {
+   "name": "ステップ2：香り出しと煮込み",
+   "plan": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら sautéing garlic and tomatoes in the pan. The camera zooms in slightly at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] 玉ねぎが透き通ってきたら、ニンニクとトマトを加えて香りを引き出します。ジュワッといい匂いですね！</d> [Shot 2] At 00:12.000, the camera cuts to a medium shot, frames 12-80, さくら pouring vegetable broth into the pan. The camera tracks left slowly as the liquid is added. さくら says in a bright, energetic voice: <d>[Japanese] 次に、野菜ブロスをたっぷり注ぎます。ここで味のベースを作りますよ。</d> [Shot 3] At 00:28.000, the camera cuts to a close-up shot, frames 28-80, the simmering pot. Steam gently rises. The camera holds static. さくら says in a bright, energetic voice: <d>[Japanese] 蓋をして、弱火でじっくり15分ほど煮込んでください。これが一番大事なんです。</d>\noverall_soundscape: Loud, satisfying sizzling sound when tomatoes hit the pan. A steady, soft bubbling sound of the broth simmering. Non-diegetic_music: The music becomes slightly more focused and rhythmic, building anticipation.",
+   "seconds": 80,
+   "segments": [
+    {
+     "caption": "香りを引き出す、ニンニクとトマト",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera zooms in slightly at slow speed, showing garlic and tomatoes sautéing in a pan. さくら says in a bright, energetic voice: <d>[Japanese] 玉ねぎが透き通ってきたら、ニンニクとトマトを加えて香りを引き出します。</d> [Shot 2] At 00:08.000, the camera cuts to a medium shot, frames 8-8, さくら stirring the pan contents gently. The camera performs a static shot. さくら says in a bright, energetic voice: <d>[Japanese] ジュワッといい匂いですね！</d> [Shot 3] At 00:16.000, the camera cuts to a close-up shot, frames 16-24, the pan contents sizzling. Steam gently rises. The camera tracks up slowly. (No dialogue required in this segment, focus on the visual action.) overall_soundscape: Loud, satisfying sizzling sound when tomatoes hit the pan. A gentle, fragrant popping sound. non_diegetic_music: The music starts with bright, ascending piano notes, building warmth."
+    },
+    {
+     "caption": "ベースを固める準備",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera pans left slowly, showing the softened, rich color of the sautéed ingredients. さくら says in a bright, energetic voice: <d>[Japanese] トマトの甘みがじんわりと出て、ポタージュのベースが完成していきます。</d> [Shot 2] At 00:10.000, the camera cuts to a medium shot, frames 10-20, さくら inspecting the ingredients in the pan. The camera zooms out slightly at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] この香りが、美味しさの秘密なんですよ。</d> [Shot 3] At 00:20.000, the camera cuts to a close-up shot, frames 20-28, the pan contents gleaming. The camera performs a static shot. (No dialogue required in this segment, focus on the ingredients' look.) overall_soundscape: Gentle bubbling and a steady crackle from the pan. A subtle sound of stirring. non_diegetic_music: The music remains gentle, emphasizing the satisfying rhythm of the cooking process."
+    },
+    {
+     "caption": "ブロスを注ぐアクション",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera follows a pouring stream of liquid into the pan. さくら says in a bright, energetic voice: <d>[Japanese] 次に、野菜ブロスをたっぷり注ぎます。これが味のベースを支えます。</d> [Shot 2] At 00:10.000, the camera cuts to a medium shot, frames 10-22, さくら pouring the broth smoothly. The camera tracks right slowly as the liquid level rises. さくら says in a bright, energetic voice: <d>[Japanese] まずは全体に火を通すのが大切な工程です。</d> [Shot 3] At 00:22.000, the camera cuts to a close-up shot, frames 22-32, the broth meeting the ingredients, creating steam. The camera performs a static shot. (No dialogue required in this segment, focus on the liquid mixing.) overall_soundscape: The distinct sound of liquid being poured into a hot surface. A low, consistent bubbling begins. non_diegetic_music: The music lifts slightly, suggesting a major step forward in the recipe."
+    },
+    {
+     "caption": "具材とブロスを混ぜる",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera follows the movement of a wooden spoon stirring the contents of the pan. さくら says in a bright, energetic voice: <d>[Japanese] 全体によく味が回るように、優しくかき混ぜてみてください。</d> [Shot 2] At 00:07.000, the camera cuts to a medium shot, frames 7-16, さくら stirring the mixture thoughtfully. The camera performs an arc shot around the pot. さくら says in a bright, energetic voice: <d>[Japanese] 混ぜすぎて水分が飛ばないように注意ですよ。</d> [Shot 3] At 00:16.000, the camera cuts to a close-up shot, frames 16-25, the mixture looking homogenous. Steam rises slightly. The camera performs a static shot. overall_soundscape: Rhythmic scraping and stirring sounds of a wooden spoon against metal. A soft, continuous simmer begins. non_diegetic_music: The music settles into a steady, comforting rhythm."
+    },
+    {
+     "caption": "弱火でじっくり煮込む",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera shows さくら placing a lid over the simmering pot. さくら says in a bright, energetic voice: <d>[Japanese] 蓋をして、弱火に落としてください。ここから待つ時間です。</d> [Shot 2] At 00:06.000, the camera cuts to a medium shot, frames 6-18, さくら adjusting the heat source beneath the pot. The camera performs a push in with small amplitude at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] 弱火で、じっくり15分ほど煮込んでいきましょう。</d> [Shot 3] At 00:18.000, the camera cuts to a close-up shot, frames 18-30, the pot simmering gently, visible steam rising slowly. The camera performs a static shot. さくら says in a bright, energetic voice:  overall_soundscape: The low, steady sound of gentle simmering (a soft burble). The hiss of the flame being adjusted. non_diegetic_music: The music becomes very soft and meditative, emphasizing patience and natural processes."
+    },
+    {
+     "caption": "仕上げの確認と休止",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら (A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen). The camera performs a slow tilt up from the pot to さくら's face. さくら says in a bright, energetic voice: <d>[Japanese] 15分経ちました。具材の食感をチェックしてみましょう。</d> [Shot 2] At 00:05.000, the camera cuts to a medium shot, frames 5-15, さくら carefully lifting the lid and smelling the steam. The camera pans left slowly. さくら says in a bright, energetic voice: <d>[Japanese] いい匂いが漂ってきましたね。</d> [Shot 3] At 00:15.000, the camera cuts to a close-up shot, frames 15-25, the visible texture of the fully cooked, soft contents. The camera performs a static shot. overall_soundscape: A gentle 'psssshhh' sound as the lid is lifted. The pleasant scent of warm steam. non_diegetic_music: The music swells slightly in a major key, signaling successful completion."
+    }
+   ]
+  },
+  {
+   "name": "ステップ3：仕上げと味付け",
+   "plan": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら using an immersion blender to blend the soup. The camera zooms in rapidly at medium speed. さくら says in a bright, energetic voice: <d>[Japanese] 煮込んだら、ブレンダーでなめらかになるまで撹拌します。空気が入らないように優しくね。</d> [Shot 2] At 00:10.000, the camera cuts to a medium shot, frames 10-50, さくら adding cream and fresh basil leaves to the pot. The camera pushes in slowly. さくら says in a bright, energetic voice: <d>[Japanese] 牛乳とバジルを加えて、味を調整。塩胡椒を忘れずに！</d> [Shot 3] At 00:25.000, the camera cuts to a close-up shot, frames 25-50, さくら stirring the soup gently. The camera tilts up slightly. さくら says in a bright, energetic voice: <d>[Japanese] 熱すぎないか、温度を確認しながら、味を見極めてください。</d>\noverall_soundscape: The distinct whirling sound of the immersion blender. The sound of rich liquid being stirred softly. Non-diegetic_music: The music softens and becomes comforting, signaling the near completion of the task.",
+   "seconds": 50,
+   "segments": [
+    {
+     "caption": "ブレンダーでなめらかに撹拌",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら using an immersion blender to blend the soup. The camera zooms in rapidly at medium speed. さくら says in a bright, energetic voice: <d>[Japanese] 煮込んだら、ブレンダーでなめらかになるまで撹拌します。</d> [Shot 2] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: The distinct whirling sound of the immersion blender. The sound of rich liquid being stirred softly. non_diegetic_music: The music remains steady and encouraging, maintaining a gentle tempo."
+    },
+    {
+     "caption": "空気に気を付けて優しく",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up shot, frames 00:00.000, さくら using an immersion blender to blend the soup. The camera zooms in rapidly at medium speed. さくら says in a bright, energetic voice: <d>[Japanese] 空気が入らないように優しくね。</d> [Shot 2] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: The distinct, rhythmic whirling sound of the immersion blender diminishes slowly. The sound of rich liquid being stirred softly. non_diegetic_music: The music softens and becomes comforting, signaling the near completion of the task."
+    },
+    {
+     "caption": "クリームとバジルで味を調整",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 2] At 00:00.000, the camera cuts to a medium shot, frames 0-10, さくら adding cream and fresh basil leaves to the pot. The camera pushes in slowly. さくら says in a bright, energetic voice: <d>[Japanese] 牛乳とバジルを加えて、味を調整。</d> [Shot 2] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: The soft plop of liquid being poured into the pot. The gentle clinking of ceramic pots. non_diegetic_music: The music remains soft and supportive, building slightly in warmth."
+    },
+    {
+     "caption": "塩胡椒を忘れずに仕上げて",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 2] At 00:00.000, the camera cuts to a medium shot, frames 0-10, さくら seasoning the soup from a small dish. The camera tracks horizontally at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] 塩胡椒を忘れずに！</d> [Shot 2] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: The subtle hiss of salt and pepper being added to the hot liquid. The sound of stirring. non_diegetic_music: The music continues with a warm, satisfying motif."
+    },
+    {
+     "caption": "温度を確かめながら味を見極める",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 3] At 00:00.000, the camera cuts to a close-up shot, frames 0-10, さくら stirring the soup gently. The camera tilts up slightly. さくら says in a bright, energetic voice: <d>[Japanese] 熱すぎないか、温度を確認しながら、</d> [Shot 3] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: The soft, rhythmic sound of wooden spoon stirring the thick soup. The gentle bubbling of liquid. non_diegetic_music: The music softens and becomes comforting, signaling the near completion of the task."
+    },
+    {
+     "caption": "美味しいポタージュ完成！",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 3] At 00:00.000, the camera cuts to a close-up shot, frames 0-10, さくら looking into the pot with satisfaction. The camera pushes in with small amplitude at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] 味を見極めてください。</d> [Shot 3] At 00:10.000, the camera cuts to ... (optional, timestamps must be inside the clip length) overall_soundscape: A satisfied sigh from the chef. The gentle sizzle of hot steam escaping the pot. non_diegetic_music: The music swells gently, providing a sense of accomplishment and warmth."
+    }
+   ]
+  },
+  {
+   "name": "盛り付けと実食",
+   "plan": "integrated_multimodal_description: [Shot 1] Medium close-up shot, frames 00:00.000, さくら carefully pouring the soup into a white bowl. The camera tracks side to side slowly. さくら says in a bright, energetic voice: <d>[Japanese] はい、美しいポタージュの完成です。少しだけオイルを垂らして、彩りを添えましょう。</d> [Shot 2] At 00:10.000, the camera cuts to a close-up shot, frames 10-30, さくら taking the first spoonful and smiling. The camera pushes in slightly. さくら says in a bright, energetic voice: <d>[Japanese] ふわっと口に広がるトマトの甘み。体を芯から温めてくれますね。</d>\noverall_soundscape: The delicate sound of liquid being poured. A satisfied sigh and gentle clinking of the bowl. Non-diegetic_music: The music swells slightly, achieving a warm, satisfying emotional peak.",
+   "seconds": 30,
+   "segments": [
+    {
+     "caption": "美しいポタージュの仕上げ",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium close-up shot, frames 00:00.000, さくら carefully pouring the bright orange soup into a clean white bowl. The camera tracks side to side slowly, following the flow of the liquid. さくら says in a bright, energetic voice: <d>[Japanese] はい、美しいポタージュの完成です。さあ、盛り付けを始めましょう。</d> [Shot 2] At 00:06.000, the camera tracks the hand as さくら adds a drizzle of oil. The camera slightly pushes out. さくら says in a bright, energetic voice:  [Shot 3] At 00:10.000, the camera cuts to a close-up shot, frames 10-24, さくらがハーブを散らす動作。 The camera gently zooms in at a slow speed. overall_soundscape: The gentle sound of liquid being poured and the slight hiss of oil meeting the soup. non_diegetic_music: The music maintains a steady, light rhythm, building anticipation for the taste test."
+    },
+    {
+     "caption": "一口サイズの感動体験",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくらが小さなスプーンにポタージュをすくい取る。 The camera pushes in slightly with small amplitude at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] さあ、いよいよ実食の時間です。いただきますね。</d> [Shot 2] At 00:04.000, the camera cuts to a close-up shot, frames 4-14, さくらがポタージュを口に運び、目を閉じて楽しむ。 The camera tilts up slightly at slow speed. さくら says in a bright, energetic voice: <d>[Japanese] ふわっと口に広がるトマトの優しい甘さ。</d> [Shot 3] At 00:15.000, the camera remains in a static shot, frames 15-21, さくらが微笑みながら、満足そうに頷く。 overall_soundscape: A gentle 'slurp' sound followed by a soft, satisfied sigh. non_diegetic_music: The music becomes warmer and slightly more melodic, reflecting contentment."
+    },
+    {
+     "caption": "美味しくなるコツ",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium close-up shot, frames 00:00.000, さくらが、完成したポタージュを正面に向けて優しく指差す。 The camera pans slowly from the bowl to さくら's face. さくら says in a bright, energetic voice: <d>[Japanese] このポタージュは、週末のおやつにもぴったりですよ。</d> [Shot 2] At 00:05.000, the camera cuts to a close-up shot, frames 5-15, さくらがカメラに向かって身振り手振りで何かを伝えようとする。 The camera pushes out slightly. さくら says in a bright, energetic voice: <d>[Japanese] 冷蔵庫に保存する際は、必ず蓋をしっかり閉めてくださいね。</d> [Shot 3] At 00:16.000, the camera remains in a static shot, frames 16-23, さくらが笑顔で別のアドバイスをする。 overall_soundscape: A soft, encouraging tone. The subtle clinking of utensils being placed down after use. non_diegetic_music: The music remains warm but starts to fade slightly, preparing for the conclusion."
+    },
+    {
+     "caption": "次回もお楽しみに",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくらが明るくカメラに向かって手を振る。 The camera slightly tracks left to follow her gesture. さくら says in a bright, energetic voice: <d>[Japanese] 今日はここまで。お腹をポカポカにさせてくださいね。</d> [Shot 2] At 00:03.000, the camera cuts to a slightly wide shot, frames 3-10, さくらが深々とお辞儀をする。 The camera slowly zooms out. さくら says in a bright, energetic voice: <d>[Japanese] また次回も、美味しい料理でお会いしましょう！さよなら。</d> [Shot 3] At 00:11.000, the camera holds on the beautifully plated soup. overall_soundscape: A final, gentle flourish of ambient kitchen sounds. non_diegetic_music: The music swells into a final, cheerful, and uplifting resolution, fading out completely."
+    }
+   ]
+  },
+  {
+   "name": "エンディングと裏ワザ",
+   "plan": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら standing next to the finished soup. The camera pans left slowly, showing the ingredients. さくら says in a bright, energetic voice: <d>[Japanese] 今日はスープでした。もし、パンを添えると、さらに美味しいですよ！</d> [Shot 2] At 00:05.000, the camera cuts to a medium close-up, frames 5-20, さくら smiling warmly at the camera. The camera pushes out slowly. さくら says in a bright, energetic voice: <d>[Japanese] また来週も美味しいレシピをお届けします。お楽しみにね！</d>\noverall_soundscape: A light, encouraging 'ding' sound effect. The gentle clink of dishes being stacked away. Non-diegetic_music: The acoustic guitar melody plays brightly and quickly fades out.",
+   "seconds": 20,
+   "segments": [
+    {
+     "caption": "トマトポタージュの裏ワザ",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら standing next to the finished soup in a modern, brightly lit kitchen. The camera pans left slowly, showing the ingredients. The camera pans left slowly. さくら says in a bright, energetic voice: <d>[Japanese] 今日はスープでした。もし、パンを添えると、さらに美味しいですよ！</d> [Shot 2] At 00:05.000, the camera cuts to ... (optional, timestamps must be inside the clip length)\noverall_soundscape: A light, encouraging 'ding' sound effect. The gentle clink of dishes being stacked away.\nnon_diegetic_music: The acoustic guitar melody plays brightly and quickly fades into the background."
+    },
+    {
+     "caption": "また来週もお楽しみに",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, frames 00:00.000, さくら standing in a modern, brightly lit kitchen, smiling warmly at the camera. The camera pushes out slowly. The camera pushes out slowly. さくら says in a bright, energetic voice: <d>[Japanese] また来週も美味しいレシピをお届けします。お楽しみにね！</d> [Shot 2] At 00:05.000, the camera cuts to ... (optional, timestamps must be inside the clip length)\noverall_soundscape: Minimal ambient sounds, emphasizing warmth and closure.\nnon_diegetic_music: The acoustic guitar melody fades out slowly."
+    }
+   ]
+  }
+ ],
+ "segments_total": 32,
+ "seconds_total": 297
+}

@@ -1,0 +1,64 @@
+{
+ "id": "20260916-201504-2e47cd",
+ "format": "nature",
+ "slot": 4,
+ "title": "竹の海：風と影が奏でる緑の交響曲",
+ "theme": "竹林",
+ "summary": "夜明けから夕暮れまでの竹林の一日。",
+ "next_time": "次回は深海へ。",
+ "cast": [
+  {
+   "role": "ナレーター",
+   "name": "佐藤 美咲",
+   "look": "The Narrator is an unseen voice.",
+   "voice": "Deep, calm, measured Japanese accent",
+   "regular": true
+  }
+ ],
+ "minutes": 1.0,
+ "sources": [],
+ "written": "2026-09-16T20:15:04",
+ "sections": [
+  {
+   "name": "夜明けの竹林",
+   "plan": "薄明かりの中で竹林が目覚める。",
+   "seconds": 27,
+   "segments": [
+    {
+     "caption": "clip 0",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic wide view of a bamboo grove. The narrator says in an off-screen voiceover: <d>[Japanese] 夜明けの竹林。</d>\noverall_soundscape: Wind in the leaves.\nnon_diegetic_music: N/A"
+    },
+    {
+     "caption": "clip 1",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic wide view of a bamboo grove. The narrator says in an off-screen voiceover: <d>[Japanese] 夜明けの竹林。</d>\noverall_soundscape: Wind in the leaves.\nnon_diegetic_music: N/A"
+    },
+    {
+     "caption": "clip 2",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic wide view of a bamboo grove. The narrator says in an off-screen voiceover: <d>[Japanese] 夜明けの竹林。</d>\noverall_soundscape: Wind in the leaves.\nnon_diegetic_music: N/A"
+    }
+   ]
+  },
+  {
+   "name": "風の通り道",
+   "plan": "風が竹を揺らす。",
+   "seconds": 18,
+   "segments": [
+    {
+     "caption": "clip 3",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic wide view of a bamboo grove. The narrator says in an off-screen voiceover: <d>[Japanese] 夜明けの竹林。</d>\noverall_soundscape: Wind in the leaves.\nnon_diegetic_music: N/A"
+    },
+    {
+     "caption": "clip 4",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic wide view of a bamboo grove. The narrator says in an off-screen voiceover: <d>[Japanese] 夜明けの竹林。</d>\noverall_soundscape: Wind in the leaves.\nnon_diegetic_music: N/A"
+    }
+   ]
+  }
+ ],
+ "segments_total": 5,
+ "seconds_total": 45
+}

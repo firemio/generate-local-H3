@@ -1,0 +1,30 @@
+{
+ "__PID__": {
+  "prompt": [
+   3,
+   "__PID__",
+   {"save": {"inputs": {"filename_prefix": "h3/h3", "format": "auto", "codec": "auto", "video": ["video", 0]}, "class_type": "SaveVideo"}},
+   {"client_id": "__CLIENT__"},
+   ["save"]
+  ],
+  "outputs": {
+   "save": {
+    "videos": [
+     {"filename": "h3test_00042_.mp4", "subfolder": "h3", "type": "output", "format": "video/h264-mp4", "frame_rate": 24.0}
+    ]
+   }
+  },
+  "status": {
+   "status_str": "success",
+   "completed": true,
+   "messages": [
+    ["execution_start", {"prompt_id": "__PID__", "timestamp": 1758000000000}],
+    ["execution_cached", {"nodes": [], "prompt_id": "__PID__", "timestamp": 1758000000001}],
+    ["execution_success", {"prompt_id": "__PID__", "timestamp": 1758000060000}]
+   ]
+  },
+  "meta": {
+   "save": {"node_id": "save", "display_node": "save", "parent_node": null, "real_node_id": "save"}
+  }
+ }
+}

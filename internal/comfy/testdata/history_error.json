@@ -1,0 +1,21 @@
+{
+ "__PID__": {
+  "prompt": [
+   4,
+   "__PID__",
+   {"save": {"inputs": {"filename_prefix": "h3/h3", "format": "auto", "codec": "auto", "video": ["video", 0]}, "class_type": "SaveVideo"}},
+   {"client_id": "__CLIENT__"},
+   ["save"]
+  ],
+  "outputs": {},
+  "status": {
+   "status_str": "error",
+   "completed": false,
+   "messages": [
+    ["execution_start", {"prompt_id": "__PID__", "timestamp": 1758000000000}],
+    ["execution_error", {"prompt_id": "__PID__", "node_id": "sample", "node_type": "SamplerCustomAdvanced", "executed": ["unet", "clip"], "exception_message": "HIP out of memory. Tried to allocate 2.00 GiB", "exception_type": "torch.OutOfMemoryError", "traceback": ["Traceback (most recent call last):\n", "  File \"execution.py\", line 1, in execute\n", "torch.OutOfMemoryError: HIP out of memory.\n"], "current_inputs": {}, "current_outputs": [], "timestamp": 1758000001000}]
+   ]
+  },
+  "meta": {}
+ }
+}

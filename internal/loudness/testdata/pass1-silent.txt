@@ -1,0 +1,42 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'C:/Users/user/AppData/Local/Temp/claude/C--firemio-generate-local-H3/31750afb-21f5-4f0c-b9b7-f2f0367fd20e/scratchpad/loudness/silent.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.101
+  Duration: 00:00:02.08, start: 0.000000, bitrate: 3016 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709/bt709/iec61966-2-1, progressive), 832x480, 3003 kb/s, 24 fps, 24 tbr, 12288 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc62.28.101 libx264
+  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 2 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+Stream mapping:
+  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.101
+  Stream #0:0(und): Audio: pcm_s16le, 192000 Hz, stereo, s16, 6144 kb/s (default)
+    Metadata:
+      encoder         : Lavc62.28.101 pcm_s16le
+      handler_name    : SoundHandler
+[Parsed_loudnorm_0 @ 0000020d65f51c40] 
+{
+	"input_i" : "-inf",
+	"input_tp" : "-inf",
+	"input_lra" : "0.00",
+	"input_thresh" : "-70.00",
+	"output_i" : "-inf",
+	"output_tp" : "-inf",
+	"output_lra" : "0.00",
+	"output_thresh" : "-70.00",
+	"normalization_type" : "linear",
+	"target_offset" : "inf"
+}
+[out#0/null @ 0000020d65f51b40] video:0KiB audio:1504KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:00:02.00 bitrate=N/A speed=85.5x elapsed=0:00:00.02    

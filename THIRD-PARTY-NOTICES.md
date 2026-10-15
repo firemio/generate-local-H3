@@ -11,6 +11,21 @@ ComfyUI 公式のワークフローテンプレート。参照用にそのまま
 - 出典: [Comfy-Org/workflow_templates](https://github.com/Comfy-Org/workflow_templates)
 - ライセンス: MIT License, Copyright (c) Comfy Org
 
+### `aitv/web/hls.min.js`
+
+放送局の Web プレイヤーが HLS を再生するためのライブラリ（v1.6.5 のビルド済みファイルをそのまま同梱）。
+
+- 出典: [video-dev/hls.js](https://github.com/video-dev/hls.js)
+- ライセンス: Apache License 2.0, Copyright (c) 2017 Dailymotion (and contributors)
+
+### Go の依存（`go.mod`; ビルド時にモジュールキャッシュへ取得、ソースは同梱しない）
+
+| モジュール | 用途 | ライセンス |
+|---|---|---|
+| [gorilla/websocket](https://github.com/gorilla/websocket) v1.5.3 | ComfyUI の `/ws` イベント購読 | BSD-2-Clause, Copyright (c) 2013 The Gorilla WebSocket Authors |
+| [ikawaha/kagome](https://github.com/ikawaha/kagome) v2 | セリフの漢字→かな変換（形態素解析） | MIT, Copyright (c) 2020 ikawaha |
+| [ikawaha/kagome-dict/ipa](https://github.com/ikawaha/kagome-dict) | 同上の辞書。mecab-ipadic-2.7.0-20070801 のデータを含む | MIT（パッケージ）+ mecab-ipadic の条件（奈良先端科学技術大学院大学 / 日本電信電話株式会社。NOTICE.txt を参照） |
+
 ### `input/*.png`, `report/assets/*.mp4`, `report/assets/*.jpg`, `report/assets/*.png`
 
 MiniMax H3 で生成した動画・静止画と、そのコンタクトシートです。**MIT の対象外**で、

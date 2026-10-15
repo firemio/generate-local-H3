@@ -1,0 +1,275 @@
+{
+ "id": "20260914-215623-d922be",
+ "format": "nature",
+ "slot": 4,
+ "title": "潮の囁き：マングローブが織りなす命の循環",
+ "theme": "マングローブ林の生態サイクル",
+ "summary": "マングローブ林の壮大な生態サイクルを、夜明けから黄昏まで追体験するドキュメンタリー。",
+ "next_time": "次回は、氷に覆われた静寂の地、北極の物語をお届けします。",
+ "cast": [
+  {
+   "role": "ナレーター",
+   "name": "なし",
+   "look": "N/A (Off-screen voiceover)",
+   "voice": "Deep, calm, measured Japanese accent",
+   "regular": true
+  }
+ ],
+ "minutes": 6.0,
+ "sources": [],
+ "written": "2026-09-14T21:56:23",
+ "sections": [
+  {
+   "name": "夜明けの静寂",
+   "plan": "The episode opens at dawn within a dense mangrove forest. The camera starts high, surveying the glassy, still tidal pools. Narration establishes the primordial quiet before the day's activity begins. Shots focus on the slow reveal of life starting in the muddy water. The camera moves slowly, emphasizing the texture of the roots and the light breaking through the canopy. The sequence concludes as the first signs of movement suggest the tide is beginning to turn.",
+   "seconds": 60,
+   "segments": [
+    {
+     "caption": "夜明けの静寂：マングローブの始まり",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Wide cinematic shot, high angle, frames 00:00.000-00:08.000. Vast, dense mangrove forest spanning a muddy tidal expanse. The camera slowly cranes down with small amplitude at slow speed. The narrator says in an off-screen voiceover: <d>[Japanese] 濃密なマングローブ林。夜明け前の世界は、深い静寂に包まれています。</d> [Shot 2] At 00:00.000, the camera cuts to a static shot of glassy, still tidal pools reflecting the pre-dawn sky. [Shot 2] At 00:00.000, the camera cuts to a static shot of glassy, still tidal pools reflecting the pre-dawn sky. overall_soundscape: Gentle lapping of water against roots, distant calls of unseen marsh birds. non_diegetic_music: Deep, low drone sustained beneath the quiet sounds, reminiscent of earth breathing."
+    },
+    {
+     "caption": "根の織りなす神秘的な生命の舞台",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Close-up detail, low angle, frames 00:08.000-00:18.000. Intertwined, dark, complex mangrove roots submerged in shallow mud. The camera pushes in with small amplitude at slow speed, tracing the texture of the wood. The narrator says in an off-screen voiceover: <d>[Japanese] 複雑に絡み合った根は、まるで生命を支える精緻な網のようです。</d> [Shot 2] At 00:08.000, the camera cuts to a tracking shot following a slow current over the mud flats. overall_soundscape: Subtle squelching sounds as mud settles, faint water movement. non_diegetic_music: Sparse, plucked string melody emerges, suggesting mystery."
+    },
+    {
+     "caption": "光の透過：闇を破って差し込む命の息吹",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, eye-level, frames 00:18.000-00:25.000. Sunlight rays piercing through the dense mangrove canopy onto the water surface. The camera pans left slowly, revealing vertical shafts of light. The narrator says in an off-screen voiceover: <d>[Japanese] 闇を切り裂くように、最初の光が差し込んできます。</d> [Shot 2] At 00:18.000, the camera cuts to a static shot of sunbeams creating glowing patterns on the water. overall_soundscape: The soft dripping of water from leaves, the occasional pop of gas bubbles. non_diegetic_music: A slight increase in tempo, adding a hopeful, shimmering quality."
+    },
+    {
+     "caption": "微かな動き：水面下の秘密の鼓動",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Extreme close-up, water level, frames 00:25.000-00:34.000. Shallow, dark water surface reflecting the sky. The camera tracks horizontally with small amplitude at slow speed, focusing on subtle ripples. The narrator says in an off-screen voiceover: <d>[Japanese] 水面下では、既に目覚めが始まっています。静かですが、確かな鼓動が。</d> [Shot 2] At 00:25.000, the camera cuts to a macro shot of tiny organisms stirring in the mud. overall_soundscape: Gentle lapping, muffled underwater sounds, very subtle biological sounds. non_diegetic_music: Very minimal, sustained synth pad providing depth."
+    },
+    {
+     "caption": "生命の兆し：探る眼差し",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium close-up, low angle, frames 00:34.000-00:42.000. Small, brightly colored life forms moving within the mud pools. The camera tilts up slowly, following the movement from the mud to the roots. The narrator says in an off-screen voiceover: <d>[Japanese] この環境は、全ての生命を迎え入れる舞台なのです。</d> [Shot 2] At 00:34.000, the camera cuts to a slow zoom out, revealing the scale of the pool. overall_soundscape: Distinct chirping and chirping, the soft rustle of unseen creatures. non_diegetic_music: The pizzicato strings become more defined, hinting at activity."
+    },
+    {
+     "caption": "光の交錯：時間という名の移ろい",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Wide shot, slightly elevated, frames 00:42.000-00:48.000. The entire expanse of the mangrove forest viewed as the light intensity increases. The camera smoothly arcs shot around a central patch of tidal pools. The narrator says in an off-screen voiceover: <d>[Japanese] 時はゆっくりと、確実に移り変わっていく。夜から日へと、目覚めながら。</d> [Shot 2] At 00:42.000, the camera cuts to a sweeping panoramic view of the forest edge. overall_soundscape: Chirping birds become slightly louder and more varied. non_diegetic_music: The music swells slightly, adding warmth and sense of continuation."
+    },
+    {
+     "caption": "潮の準備：大きな変化の予兆",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Ground level, frames 00:48.000-00:55.000. Muddy water surface showing visible currents and ripples expanding outwards. The camera pushes out with small amplitude at slow speed, following the expanding water patterns. The narrator says in an off-screen voiceover: <d>[Japanese] やがて、大きな力がこの静寂を揺り動かします。潮流が戻る時が。</d> [Shot 2] At 00:48.000, the camera cuts to a dynamic shot of mud being displaced by water. overall_soundscape: The distinct sound of receding and incoming tide, increasing in volume. non_diegetic_music: A rising chord progression builds anticipation and energy."
+    },
+    {
+     "caption": "次の展開へ：マングローブの循環",
+     "seconds": 6,
+     "prompt": "integrated_multimodal_description: [Shot 1] Medium shot, slightly high angle, frames 00:55.000-01:00.000. The water movement increases, covering the lower roots entirely. The camera tracks slowly back, emphasizing the cyclical nature of the water. The narrator says in an off-screen voiceover: <d>[Japanese] さあ、今日という物語は、幕を開けようとしています。</d> [Shot 2] At 00:55.000, the camera cuts to a final wide shot of the now active mangrove scene. overall_soundscape: Roaring water, rhythmic tidal wash, increasing bird calls. non_diegetic_music: The theme music reaches a gentle, resolved chord, fading out."
+    }
+   ]
+  },
+  {
+   "name": "潮の満ち引き：生命の舞台",
+   "plan": "The tide rises, dramatically changing the landscape. The camera tracks along the muddy forest floor as water creeps up, submerging and revealing different sections of the root system. Various types of fauna (crabs, small fish) react to the water level change. The narration describes how the changing water dictates the entire life rhythm of the ecosystem. The final shot is a wide angle, showing the vast area now partially submerged, preparing for the day's main action.",
+   "seconds": 80,
+   "segments": [
+    {
+     "caption": "潮が囁き、大地は息をする",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Warm, desaturated tones, wide shot frames the muddy mangrove forest floor at low tide. The camera follows a slow tracking shot across the exposed, tangled root system, emphasizing the texture of the mud and roots. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 静かな水面から、潮がゆっくりと戻ってきます。</d> [Shot 2] At 00:03.000, the camera pans left to capture the gradual creep of the water against the mud flats. [Shot 3] A small crab scuttles away from the incoming edge of the tide. The camera slightly tilts down to follow the crab's escape path. <d>[Japanese] 生態系を刻む、潮の律動を感じ取ります。</d> overall_soundscape: Shallow lapping water against mud, faint crunching sounds of exposed mud flats, the subtle skittering of small creatures. non_diegetic_music: A very low, sustained drone using traditional Japanese string instruments (like shamisen or koto) that increases slightly in volume as the water approaches."
+    },
+    {
+     "caption": "隠された世界への誘い",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Warm, natural colors, medium close-up frames the tangled root structure partially submerged in shallow water. The camera executes a slow arc shot around the base of a large mangrove trunk, revealing the complex network of roots. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] この根は、単なる支えではありません。</d> [Shot 2] At 00:02.000, the camera cuts to a shot focusing on how the water washes sediment over the roots. overall_soundscape: Gentle rush of water currents through the roots, occasional bubble pops, the rustle of submerged vegetation. non_diegetic_music: Minimal ambient humming, echoing off the watery surfaces."
+    },
+    {
+     "caption": "命の駆け引き、水中から",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Rich, cool tones, close-up frames various small fish reacting to the rising water. The camera tracks alongside the current as a school of small silver fish dart through the shallows. The camera moves smoothly to follow the movement of the fish. N/A says in an off-screen voiceover: <d>[Japanese] 満ちていく水は、多くの生命の舞台を創り出すのです。</d> [Shot 2] At 00:04.000, the camera cuts to a shot of a small crab quickly retreating into a root crevice. [Shot 3] The camera slowly tilts down, following the water level past the crab. overall_soundscape: Quick splashing sounds, the low 'swish' of water movement, chirps and calls of unseen shore birds. non_diegetic_music: A gentle, rhythmic percussive beat (like a soft taiko drum) mimicking the tide's steady beat, barely audible."
+    },
+    {
+     "caption": "水面の下で織りなすドラマ",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Emerald and brown tones, low angle frames the water surface just beneath the root system. The camera utilizes a smooth tracking shot, moving parallel to the water flow, giving a 'looking through' perspective. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 絶えず変化する環境こそが、命のドラマを誘います。</d> [Shot 2] At 00:03.000, the camera cuts to a shot of mud shifting and clouding with the incoming tide. overall_soundscape: Muffled, echoing sounds from the depths, water bubbling through trapped air pockets, and the continuous sound of flowing water. non_diegetic_music: Sustained, melancholic flute melody, suggesting deep, hidden activity."
+    },
+    {
+     "caption": "徐々に広がる水域の広がり",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Slightly muted greens and browns, medium wide frames an increasingly covered area of mudflats. The camera executes a slow pan left to right, showing the increasing breadth of the water's influence. The camera moves slowly, following the expanse of the tide. N/A says in an off-screen voiceover: <d>[Japanese] 潮の力は、すべてを洗い、すべてを繋ぎ合わせるのです。</d> [Shot 2] At 00:02.000, the camera cuts to a shot focusing on how the water interacts with the submerged debris. overall_soundscape: Stronger, continuous sound of flowing water, occasional 'plop' of larger pieces of floating organic matter. non_diegetic_music: The sustained drone from the beginning returns, slightly louder, building tension."
+    },
+    {
+     "caption": "生命が水と共に生きる知恵",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Damp, earthy tones, close-up frames the mud and water mingling around the roots. The camera uses a slow tilt up, moving from the submerged mud to the exposed trunk above. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] この生き残る知恵こそが、マングローブが持つ力です。</d> [Shot 2] At 00:02.000, the camera cuts to a shot of small, bright green aquatic plants thriving in the wet mud. overall_soundscape: Natural sounds dominate: soft water currents, the gentle slap of water against wood, and the buzzing of unseen insects attracted by the water. non_diegetic_music: N/A (Emphasis on natural ambience)"
+    },
+    {
+     "caption": "水の中の揺らぎと動き",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cool, deep blue tones, medium frame captures the water flowing between the mangroves. The camera performs a slow tracking shot through a narrow passage, simulating immersion. The camera moves slowly, maintaining a steady level. N/A says in an off-screen voiceover: <d>[Japanese] 周期的な水の動きが、生態系のリズムそのものなのです。</d> [Shot 2] At 00:03.000, the camera cuts to a shot tracking the disturbance left by a larger piece of floating seaweed. overall_soundscape: Steady, rhythmic flowing water, the occasional deeper 'gurgle' as the water moves through the root tangle. non_diegetic_music: A slightly faster, more insistent drum rhythm that suggests increasing power."
+    },
+    {
+     "caption": "壮大な舞台への変貌",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Deep, saturated tones, wide shot frames the entire area. The camera executes a very slow, steady arc shot across the increasingly submerged landscape. The camera is static, allowing the environment to dictate the movement. N/A says in an off-screen voiceover: <d>[Japanese] 潮が引く時、そして満ちる時、全てが変わるのです。</d> [Shot 2] At 00:02.000, the camera cuts to a wide shot emphasizing the deep contrast between wet mud and forest canopy. overall_soundscape: A sense of overwhelming scale, dominated by the continuous sound of the rising tide, like a slow, powerful breath. non_diegetic_music: The music swells slightly, becoming more majestic, like an ascending choir."
+    },
+    {
+     "caption": "休息と準備の瞬間",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Overcast, soft tones, wide angle frames the entire mangrove ecosystem, now significantly covered in water. The camera slowly pushes out from a central point, revealing the vast, submerged nature of the stage. The camera movement is deliberate and slow. N/A says in an off-screen voiceover: <d>[Japanese] この満ちた水域が、これから始まる生命の営みを受け入れます。</d> [Shot 2] At 00:03.000, the camera cuts to a high angle shot looking down into the calm, reflective water. overall_soundscape: Very calm, deep ambient sounds; the sound of water settling and becoming still, punctuated by distant calls. non_diegetic_music: The music fades down to a single, sustained, peaceful string chord, signaling a temporary lull."
+    },
+    {
+     "caption": "新たな一日の始まりの舞台",
+     "seconds": 6,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cool, hopeful tones, panoramic wide shot frames the full extent of the partially submerged forest. The camera holds a static shot, capturing the immensity and calm of the scene. The camera does not move. N/A says in an off-screen voiceover: <d>[Japanese] 嵐のような日も、やがてはこの静寂へと戻っていくのです。</d> overall_soundscape: The sound of the now-calm water, mixed with the distant, echoing sound of life beginning to stir, signaling the continuation of the cycle. non_diegetic_music: A gentle, uplifting chord progression that sustains and then fades to silence."
+    }
+   ]
+  },
+  {
+   "name": "狩りの時間：生命のドラマ",
+   "plan": "Midday. The focus shifts to the predators and the prey. The camera tracks through the water, observing a slow, deliberate hunt by a mangrove crab or small bird. Water disturbances and shadows are key visual elements. The narration emphasizes the constant struggle for survival in this rich but unforgiving environment. The sequence ends with a momentary lull in the activity, suggesting the heat of the day has calmed the movement.",
+   "seconds": 70,
+   "segments": [
+    {
+     "caption": "熱気の中を巡る目力",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic, establishing shot, wide angle frames dense mangroves at midday. The sun reflects sharply off the stagnant water, casting deep shadows. The camera tracks slowly right along the waterline, gliding over the exposed root structures of the mangrove trees. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 日が高まるにつれて、命の匂いが強くなる。</d> [Shot 2] At 00:04.000, the camera cuts to a low-angle shot tracking water ripples passing over muddy ground. overall_soundscape: Cicadas buzz loudly. Water laps against mud banks. Sparse bird calls ring out. non_diegetic_music: A low, sustained cello drone begins, suggesting latent tension."
+    },
+    {
+     "caption": "影に潜む獲物を探る。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] High contrast, close-up frames a mangrove crab cautiously moving across wet mud near the edge. The midday sun creates sharp contrasts on its shell. The camera tilts down with small amplitude at slow speed, following the crab's slow, deliberate steps. N/A says in an off-screen voiceover: <d>[Japanese] 全ての生命は、生きるために休息しない。</d> [Shot 2] At 00:03.000, the camera cuts to a tracking shot following the crab from a distance through the murky water. overall_soundscape: Sloshing water sounds. Scuttling sounds from the mud. Distant bird cries. non_diegetic_music: Minimal, unsettling plucked strings underscore the movement."
+    },
+    {
+     "caption": "水面下の動きに気づく。",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Moody, underwater shot, medium angle frames the water column under the mangroves. Sunlight filters through the canopy, creating shifting patterns. The camera pans left with a small amplitude at slow speed, observing disturbed sediment. N/A says in an off-screen voiceover: <d>[Japanese] 目に見えない領域で、すでに狩りの準備は始まっている。</d> [Shot 2] At 00:05.000, the camera cuts to a static shot focusing on the irregular patterns of the mangrove roots partially submerged in the water. overall_soundscape: Dripping water. Subtle gulping sounds from submerged life. Light wind rustling through leaves. non_diegetic_music: A quiet, harmonic woodwind passage builds subtle anticipation."
+    },
+    {
+     "caption": "身を隠す、小さな命。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Focused, macro frames a small, camouflaged fish darting between roots. The midday light refracts intensely through the water. The camera slowly zooms in with a small amplitude at fast speed, tracking the fish's erratic movements. N/A says in an off-screen voiceover: <d>[Japanese] 危険を察知したかのように、命は隠れる。</d> [Shot 2] At 00:04.000, the camera cuts to a high-angle shot looking down into the mangrove undergrowth, emphasizing the dense cover. overall_soundscape: Rippling water sounds. Quick, nervous squeaks. Buzzing insects. non_diegetic_music: The string music abruptly stops, replaced by silence and tension."
+    },
+    {
+     "caption": "狙いを定める、優雅な捕食者。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Dynamic, tracking shot frames a small wading bird (predator) standing amidst the mangroves. Its posture is rigid and predatory. The camera tracks right with a small amplitude at slow speed, following the bird's head movements. N/A says in an off-screen voiceover: <d>[Japanese] 待ち時間は、最も耐え難い時間なのだ。</d> [Shot 2] At 00:03.000, the camera cuts to a close-up shot focusing on the bird's intense, steady gaze directed into the shallows. overall_soundscape: Chirping of the predator. The gentle lap of the tide. cicada drone. non_diegetic_music: A single, repeating, percussive piano note emphasizes the heartbeat of the tension."
+    },
+    {
+     "caption": "水しぶきを立てて追跡する。",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Action-packed, low-angle frames a small bird dive-diving into the water, kicking up plumes of mud and sediment. Midday harsh light emphasizes the struggle. The camera tracks quickly left with a small amplitude at fast speed, following the turbulence. N/A says in an off-screen voiceover: <d>[Japanese] 躊躇は敗北を意味する。本能が全てを支配する。</d> [Shot 2] At 00:04.000, the camera cuts to a slow-motion shot of muddy water splashing high, momentarily obscuring the target. overall_soundscape: Loud splashing and frantic wing flapping. The shouts of unseen creatures. non_diegetic_music: The score swells dramatically with fast-paced brass and percussion, conveying immediate action."
+    },
+    {
+     "caption": "泥と命の激しい衝突。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Intense, medium shot frames the struggle between the crab and the predator in shallow water. Mud is thrown everywhere. The camera pushes in with a small amplitude at fast speed, capturing the chaotic struggle. N/A says in an off-screen voiceover: <d>[Japanese] 抵抗する命と、それを捕らえる力。激しいドラマだ。</d> [Shot 2] At 00:03.000, the camera cuts to an extreme close-up of the struggling crab's claw gripping a root. overall_soundscape: Loud, visceral sounds of scraping claws and struggling bodies. Water displacement. non_diegetic_music: A gritty, discordant string section mimics the friction and struggle."
+    },
+    {
+     "caption": "戦いが過ぎ去った後の沈黙。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Calm, wide shot frames the area after the struggle. The water settles, leaving only ripples. The midday sun begins to soften slightly. The camera performs a gentle arc shot, slowly moving over the debris and the exhausted figures. N/A says in an off-screen voiceover: <d>[Japanese] 激しい争いの後、訪れるのは重い静寂だ。</d> [Shot 2] At 00:04.000, the camera cuts to a static shot of the water surface, perfectly reflective, capturing the stillness. overall_soundscape: Only the gentle lapping of the water remains. Cicada buzz diminishes slightly. non_diegetic_music: The score fades away slowly, leaving only sustained, breathy flutes."
+    }
+   ]
+  },
+  {
+   "name": "午後の安息と若葉",
+   "plan": "The focus moves upwards, into the canopy and the juvenile life. Shots use an arc movement to survey the various levels of the mangrove trees and the small organisms attached to them. The narrator speaks of resilience and growth, focusing on the new shoots and the slow, steady process of life. The camera settles on a specific, slow-moving scene—perhaps a baby fish or tiny insect—allowing the sounds of the forest to dominate before a slow, gentle push-out.",
+   "seconds": 70,
+   "segments": [
+    {
+     "caption": "静寂を纏う上空の緑",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Cinematic, aerial view, wide shot frames dense mangrove canopy. The camera executes a smooth Arc Shot, slowly sweeping across the various levels of the foliage. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 戦いが終わり、静寂が森全体を包み込むようです。</d> [Shot 2] At 00:01.000, the camera tilts up slightly, revealing the sky peering through the leaves. overall_soundscape: Gentle dripping water, soft rustling of leaves in a light breeze, faint calls of hidden tropical birds. non_diegetic_music: Sparse, sustained strings playing a melodic, contemplative theme, like a distant, echoing flute."
+    },
+    {
+     "caption": "光と影が織りなす休息の場所",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Golden hour, dappled sunlight, large shot frames the upper canopy of the mangrove. The camera tracks left at slow speed, following the trajectory of sunlight through the thick leaves. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 午後の時間帯、森は力を蓄え、休息に入っています。</d> [Shot 2] At 00:02.000, the camera slightly zooms out to encompass a wider area of the canopy, showing the contrast of light and shadow. overall_soundscape: The sound of water lapping gently beneath the roots, punctuated by occasional bird calls and insect chirps. non_diegetic_music: Soft, descending woodwinds that evoke peace and deep reflection."
+    },
+    {
+     "caption": "若葉が示す生命の意志",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright afternoon, lush new growth, medium shot frames the vibrant, tiny shoots emerging from the mangrove roots and branches. The camera pans right at slow speed, drawing attention to the delicate, pale green shoots. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] ここにも、確かな生命の意志が息づいているのを感じます。</d> [Shot 2] At 00:03.000, the camera slowly tilts down to focus on the water level, where the shoots meet the tide. overall_soundscape: Increased volume of ambient insect humming, the distinct sound of water flowing over mossy roots. non_diegetic_music: Minimalist, plucked string accompaniment (like a koto), emphasizing slow, steady rhythm."
+    },
+    {
+     "caption": "世代を超えて続く営み",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Mid-afternoon, resilience, wide shot frames the multi-layered forest structure. The camera executes a slow, deliberate Tilt Up, from the submerged roots to the topmost branches. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 小さな生命が、大きな命の循環の証なのです。</d> [Shot 2] At 00:02.000, the camera shifts slightly to focus on a large patch of healthy, mature foliage next to the new growth. overall_soundscape: Steady sound of flowing freshwater, combined with the soft buzz of numerous insects. non_diegetic_music: A low, harmonic cello note sustains the feeling of permanence and continuity."
+    },
+    {
+     "caption": "微小な命の輝き",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Afternoon light, juvenile life, close-up shot frames tiny baby fish navigating between the mangrove roots. The camera executes a slow Tracking Shot, following the school of juvenile fish. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 目に留まるのは、まるで宝石のような小さな動きです。</d> [Shot 2] At 00:03.000, the camera focuses on the water surface tension, showing reflections and movement. overall_soundscape: Sharp, delicate clicking sounds of tiny fish, accompanied by the muffled sounds of the mangrove tides. non_diegetic_music: Very faint, high-pitched piano notes that mimic the quick, fluttering movements of small creatures."
+    },
+    {
+     "caption": "昆虫たちに委ねられた役割",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Late afternoon, texture, extreme close-up shot frames a tiny, slow-moving insect (e.g., a crab or beetle) crawling over the bark of a mangrove branch. The camera does a static shot, holding steady on the movement. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 生きることは、常に観察と適応を求めます。</d> [Shot 2] At 00:01.000, the focus racks slightly deeper into the bark texture, revealing hidden details. overall_soundscape: Exaggerated, crisp sounds of micro-movements—scuttling, clicking, and faint chitinous sounds. non_diegetic_music: A single, deep pizzicato string note that highlights the fragility of the subject."
+    },
+    {
+     "caption": "時間の流れに溶け込む静穏",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Late afternoon, reflection, medium shot frames the canopy viewed through the filtered light. The camera executes a slow, gentle Zoom Out, gradually revealing the vastness of the forest. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] 全てが自然のリズムに満たされ、穏やかです。</d> [Shot 2] At 00:02.000, the camera gently pans right, showing how the roots anchor the forest to the water. overall_soundscape: The rhythm of the tide becomes more pronounced, combining with the overall humming chorus of the forest. non_diegetic_music: Harp arpeggios that sound diffused and ethereal, like reflections on the water."
+    },
+    {
+     "caption": "次のサイクルへの準備",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Late afternoon, transition, wide shot frames the intersection of canopy, root, and water. The camera performs a slow, upward Tilt Up, emphasizing the verticality of the life cycle. The camera pushes in with small amplitude at slow speed. N/A says in an off-screen voiceover: <d>[Japanese] この静けさの中に、また明日への力が秘められています。</d> [Shot 2] At 00:01.000, the shot holds steady, capturing the depth of the forest as the light begins to shift. overall_soundscape: The overall ambiance swells slightly, incorporating the distinct sound of distant water currents. non_diegetic_music: Crescendo of strings, resolving into a peaceful, held chord that suggests continuation."
+    }
+   ]
+  },
+  {
+   "name": "黄昏の回廊：次への準備",
+   "plan": "As dusk approaches, the light softens, casting long, dramatic shadows across the roots and mud. The camera performs a slow, panning sweep down the estuary, capturing the colors shift from green to deep indigo. Narration summarizes the day's cycle, discussing the preparation for the night and the deep rest the ecosystem will take. The final shot remains static, holding on the silhouettes of the mangroves against the darkening sky, hinting at the continuation of the cycle.",
+   "seconds": 80,
+   "segments": [
+    {
+     "caption": "黄昏の回廊：静寂への移行",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A cinematic, high-contrast shot, extreme wide angle, frames the sprawling mangrove estuary at twilight. The scene is dominated by soft, deep purples and fading greens. The camera performs a slow, lateral panning sweep across the root structures. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 夕暮れ時、光は優しく、しかしドラマチックに影を落とします。</d> [Shot 2] At 00:02.000, the camera tracks slowly parallel to the muddy bank, emphasizing the tangled roots. overall_soundscape: Gentle lapping of tide water against mudflats. Distant croaking sounds of night insects starting up. non_diegetic_music: Sparse, deep cello tones begin to swell, suggesting transition and profound stillness."
+    },
+    {
+     "caption": "色と光の変化",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] An atmospheric, medium-long shot, frames the water surface reflecting the changing sky colors. The palette shifts dramatically from emerald green to indigo blue. The camera performs a slow, downward tilt from the horizon line to the water. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] この時間は、色彩が深い藍色へと移り変わる魔法の時です。</d> [Shot 2] At 00:05.000, the camera gently pushes in with small amplitude at slow speed, focusing on a single patch of exposed mud. overall_soundscape: Subtle sound of water pulling back from the roots. Low, continuous hum of the estuary environment. non_diegetic_music: The cello continues, adding a delicate, high woodwind counter-melody that suggests lingering beauty."
+    },
+    {
+     "caption": "根を巡る静かな観察",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A grounded, low angle shot, frames the intricate network of mangrove roots buried in the mud. The light is soft and diffused, highlighting wet textures. The camera executes a smooth, slow arc shot, circling the largest visible root structures. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 一日を生き抜いた証を、根張りに刻みます。</d> [Shot 2] At 00:02.000, the camera slightly zooms out to reveal the scale of the root network. overall_soundscape: Squishing sound of mud as the tide gently recedes. Chirping sounds of unseen nocturnal birds. non_diegetic_music: The music becomes slightly more rhythmic, echoing the subtle movement of the water."
+    },
+    {
+     "caption": "生命の営みのまとめ",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A wide-angle, horizontal shot, frames the vast expanse of the estuary during twilight. The overall mood is contemplative and profound. The camera performs a slow, steady tracking shot across the water line. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 満ち引きの波は、絶え間ない生命の鼓動を教えてくれます。</d> [Shot 2] At 00:02.000, the camera pauses its movement, settling into a static view of the entire basin. overall_soundscape: The steady, rhythmic wash of the tide. Occasional calls of mangrove crabs. non_diegetic_music: A melancholic piano arpeggio drifts in, emphasizing the cyclical nature of life."
+    },
+    {
+     "caption": "休止と再生の約束",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] A medium shot, frames patches of lush, deep green foliage contrasted against the deepening indigo sky. The light is fading rapidly. The camera performs a slow, gentle zoom out, revealing more of the mangrove canopy. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] ここは休息の場所であり、同時に再生の準備が整う場所なのです。</d> [Shot 2] At 00:04.000, the camera pans slowly up the vertical trunks of the mangroves. overall_soundscape: The distant sound of a muffled tide peak. The rustling sound of wet leaves settling down. non_diegetic_music: The piano is joined by soft, sustained violin chords, giving a sense of peace and anticipation."
+    },
+    {
+     "caption": "闇に溶けていく光",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A dramatic, high-contrast shot, frames the horizon where the sky meets the water, now appearing deep violet. The light source is nearly gone. The camera executes a slow, sweeping tilt down from the dramatic sky toward the water. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 闇が全てを包み込むとき、循環はまた始まるのです。</d> [Shot 2] At 00:02.000, the camera slightly pushes in, emphasizing the merging colors. overall_soundscape: Quiet, deep ambiance. The sound fades to near silence, broken only by minimal water movement. non_diegetic_music: The music drops significantly in volume, leaving only a sustained, deep drone note."
+    },
+    {
+     "caption": "静止したシルエット",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] A painterly, silhouetted shot, frames the collective dark shapes of the mangrove mangroves against the remaining pale twilight sky. The camera remains perfectly static. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] マングローブは、静かに、そして力強く、夜の帳を待ちます。</d> [Shot 2] At 00:04.000, the camera remains static, holding the deep, peaceful image. overall_soundscape: Profound silence. Only the very faint suggestion of water movement. non_diegetic_music: The drone note holds, becoming more resonant and meditative."
+    },
+    {
+     "caption": "サイクルへの手掛かり",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A breathtaking, static shot, frames the entire expanse of the mangroves silhouetted against the dark sky. The mood is epic and final. The camera remains absolutely still, capturing the grand scale of the ecosystem. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 命のサイクルは、決して途切れることはありません。</d> [Shot 2] At 00:03.000, the focus subtly shifts to the expanse of the unseen ocean beyond the mangroves. overall_soundscape: The ambient sounds disappear entirely, replaced by a deep, felt sense of quietude. non_diegetic_music: The music swells slightly, building to a soft, hopeful resolution chord."
+    },
+    {
+     "caption": "次回予告：北極の物語",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] A cinematic, cold, stark shot, frames a suggestion of ice or extreme northern landscape. The colors are muted blues and whites. The camera remains static, holding the dramatic, cold image. The Narrator (N/A) says in an off-screen voiceover: <d>[Japanese] 次回は、氷に覆われた静寂の地、北極の物語をお届けします。</d> [Shot 2] At 00:03.000, the shot holds completely still on the teaser image. overall_soundscape: A sudden, sharp gust of cold wind sound effect. A deep, echoing silence follows. non_diegetic_music: A final, clean, slightly haunting orchestral sting fades out completely."
+    }
+   ]
+  }
+ ],
+ "segments_total": 43,
+ "seconds_total": 354
+}

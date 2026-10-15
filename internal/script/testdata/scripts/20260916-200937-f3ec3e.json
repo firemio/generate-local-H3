@@ -1,0 +1,26 @@
+{
+ "id": "20260916-200937-f3ec3e",
+ "format": "cm",
+ "slot": null,
+ "title": "フレッシュブリーズミスト",
+ "cast": [],
+ "minutes": 0.1,
+ "sources": [],
+ "written": "2026-09-16T20:09:37",
+ "sections": [
+  {
+   "name": "CM",
+   "plan": "",
+   "seconds": 6,
+   "segments": [
+    {
+     "caption": "日常に、さわやかな風を。",
+     "seconds": 6,
+     "prompt": "integrated_multimodal_description: [Shot 1] <bright, airy, cinematic style>, <medium shot> frames <a young woman sitting on a park bench in a subtly vibrant, green urban park>. The camera tracks left slowly as the woman sighs, appearing slightly listless. The camera pushes in with small amplitude at slow speed. The woman picks up a sleek, minimalist mist bottle (the product). She smiles slightly, sprays the mist into the air, and takes a deep, refreshing breath. Her whole posture instantly becomes energized. <d>[Japanese] 日常に、さわやかな風を。</d>. [Shot 2] At 00:03.500, the camera zooms out slightly, showing the woman standing up, feeling completely refreshed, and walking into the sunlight. overall_soundscape: Gentle sound of a soft breeze rustling through leaves, light ambient sounds of distant park chatter, and the distinct 'psshht' sound of the mist being sprayed. non_diegetic_music: A light, uplifting piano score with flute accents, suggesting renewal and fresh air."
+    }
+   ]
+  }
+ ],
+ "segments_total": 1,
+ "seconds_total": 6
+}

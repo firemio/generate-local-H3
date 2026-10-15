@@ -1,0 +1,28 @@
+{
+ "__PID__": {
+  "prompt": [5, "__PID__", {}, {"client_id": "__CLIENT__"}, ["save", "save2", "preview"]],
+  "outputs": {
+   "save": {
+    "videos": [
+     {"filename": "h3test_00042_.mp4", "subfolder": "h3", "type": "output", "format": "video/h264-mp4", "frame_rate": 24.0}
+    ]
+   },
+   "save2": {
+    "videos": [
+     {"filename": "h3test_00042_.mp4", "subfolder": "elsewhere", "type": "output", "format": "video/h264-mp4", "frame_rate": 24.0}
+    ],
+    "animated": [true]
+   },
+   "preview": {
+    "images": [
+     {"filename": "h3test_00042_.png", "subfolder": "", "type": "temp"}
+    ],
+    "audio": [
+     {"filename": "h3test_00042_.flac", "subfolder": "h3", "type": "output"}
+    ]
+   }
+  },
+  "status": {"status_str": "success", "completed": true, "messages": []},
+  "meta": {}
+ }
+}

@@ -1,0 +1,7 @@
+Input #0, tty, from 'internal/loudness/testdata/pass1-real.txt':
+  Duration: 00:00:00.32, start: 0.000000, bitrate: 43 kb/s
+  Stream #0:0: Video: ansi, pal8, 640x400, 25 fps, 25 tbr, 25 tbn
+Output #0, null, to 'pipe:':
+[out#0/null @ 0000022b890206c0] Output file does not contain any stream
+Error opening output file -.
+Error opening output files: Invalid argument

@@ -52,8 +52,9 @@ if (-not $SkipComfy) {
     Set-Content -Path $reqTmp -Value $req -Encoding utf8
     & $Py -m pip install -r $reqTmp
     & $Py -m pip install --index-url $TorchIndex ($TorchSpec -split " ")   # no-op if intact, repairs if clobbered
-    # 5. our own client deps
-    & $Py -m pip install websocket-client "huggingface_hub[hf_transfer]" requests
+    # 5. model download helper (scripts\download_models.ps1). The station and the generation CLI are Go
+    #    (scripts\build.ps1) and need nothing from this venv.
+    & $Py -m pip install "huggingface_hub[hf_transfer]"
     # 6. models live in ..\models (kept out of the ComfyUI checkout)
     Copy-Item (Join-Path $Root "config\extra_model_paths.yaml") (Join-Path $Root "ComfyUI\extra_model_paths.yaml") -Force
     New-Item -ItemType Directory -Force "models\diffusion_models","models\text_encoders","models\vae","models\loras","models\embeddings","output" | Out-Null
@@ -61,3 +62,7 @@ if (-not $SkipComfy) {
 
 & $Py -c "import torch; assert torch.cuda.is_available(), 'HIP device not visible'; print('torch', torch.__version__, torch.cuda.get_device_name(0))"
 Write-Host "== setup done. Next: .\scripts\download_models.ps1  then  .\scripts\run_comfyui.ps1"
+
+# 7. the Go binaries (bin\h3gen.exe, bin\aitv.exe); Go 1.26+ from winget install GoLang.Go
+if (Get-Command go -ErrorAction SilentlyContinue) { & (Join-Path $Root "scripts\build.ps1") }
+else { Write-Host "== Go not found: install Go 1.26+ (winget install GoLang.Go) and run scripts\build.ps1" }

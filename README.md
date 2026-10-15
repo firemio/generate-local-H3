@@ -27,10 +27,11 @@ cd generate-local-H3
 .\scripts\run_comfyui.ps1        # http://127.0.0.1:8188
 ```
 
-別ターミナルで:
+別ターミナルで（生成クライアントと放送局は Go 製。Go 1.26+ を入れて一度ビルド）:
 
 ```powershell
-.\.venv\Scripts\python.exe -m h3gen gen --prompt "A golden retriever runs along a sunny beach toward the camera. Audio: waves, wind." --seconds 4 --steps 8
+.\scripts\build.ps1              # → bin\h3gen.exe, bin\aitv.exe
+.\bin\h3gen.exe gen --prompt "A golden retriever runs along a sunny beach toward the camera. Audio: waves, wind." --seconds 4 --steps 8
 ```
 
 出力は `output/h3/*.mp4`（H.264 + 32 kHz ステレオ音声、24 fps）。各実行の所要時間・ノード別プロファイルは `output/runs.jsonl` に追記されます。
@@ -41,10 +42,13 @@ cd generate-local-H3
 scripts/setup.ps1            再現用ワンショットセットアップ
 scripts/download_models.ps1  モデル取得（int8 pruned + int8 TE + VAE + turbo LoRA）
 scripts/run_comfyui.ps1      Strix Halo 向けフラグ/環境変数で ComfyUI を起動
-scripts/check_gpu.py         ROCm torch の動作確認とミニベンチ
+scripts/build.ps1            Go バイナリのビルド（bin\h3gen.exe, bin\aitv.exe）
+scripts/run_station.ps1      放送局の 24 時間常駐ランチャ
 config/extra_model_paths.yaml  models/ を ComfyUI から参照
-h3gen/                       ヘッドレス生成クライアント（API グラフ生成・WebSocket プロファイラ・CLI）
-aitv/                        AIテレビ局: ローカルLLM で番組表→H3 で生成→HLS 連続配信
+cmd/h3gen/                   ヘッドレス生成 CLI（Go）: API グラフ生成・WebSocket プロファイラ
+cmd/aitv/, internal/         AIテレビ局（Go）: ローカルLLM で番組表→H3 で生成→HLS 連続配信
+aitv/                        局のデータ（library/ 生成済みクリップと台本、hls/ 配信窓、web/ プレイヤー）
+archive/python/              最初の Python 実装（参照用、もう実行しない）
 workflows/templates/         ComfyUI 公式 H3 テンプレート（参照用）
 docs/                        セットアップ詳細、つまずきポイント、計測ログ
 report/                      HTML レポート
@@ -78,13 +82,13 @@ report/                      HTML レポート
 - **ROCm on Windows**: AMD が `repo.amd.com/rocm/whl/gfx1151/` で配布する PyTorch 2.11 + ROCm 7.13 の Windows wheel を使用。WSL も HIP SDK も不要。`torch.cuda.is_available()` が True になり、HIP デバイスとして 8060S が見える。
 - **ComfyUI フラグ**: `--highvram --bf16-unet --use-ck-attention --disable-pinned-memory --reserve-vram 2`。INT8 アテンション（comfy-kitchen hip）はサンプリングを 2.6 倍高速化。外すと gfx1151 では aotriton の SDPA が自動で有効になる。
 - **INT8**: ComfyUI 0.35 の comfy-kitchen 0.2.33 は `hip` バックエンドを持ち、`int8_linear` / `dequantize_int8_convrot_weight_dtype` / `sol_attn` が gfx1151 で使える（Triton 不要）。
-- **グラフ**: 公式テンプレートと同一（UNETLoader → LoraLoaderModelOnly → BasicGuider/BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo(24fps) → SaveVideo）。`h3gen/graph.py` が API 形式で組み立てる。
+- **グラフ**: 公式テンプレートと同一（UNETLoader → LoraLoaderModelOnly → BasicGuider/BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo(24fps) → SaveVideo）。`internal/comfy/graph.go` が API 形式で組み立てる。
 
 詳細・計測値・落とし穴は `docs/` と `report/` を参照。
 
 ## ライセンス
 
-このリポジトリのコード（`scripts/`, `h3gen/`, `aitv/`, `config/`, `docs/`）は MIT です（[LICENSE](LICENSE)）。
+このリポジトリのコード（`cmd/`, `internal/`, `scripts/`, `archive/`, `config/`, `docs/`, `aitv/web/index.html`）は MIT です（[LICENSE](LICENSE)）。
 
 同梱の ComfyUI 公式テンプレート（`workflows/templates/`, MIT, Comfy Org）と、MiniMax H3 で生成した
 動画・静止画（`input/`, `report/assets/`）は別条件です。生成物はモデル提供元の

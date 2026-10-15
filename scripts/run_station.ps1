@@ -3,7 +3,10 @@
 #   .\scripts\run_station.ps1 -Restart   # stop a running station first
 #   .\scripts\run_station.ps1 -Stop      # stop the station (and ComfyUI with -All)
 #   .\scripts\run_station.ps1 -Status    # what is running
+#   .\scripts\run_station.ps1 -Rtmp -Portrait   # also push to TikTok LIVE ($env:AITV_RTMP_URL), vertical 9:16
 # Logs: output\station.log, output\station.err.log, output\comfyui.err.log
+# The station is bin\aitv.exe (Go; built by scripts\build.ps1, built here when missing). ComfyUI stays a
+# Python process (scripts\run_comfyui.ps1).
 # At logon (optional): Task Scheduler -> "At log on" -> powershell -ExecutionPolicy Bypass -File <this script>
 param(
     [switch]$Restart,
@@ -11,16 +14,19 @@ param(
     [switch]$Status,
     [switch]$All,                   # with -Stop: also stop ComfyUI
     [int]$Port = 8800,
-    [int]$Width = 832,
-    [int]$Height = 480,
+    [int]$Width = 640,              # render size; every library clip is normalised to 832x480
+    [int]$Height = 352,
     [int]$Steps = 8,
     [switch]$NoTurbo,               # skip the turbo LoRA (its weight merge can OOM-crash ComfyUI; docs/pitfalls.md)
-    [string]$Formats = "",          # e.g. "news,cm,ident" to cycle; empty = weighted random schedule
-    [string]$LlmModel = "gemma4:latest"
+    [string]$Formats = "",          # e.g. "news,nature" replaces the daily lineup (internal/programs Lineup)
+    [double]$Minutes = 0,           # programme length override (0 = each format's own: news 6, weather 4, ...)
+    [string]$LlmModel = "gemma4:latest",
+    [switch]$Rtmp,                  # also push the channel to the RTMP ingest in $env:AITV_RTMP_URL (YouTube / TikTok ...)
+    [switch]$Portrait               # with -Rtmp: 9:16 output for TikTok LIVE (the 16:9 picture over a blurred copy)
 )
 $ErrorActionPreference = "Continue"
 $Root = Split-Path -Parent $PSScriptRoot
-$Py = Join-Path $Root ".venv\Scripts\python.exe"
+$Exe = Join-Path $Root "bin\aitv.exe"
 $PidFile = Join-Path $Root "output\station.pid"
 Set-Location $Root
 New-Item -ItemType Directory -Force (Join-Path $Root "output") | Out-Null
@@ -90,17 +96,26 @@ Write-Host ("[station] ComfyUI: " + $(if (Test-Comfy) { "up" } else { "still sta
 try { Invoke-RestMethod -Uri http://127.0.0.1:11434/api/tags -TimeoutSec 3 | Out-Null; Write-Host "[station] Ollama OK ($LlmModel)" }
 catch { Write-Host "[station] Ollama not answering yet; the station retries per programme (fallback scripts meanwhile)" }
 
-# 3. Station: web player + HLS broadcaster + production loop (forever)
-$stationArgs = @("-u", "-m", "aitv", "station", "--host", "127.0.0.1", "--port", "$Port",
+# 3. Station: web player + HLS broadcaster + production loop (forever). Build the binary when it is missing.
+if (-not (Test-Path $Exe)) {
+    & (Join-Path $Root "scripts\build.ps1")
+    if (-not (Test-Path $Exe)) { Write-Host "[station] bin\aitv.exe is missing and could not be built"; return }
+}
+$stationArgs = @("station", "--host", "127.0.0.1", "--port", "$Port",
                  "--width", "$Width", "--height", "$Height", "--steps", "$Steps", "--llm-model", $LlmModel)
 if ($Formats) { $stationArgs += @("--formats", $Formats) }
+if ($Minutes -gt 0) { $stationArgs += @("--minutes", "$Minutes") }
 if ($NoTurbo) { $stationArgs += "--no-turbo" }
-$env:PYTHONIOENCODING = "utf-8"
-$env:PYTHONUTF8 = "1"
+if ($Rtmp) {
+    # The ingest URL carries the stream key: it stays in the environment (never on the command line, never in the logs).
+    if (-not $env:AITV_RTMP_URL) { Write-Host "[station] -Rtmp needs `$env:AITV_RTMP_URL (rtmp://.../<stream key>)"; return }
+    $stationArgs += "--rtmp"
+    if ($Portrait) { $stationArgs += "--portrait" }
+}
 $env:AITV_LLM_NUM_GPU = "0"
-$p = Start-Process -FilePath $Py -ArgumentList $stationArgs -RedirectStandardOutput (Join-Path $Root "output\station.log") `
+$p = Start-Process -FilePath $Exe -ArgumentList $stationArgs -RedirectStandardOutput (Join-Path $Root "output\station.log") `
         -RedirectStandardError (Join-Path $Root "output\station.err.log") -WindowStyle Hidden -PassThru
 Set-Content -Path $PidFile -Value $p.Id -Encoding ascii
 Write-Host "[station] started pid $($p.Id)  ->  http://127.0.0.1:$Port/   HLS: http://127.0.0.1:$Port/hls/live.m3u8"
-Write-Host "[station] production is ~60x slower than real time on this GPU (a 6.6 s clip takes ~400 s at ${Width}x${Height});"
-Write-Host "[station] the channel airs new programmes as soon as they render and mixes the library in between."
+Write-Host "[station] production is ~30-60x slower than real time on this GPU (one 6-minute programme takes ~3 h at ${Width}x${Height});"
+Write-Host "[station] the day's lineup airs slot by slot; a slot whose programme is not finished yet is filled from the library."

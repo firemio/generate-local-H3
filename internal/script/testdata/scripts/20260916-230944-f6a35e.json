@@ -1,0 +1,26 @@
+{
+ "id": "20260916-230944-f6a35e",
+ "format": "ident",
+ "slot": null,
+ "title": "エヴォ・X2：流動の奇跡（リクイッド・ミラクル）",
+ "cast": [],
+ "minutes": 0.06666666666666667,
+ "sources": [],
+ "written": "2026-09-16T23:09:44",
+ "sections": [
+  {
+   "name": "ステーションID",
+   "plan": "",
+   "seconds": 4,
+   "segments": [
+    {
+     "caption": "EVO-X2 TV ステーションID",
+     "seconds": 4,
+     "prompt": "integrated_multimodal_description: [Shot 1] Hyper-vibrant, bioluminescent, amorphous liquid graphics, medium close-up frames abstract, colorful plasma forming and dissolving in a cosmic void. The camera slowly orbits the central fluid mass, tracking its gentle movement. The cheerful, bright female voice speaks: <d>[Japanese] エヴォ・エックス・ツー、ローカルAIが創る、無限の彩り。エヴォ・エックス・ツー・ティービー。</d> [Shot 2] overall_soundscape: Gentle, swirling whooshing sounds and soft, echoing pops of energy that follow the fluid movements. non_diegetic_music: A rising, ethereal synth pad with subtle chimes, suggesting endless possibilities."
+    }
+   ]
+  }
+ ],
+ "segments_total": 1,
+ "seconds_total": 4
+}

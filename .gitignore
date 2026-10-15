@@ -20,3 +20,6 @@ output/station.pid
 # keep the report self-contained: its sample videos are tracked
 !report/assets/*.mp4
 .tools/
+
+# Go build output (scripts/build.ps1)
+bin/

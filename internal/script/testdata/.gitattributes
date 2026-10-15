@@ -1,0 +1,4 @@
+# The scripts are byte-exact copies of what the Python writer produced (CRLF from text-mode open() on
+# Windows); keep them verbatim so the encoder parity test compares against the real thing.
+*.json -text
+*.txt -text

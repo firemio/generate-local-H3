@@ -81,10 +81,11 @@ ROCm 上では `hip` バックエンドが有効になる（INT8 GEMM / sol_attn
 ## 5. 生成
 
 ```powershell
-.\.venv\Scripts\python.exe -m h3gen gen --prompt "..." --width 832 --height 480 --seconds 5 --steps 8
+.\scripts\build.ps1     # Go 1.26+（winget install GoLang.Go）。bin\h3gen.exe と bin\aitv.exe ができる
+.\bin\h3gen.exe gen --prompt "..." --width 832 --height 480 --seconds 5 --steps 8
 ```
 
-`h3gen` は ComfyUI の `/prompt` に API 形式グラフを投げ、WebSocket の `executing` イベント間隔から
+`h3gen`（Go、`cmd/h3gen` + `internal/comfy`）は ComfyUI の `/prompt` に API 形式グラフを投げ、WebSocket の `executing` イベント間隔から
 ノード別所要時間を出す（松尾氏の profile_nodes.py と同じ考え方）。結果は `output/runs.jsonl`。
 
 ## 6. 代替スタック: ROCm 10.0.0（torch 2.13, 2026-08-26 GA）
@@ -97,7 +98,7 @@ uv venv .venv-rocm10 --python 3.12 --seed
     "torch[device-gfx1151]==2.13.0+rocm10.0.0" "torchvision[device-gfx1151]==0.28.0+rocm10.0.0" "torchaudio==2.11.0.2+rocm10.0.0"
 # ComfyUI 依存は torch をピン留めして入れる
 .\.venv-rocm10\Scripts\python.exe -m pip freeze | Select-String "^(torch|rocm|amd)" > torch-pin.txt
-.\.venv-rocm10\Scripts\python.exe -m pip install -c torch-pin.txt -r ComfyUI\requirements.txt websocket-client
+.\.venv-rocm10\Scripts\python.exe -m pip install -c torch-pin.txt -r ComfyUI\requirements.txt
 .\scripts\run_comfyui.ps1 -Venv .venv-rocm10
 ```
 

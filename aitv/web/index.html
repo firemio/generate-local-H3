@@ -18,7 +18,7 @@
   #title small { display: block; font-size: 13px; font-weight: 400; opacity: .8; }
   #ticker { position: absolute; left: 0; right: 0; bottom: 0; height: 44px; background: linear-gradient(90deg, #b3001b, #7a0012);
             display: flex; align-items: center; overflow: hidden; white-space: nowrap; font-size: 18px; }
-  #ticker span { display: inline-block; padding-left: 100vw; animation: scroll 28s linear infinite; }
+  #ticker span { display: inline-block; padding-left: 100vw; animation: scroll var(--tick-s, 60s) linear infinite; }
   @keyframes scroll { to { transform: translateX(-100%); } }
   #idle { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
           background: radial-gradient(circle at 50% 40%, #223 0, #000 70%); font-size: 22px; }
@@ -40,56 +40,97 @@
   <div id="title"></div>
   <div id="ticker"><span id="tick"></span></div>
 </div>
+<script src="/hls.min.js"></script>
 <script>
+// The page is a viewer of the same HLS stream VLC/OBS get, so everyone sees the one rundown the
+// broadcaster decides (blocks of one format, then a break). now.json is the broadcaster's on-air
+// log keyed by wall-clock time; the stream carries program-date-time, so the overlay follows what is
+// actually on screen despite the HLS delay of a few seconds.
 const v = document.getElementById('v'), title = document.getElementById('title'), tick = document.getElementById('tick');
 const idle = document.getElementById('idle'), tap = document.getElementById('tap');
-let items = [], station = {name: 'EVO-X2 TV'}, cursor = -1, playedIds = new Set(), recent = [];
+const STREAM = '/hls/live.m3u8';
+let station = {name: 'EVO-X2 TV'}, onAir = [], hls = null, shownId = null;
+// programme formats as shown in the ticker (internal/programs Formats); breaks are not listed
+const FORMAT_TITLES = {news: 'ニュース', weather: 'お天気', variety: 'バラエティー', music_show: 'ミュージックステージ',
+                       nature: '自然ドキュメンタリー', cooking: '3分クッキング', travel: 'ぶらり旅'};
 
 async function refresh() {
   try {
     const r = await fetch('/playlist.json', {cache: 'no-store'});
     const j = await r.json();
-    items = j.items || []; station = j.station || station;
+    station = j.station || station;
     document.getElementById('bug').textContent = station.name || 'EVO-X2 TV';
-    const caps = items.slice(-12).map(i => `【${i.program}】${i.caption}`).join('　　◆　　');
-    tick.textContent = caps || `${station.tagline || ''}`;
+    // The ticker is today's programme guide: one entry per programme (newest first), not the captions of
+    // the last clips rendered — those all belong to the one programme in production for hours on end.
+    const progs = new Map();
+    for (const i of (j.items || [])) {
+      if (!FORMAT_TITLES[i.format]) continue;            // no commercials / idents
+      const key = i.programme_id || i.program;
+      const p = progs.get(key) || {title: i.program, format: i.format, created: i.created || '', n: 0, total: i.segments_total || 0};
+      p.n++; if ((i.created || '') > p.created) p.created = i.created;
+      progs.set(key, p);
+    }
+    const latest = [...progs.values()].sort((a, b) => (a.created < b.created ? 1 : -1)).slice(0, 8);
+    const caps = latest.map((p, k) => `【${FORMAT_TITLES[p.format]}】${p.title}`
+      + (k === 0 && p.total && p.n < p.total ? `（制作中 ${p.n}/${p.total}）` : '')).join('　　◆　　');
+    const text = caps || `${station.tagline || ''}`;
+    if (text !== tick.textContent) {
+      tick.textContent = text;
+      // readable pace: ~60 px per second, whatever the length (the text travels its own width plus the screen)
+      const px = tick.scrollWidth + window.innerWidth;
+      tick.style.setProperty('--tick-s', Math.max(20, px / 60) + 's');
+      tick.style.animation = 'none'; void tick.offsetWidth; tick.style.animation = '';
+    }
   } catch (e) { /* server restarting */ }
 }
-function pickNext() {
-  if (!items.length) return null;
-  // 1) anything not yet aired in this session, newest first (fresh programmes air as soon as they land)
-  const unplayed = items.filter(i => !playedIds.has(i.id)).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
-  if (unplayed.length) return unplayed[0];
-  // 2) otherwise a weighted random pick that avoids the most recently aired clips and favours newer ones
-  const avoid = new Set(recent.slice(-Math.max(1, Math.min(items.length - 1, Math.floor(items.length / 2)))));
-  const pool = items.filter(i => !avoid.has(i.id));
-  const ranked = (pool.length ? pool : items).slice().sort((a, b) => (a.created || '').localeCompare(b.created || ''));
-  const weights = ranked.map((_, k) => 1 + (k / Math.max(1, ranked.length - 1)) * 2);
-  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
-  for (let k = 0; k < ranked.length; k++) { r -= weights[k]; if (r <= 0) return ranked[k]; }
-  return ranked[ranked.length - 1];
+async function refreshOnAir() {
+  try { onAir = await (await fetch('/now.json', {cache: 'no-store'})).json(); } catch (e) { /* not yet */ }
 }
-async function playNext() {
-  await refresh();
-  const it = pickNext();
-  if (!it) { idle.style.display = 'flex'; setTimeout(playNext, 5000); return; }
-  idle.style.display = 'none';
-  playedIds.add(it.id); recent.push(it.id); if (recent.length > 50) recent.shift();
-  title.innerHTML = `${it.program}<small>${it.caption}　·　${it.seconds.toFixed(0)}s · seed ${it.seed} · 生成 ${it.render_s}s</small>`;
-  v.src = '/clips/' + encodeURIComponent(it.file);
-  const t0 = parseFloat(new URLSearchParams(location.search).get('t') || '0');   // ?t=3 → start offset (screenshots/debug)
-  if (t0 > 0) v.addEventListener('loadedmetadata', () => { v.currentTime = t0; }, { once: true });
-  // Only a real autoplay block deserves the click-to-start overlay. A missing/404 clip rejects with
-  // NotSupportedError and the 'error' handler already advances to the next programme.
-  try { await v.play(); } catch (e) { if (e && e.name === 'NotAllowedError') tap.style.display = 'flex'; }
+function playingTime() {
+  // wall-clock time of the frame on screen (program-date-time); falls back to "now" if unknown
+  const d = hls && hls.playingDate ? hls.playingDate : (v.getStartDate && !isNaN(v.getStartDate()) ? new Date(v.getStartDate().getTime() + v.currentTime * 1000) : null);
+  return d ? d.getTime() / 1000 : Date.now() / 1000;
 }
-v.addEventListener('playing', () => { tap.style.display = 'none'; });
-v.addEventListener('ended', playNext);
-v.addEventListener('error', () => setTimeout(playNext, 1500));
+function updateOverlay() {
+  if (!onAir.length) return;
+  const t = playingTime();
+  let cur = onAir[0];
+  for (const e of onAir) if (e.t <= t) cur = e;
+  if (cur.id === shownId) return;
+  shownId = cur.id;
+  // when the clip was made (M/D HH:MM): a re-aired programme is visibly from an earlier day
+  const made = cur.created ? cur.created.replace(/^\d{4}-0?(\d+)-0?(\d+)T(\d{2}:\d{2}).*$/, '$1/$2 $3') : '';
+  title.innerHTML = `${cur.program}<small>${cur.section ? cur.section + '　·　' : ''}${cur.caption}${made ? '　·　制作 ' + made : ''}</small>`;
+}
+function start() {
+  if (window.Hls && Hls.isSupported()) {
+    hls = new Hls({liveSyncDurationCount: 3, liveMaxLatencyDurationCount: 6, enableWorker: true});
+    hls.on(Hls.Events.ERROR, (_, data) => {
+      if (!data.fatal) return;
+      // stream not there yet (library empty / encoder restarting): show the idle card and retry
+      idle.style.display = 'flex';
+      setTimeout(() => { hls.loadSource(STREAM); hls.startLoad(); }, 5000);
+    });
+    hls.on(Hls.Events.MANIFEST_PARSED, () => { idle.style.display = 'none'; v.play().catch(e => { if (e && e.name === 'NotAllowedError') tap.style.display = 'flex'; }); });
+    hls.loadSource(STREAM);
+    hls.attachMedia(v);
+  } else if (v.canPlayType('application/vnd.apple.mpegurl')) {   // Safari: native HLS
+    v.src = STREAM;
+    v.addEventListener('loadedmetadata', () => { idle.style.display = 'none'; v.play().catch(() => { tap.style.display = 'flex'; }); });
+    v.addEventListener('error', () => { idle.style.display = 'flex'; setTimeout(() => { v.load(); }, 5000); });
+  } else {
+    document.getElementById('idletext').textContent = 'このブラウザは HLS を再生できません。VLC で http://' + location.host + '/hls/live.m3u8 を開いてください';
+    idle.style.display = 'flex';
+  }
+}
+v.addEventListener('playing', () => { tap.style.display = 'none'; idle.style.display = 'none'; });
 tap.addEventListener('click', () => { tap.style.display = 'none'; v.muted = false; v.play().catch(() => {}); });
 setInterval(() => { const d = new Date(); document.getElementById('clock').textContent = 'LIVE ' + d.toTimeString().slice(0, 5); }, 1000);
 setInterval(refresh, 30000);
-playNext();
+setInterval(refreshOnAir, 2000);
+setInterval(updateOverlay, 500);
+idle.style.display = 'flex';
+refresh(); refreshOnAir(); start();
 </script>
 </body>
 </html>

@@ -1,0 +1,254 @@
+{
+ "id": "20260916-231338-53770f",
+ "format": "cooking",
+ "slot": 5,
+ "title": "心躍る！タイグリーンカレーの誘惑🍛",
+ "theme": "エスニック・タイグリーンカレー",
+ "summary": "エキゾチックな香り豊かなタイグリーンカレーを、失敗知らずのステップで作り上げる、彩り豊かな料理番組。",
+ "next_time": "来週は、ランチタイムにぴったりの簡単パンケーキの焼き方をご紹介します。お楽しみに！",
+ "cast": [
+  {
+   "role": "料理人 (Chef)",
+   "name": "さくら (Sakura)",
+   "look": "A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen.",
+   "voice": "Bright, energetic, and friendly",
+   "regular": true
+  },
+  {
+   "role": "料理人",
+   "name": "さくら",
+   "look": "A cheerful woman in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen.",
+   "voice": "Bright, energetic, and friendly",
+   "regular": true
+  }
+ ],
+ "minutes": 5.0,
+ "sources": [],
+ "written": "2026-09-16T23:13:38",
+ "sections": [
+  {
+   "name": "オープニング：本日のテーマ紹介",
+   "plan": "Sakura greets the viewers, introducing the Thai Green Curry theme. She explains that it’s vibrant, aromatic, and perfect for a special meal. She gestures towards the ingredients laid out on the clean counter, building excitement for the meal.",
+   "seconds": 27,
+   "segments": [
+    {
+     "caption": "オープニング：本日のテーマ紹介",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, cheerful cinematic style, medium shot frames Sakura in a modern, brightly lit kitchen. The camera pushes in with small amplitude at slow speed. Sakura says: <d>[Japanese] 皆さん、こんにちは！今日はエスニックなタイグリーンカレーに挑戦します！</d>. [Shot 2] At 00:05.000, the camera pans left to reveal the vibrant array of fresh ingredients laid out on the clean counter. overall_soundscape: Gentle clinking of preparation tools being set down, faint sounds of running water from a background sink. non_diegetic_music: Upbeat, tropical-infused instrumental music featuring ukulele and flute, keeping a bright, energetic tempo."
+    },
+    {
+     "caption": "タイグリーンカレーの魅力",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, cheerful cinematic style, medium close-up frames Sakura in a modern, brightly lit kitchen. The camera tracks left with small amplitude at slow speed. Sakura gestures towards the ingredients and says: <d>[Japanese] この鮮やかな緑色と芳醇な香りが、特別な食卓を彩ってくれますよ。</d>. [Shot 2] At 00:02.000, the camera zooms in slowly on a beautiful pile of curry paste and fresh herbs. overall_soundscape: Gentle whispering ambient sounds, the soft rustle of leaves (herbs). non_diegetic_music: The instrumental music continues, focusing on a melodic, rich string section that evokes exotic warmth."
+    },
+    {
+     "caption": "さあ、調理を始めましょう！",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, cheerful cinematic style, medium shot frames Sakura in a modern, brightly lit kitchen. The camera tilts up slightly as Sakura smiles and points enthusiastically at the cooking area. Sakura says: <d>[Japanese] 本当に美味しそうですよね。さあ、一緒にステップを追って作ってみましょう！</d>. [Shot 2] At 00:04.000, the camera pushes out slightly, establishing a wide view of the clean counter and ingredients, preparing for action. overall_soundscape: Enthusiastic, light sound of preparation prep (e.g., a knife gently tapping the counter). non_diegetic_music: The background score swells slightly, building anticipation for the cooking process, maintaining the upbeat, tropical feel."
+    }
+   ]
+  },
+  {
+   "name": "ステップ1：材料の準備とカット",
+   "plan": "Sakura begins chopping vegetables (bamboo shoots, bell peppers) and measuring coconut milk. She demonstrates the prep work, emphasizing that careful cutting makes cooking easier. Close-ups focus on the vibrant colors of the fresh ingredients.",
+   "seconds": 55,
+   "segments": [
+    {
+     "caption": "まずは材料をたくさん用意します！",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Medium Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera pushes in slowly with small amplitude at slow speed. Sakura smiles at the camera and says: <d>[Japanese] タイグリーンカレーは、準備が大切なんです。</d> [Shot 2] At 00:03.000, the camera cuts to a macro shot of various fresh vegetables (bell peppers, bamboo shoots, lime leaves) arranged neatly on a wooden cutting board. The camera pans left to right at a smooth speed across the vibrant array of ingredients. overall_soundscape: Gentle rustling of leaves, soft clinking of vegetables being moved. non_diegetic_music: A light, rhythmic acoustic guitar melody with a slight exotic feel."
+    },
+    {
+     "caption": "彩り豊かな具材を準備しましょう。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Close-up Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera tracks alongside Sakura's hands as she carefully slices red bell peppers. The camera tracks horizontally at slow speed, focusing on the knife action. Sakura looks down at the board and says: <d>[Japanese] パプリカは小さめにカットすると、味が均一に広がりますよ。</d> [Shot 2] At 00:04.000, the camera cuts to an extreme macro shot focusing on the sharp knife slicing through the peppers. overall_soundscape: Sharp rhythmic chopping sounds, subtle scraping of the knife against the board. non_diegetic_music: Continuation of the light, rhythmic acoustic guitar melody."
+    },
+    {
+     "caption": "次は、竹の子の準備をしますね。",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Medium Close-up Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera tilts down slightly at a moderate speed, focusing on the bamboo shoots. Sakura grips the bamboo shoots and says: <d>[Japanese] 竹の子は、水気をしっかり切ってから使いますね。</d> [Shot 2] At 00:05.000, the camera cuts to a close-up shot of Sakura washing the bamboo shoots under a running tap. The camera holds steady (Static Shot). overall_soundscape: Sound of running water, gentle brushing of the vegetables. non_diegetic_music: The acoustic guitar melody softens slightly, adding a delicate flute layer."
+    },
+    {
+     "caption": "ココナッツミルクを計量します。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Medium Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera pushes in with small amplitude at slow speed, focusing on a carton of coconut milk. Sakura pours the milk into a measuring cup and says: <d>[Japanese] 優しい香りのココナッツミルクを、計量していきましょう。</d> [Shot 2] At 00:02.000, the camera cuts to a close-up of the thick, white liquid pouring into the cup. overall_soundscape: Smooth liquid pouring sound, slight clinking of the measuring cup. non_diegetic_music: A gentle, flowing synth pad enters the background."
+    },
+    {
+     "caption": "準備が整うと、調理がとても簡単になります。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Full Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera pans right to left at a slow speed, taking in the organized cutting board. Sakura gestures proudly at the vegetables and says: <d>[Japanese] 事前の下ごしらえが、味の決め手の一つなんですよ。</d> [Shot 2] At 00:03.000, the camera cuts to a beautifully arranged overhead shot (Top-Down Shot) of all the prepped vegetables and liquids. overall_soundscape: Ambient kitchen sounds, light whoosh sound as Sakura sweeps her hand over the ingredients. non_diegetic_music: The music swells slightly, building anticipation."
+    },
+    {
+     "caption": "香り高いスパイスも忘れずに。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Close-up Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera zooms in slowly at a small amplitude, focusing on a spice paste. Sakura taps the paste with her finger and says: <d>[Japanese] グリーンカレーペーストを準備して、香りを引き出します。</d> [Shot 2] At 00:02.000, the camera cuts to a macro shot of the bright green curry paste paste. overall_soundscape: Light, earthy scent evoking sounds, soft tap of fingers on paste. non_diegetic_music: The background score adopts a tropical, percussive element."
+    },
+    {
+     "caption": "さあ、次のステップに進みましょう！",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm cinematic lighting, Medium Shot frames a cheerful woman (Sakura) in her late 20s, with long brown hair tied in a high ponytail, wearing a crisp white apron over a light blue blouse, standing in a modern, brightly lit kitchen. The camera pushes out slightly at a slow speed, showing the full arrangement of prepped ingredients and the large pot on the stove. Sakura beams at the camera and says: <d>[Japanese] これで準備は完璧！調理を続けましょうね。</d> [Shot 2] At 00:03.000, the camera cuts to a steady shot of the stove with ingredients ready. overall_soundscape: Low hum of the stove, satisfied sigh sound effect. non_diegetic_music: The percussive rhythm concludes with a clear, satisfying final chord, leading into a transition."
+    }
+   ]
+  },
+  {
+   "name": "ステップ2：香り出しと煮込み（核心）",
+   "plan": "Sakura starts sautéing the green curry paste in a pot, followed by coconut milk. The paste sizzles dramatically (close-ups here). She adds tofu and vegetables, bringing the curry to a simmer. The camera follows the color change and the steam rising from the pot.",
+   "seconds": 82,
+   "segments": [
+    {
+     "caption": "香りを引き出す、グリーンカレーペーストの準備",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] High contrast, cinematic, medium shot frames a deep earthenware pot placed on a modern gas stove. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera pushes in with small amplitude at slow speed. Sakura says: <d>[Japanese] さあ、まずはこの香りが大事ですね。</d> [Shot 2] At 00:03.000, the camera tracks left, focusing on Sakura transferring a spoonful of green curry paste into the hot oil in the pot. overall_soundscape: The sound of sizzling oil, the gentle clinking of utensils. non_diegetic_music: A rhythmic, warm percussive track begins, building anticipation."
+    },
+    {
+     "caption": "香ばしい「ジュワッ」という音。",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Macro shot, high-speed, extreme close-up frames the green curry paste hitting the hot oil in the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera zooms in with small amplitude at slow speed. The sizzling paste releases aromatic smoke. Sakura does not speak. [Shot 2] At 00:04.000, the camera cuts to a slightly wider view showing the surface of the oil bubbling. overall_soundscape: Intense, loud sizzling sound that builds and then softens. non_diegetic_music: The tempo increases slightly, maintaining the rhythmic percussive pattern."
+    },
+    {
+     "caption": "ペーストをしっかり炒めて香りを閉じ込める。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Warm, rustic, medium close-up frames the green curry paste mixture in the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera tracks around the pot in an arc shot. Sakura says: <d>[Japanese] 熱で一気に香りを引き出してあげましょう。</d> [Shot 2] At 00:01.000, the camera focuses on the mixture turning a deeper, glossy green. overall_soundscape: The gentle, persistent sound of sautéing ingredients. non_diegetic_music: The music becomes slightly more melodic, establishing a steady, inviting rhythm."
+    },
+    {
+     "caption": "次に、ココナッツミルクを注ぎ入れていきます。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Soft, tropical, medium shot frames the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera is static and centered. Sakura pours thick white coconut milk from a pitcher into the pot. Sakura says: <d>[Japanese] ここからココナッツミルクで煮込んでいきますよ。</d> [Shot 2] At 00:02.000, the camera follows the stream of milk hitting the paste mixture, creating a swirl. overall_soundscape: The liquid pouring sound, followed by a soft bubbling sound. non_diegetic_music: The music softens slightly, becoming more flowing and liquid."
+    },
+    {
+     "caption": "優しいミルクの色が溶け出し、スープ状になっていく。",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] Dreamy, soft focus, close-up frames the pot's contents. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera slowly pushes in with small amplitude at slow speed. The creamy white milk gently mixes with the deep green paste. Sakura does not speak. [Shot 2] At 00:03.000, the camera captures the initial formation of steam rising from the pot. overall_soundscape: Gentle bubbling sounds, the slight hiss of steam. non_diegetic_music: A continuous, sustained string pad enters, giving a feeling of richness and warmth."
+    },
+    {
+     "caption": "豆腐を加え、旨味を加えていきます。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, appetising, medium close-up frames the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera tracks left, moving towards the adding ingredients. Sakura carefully drops cubed tofu into the simmering curry. Sakura says: <d>[Japanese] 豆腐で、しっかりお腹も満たしましょう。</d> [Shot 2] At 00:01.000, the camera focuses on the tofu pieces sinking through the liquid. overall_soundscape: The gentle 'plop' sound of the tofu entering the liquid. non_diegetic_music: The music maintains the gentle, rich tone, becoming slightly more supportive."
+    },
+    {
+     "caption": "彩り豊かな野菜も、忘れずに投入します。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Vivid, fresh, close-up frames the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera tilts down with small amplitude at slow speed. Sakura adds sliced bell peppers and bamboo shoots. Sakura says: <d>[Japanese] 野菜の彩りも、とっても大切なんです。</d> [Shot 2] At 00:02.000, the camera highlights the contrasting colors of the vegetables against the green curry. overall_soundscape: The soft clinking of vegetables against the ceramic pot. non_diegetic_music: The music picks up a slightly more active, hopeful rhythm."
+    },
+    {
+     "caption": "弱火でじっくり煮込み、味を馴染ませていきましょう。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Peaceful, focused, medium shot frames the pot over low heat. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera is static, observing the simmering process. Sakura says: <d>[Japanese] 弱火で、味を優しく重ねていく時間です。</d> [Shot 2] At 00:04.000, the camera focuses on the surface of the curry, showing slow, steady bubbling. overall_soundscape: The consistent, low bubbling sound (simmering). non_diegetic_music: The music becomes deeply ambient, emphasizing warmth and patience."
+    },
+    {
+     "caption": "表面に立つ豊かな湯気と、グリーンカレーの香り。",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] Atmospheric, cinematic, macro shot frames the steam rising from the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera slowly zooms out with small amplitude at slow speed. The steam partially obscures the pot. Sakura does not speak. [Shot 2] At 00:01.000, the camera lingers on the vapor and the beautiful consistency of the sauce. overall_soundscape: The soft, continuous sound of steam and gentle simmering. non_diegetic_music: The string pads swell slightly, creating a feeling of fulfillment and readiness."
+    },
+    {
+     "caption": "これで、グリーンカレーは完璧です！次の工程へいきましょう。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Satisfied, vibrant, medium shot frames the finished curry in the pot. The chef, Sakura, standing in a modern, brightly lit kitchen. The camera pans right across the finished curry, showing its glossy texture. Sakura says: <d>[Japanese] はい、これで完成です！次の盛り付けの準備をしましょう。</d> [Shot 2] At 00:01.000, the camera focuses on Sakura giving a cheerful, satisfied smile. overall_soundscape: The sound of gently stirring, followed by a conclusive, bright chime sound. non_diegetic_music: The music resolves to a final, bright chord, signaling the transition to the next section."
+    }
+   ]
+  },
+  {
+   "name": "ステップ3：盛り付けと完成の確認",
+   "plan": "Sakura carefully ladles the simmering curry over steamed rice bowls. She garnishes the top with fresh basil leaves and cilantro. She adjusts the bowls, ensuring a visually appealing, layered presentation.",
+   "seconds": 41,
+   "segments": [
+    {
+     "caption": "盛り付けの始まり",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] A professional, brightly lit modern kitchen setting, showing a steaming pot of curry and several bowls of white rice. The camera pans slowly from the finished curry pot to the bowls of steamed rice on the counter. The camera pushes in with small amplitude at slow speed. Sakura says: <d>[Japanese] 熱々のカレーを、ご飯がたっぷり乗った器に、丁寧に盛り付けていきましょう。</d> [Shot 2] At 00:03.000, the camera cuts to a medium close-up shot of Sakura's hands carefully picking up a ladle. The camera tracks right at slow speed, following the ladle as it approaches the first bowl of rice. overall_soundscape: Gentle sizzling sound from the curry, the light clinking of ceramic bowls. non_diegetic_music: A bright, uplifting, slightly ethnic-flavored instrumental score plays softly in the background, building gentle anticipation."
+    },
+    {
+     "caption": "トロリとソースを注ぐ",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] The bright, professional kitchen counter, focusing on the rice bowls. The camera uses a close-up shot, emphasizing the liquid and rice layers. The camera pushes in with small amplitude at slow speed, focusing on the curry flowing. Sakura says: <d>[Japanese] トロリとしたソースが、ご飯の周りに、優しく広がるのが分かりますか？</d> [Shot 2] At 00:04.000, the camera cuts to an extreme close-up shot of the rich green curry sauce hitting the white rice. The camera follows the liquid flow with a subtle tilt down at slow speed. overall_soundscape: Loud, satisfying sizzling sound as the curry hits the hot rice, gentle steam rising. non_diegetic_music: The instrumental score swells slightly, emphasizing the warmth and richness of the scene."
+    },
+    {
+     "caption": "バジルの香り付け",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] The brightly lit kitchen, focusing on the curry-ladled rice bowl. The camera uses a macro close-up shot, highlighting the texture of the curry and the rice. The camera zooms in slowly at slow speed as Sakura picks a leaf. Sakura says: <d>[Japanese] ここで、香り豊かなバジルを添えることで、風味がさらに引き立ちますよ。</d> [Shot 2] At 00:02.000, the camera cuts to a static shot of Sakura's hands gently placing the basil leaves on top. The camera pans left across the arranged leaves. overall_soundscape: Crisp, light sound of basil leaves being dropped onto the warm curry. non_diegetic_music: The music adopts a more gentle, aromatic quality."
+    },
+    {
+     "caption": "彩りと配置の調整",
+     "seconds": 7,
+     "prompt": "integrated_multimodal_description: [Shot 1] The bright, bright kitchen counter, showcasing multiple partially finished curry bowls. The camera uses an eye-level medium shot, showing the composition of the bowls. The camera tracks left at slow speed as Sakura places cilantro. Sakura says: <d>[Japanese] 彩りの良いパクチーと、器の配置に気を配ることが大切なんです。</d> [Shot 2] At 00:03.000, the camera cuts to a wide shot showing Sakura adjusting the position of the bowls to look perfect. The camera tilts up slightly at slow speed to capture the entire setup. overall_soundscape: Very soft rustling sound of fresh herbs being placed. non_diegetic_music: The rhythm of the music becomes slightly more pronounced, suggesting completion."
+    },
+    {
+     "caption": "完成！最終確認",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] A wide shot of the entire plating area, featuring all the beautifully arranged curry bowls. The camera takes a sweeping arc shot from the foreground to the background, showcasing the beautiful presentation. The camera slowly rotates around the final dish. Sakura says: <d>[Japanese] さあ、これで、五感で楽しめる、完璧なタイグリーンカレーの完成です！</d> [Shot 2] At 00:04.000, the camera cuts to a stable, beautiful close-up shot of the curry and the garnish, making the dish look irresistible. The camera pushes in very slowly at slow speed. overall_soundscape: A final, satisfying sizzle and the soft, ambient sound of a perfectly plated meal. non_diegetic_music: The music hits a brief, triumphant, yet soft crescendo before fading out slightly."
+    }
+   ]
+  },
+  {
+   "name": "ステップ4：実食と今日のヒント",
+   "plan": "Sakura takes the first bite, expressing genuine delight. She talks about the perfect balance of spicy, sweet, and sour. Finally, she gives a quick tip on how to store leftover curry or how to elevate the flavor next time (e.g., adding lime juice).",
+   "seconds": 68,
+   "segments": [
+    {
+     "caption": "実食開始！一口の誘惑",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium close-up> frames <A pristine white porcelain plate holding curry and rice, set on a wooden dining table>. The camera pushes in with small amplitude at slow speed. 料理人: さくら says: <d>[Japanese] さあ、いよいよ実食です。まずは、この一杯をいただきますね。</d>. [Shot 2] At 00:05.000, the camera tracks slightly left to show the chef's hands reaching for the rice and curry. overall_soundscape: Gentle clinking of cutlery against ceramic and the soft sounds of steam escaping from the curry. non_diegetic_music: A light, uplifting piano melody with subtle ethnic instrumental flourishes."
+    },
+    {
+     "caption": "最高のバランスを堪能",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium shot> frames <Sakura sitting at a clean dining table, facing the camera, with the curry plate visible in front of her>. The camera pushes in with small amplitude at slow speed. 料理人: さくら says: <d>[Japanese] ふぅ……！まず、この香りが食欲をそそりますね。</d>. [Shot 2] At 00:04.000, the camera tracks slightly up to capture her face and her expression of delight while taking the bite. overall_soundscape: The soft, audible sound of the first bite, followed by a satisfied sigh. non_diegetic_music: The gentle, uplifting piano melody continues, building slightly in warmth."
+    },
+    {
+     "caption": "やみつきになるハーモニー",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Close-up> frames <Sakura's face, eyes closed in enjoyment, savoring the taste>. The camera slightly pans right to emphasize her reaction. 料理人: さくら says: <d>[Japanese] あっ、このスパイシーさと、甘酸っぱさが完璧に調和している！</d>. [Shot 2] At 00:07.000, the camera does a slow zoom in on her mouth as she chews happily. overall_soundscape: A subtle, echoing sound of appreciation. non_diegetic_music: The piano melody softens momentarily, emphasizing the moment of taste."
+    },
+    {
+     "caption": "複雑な風味の秘密",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium close-up> frames <Sakura sitting at the table, using her hands to gesture towards the plate>. The camera pans left slightly as she speaks. 料理人: さくら says: <d>[Japanese] スパイスの刺激と、ココナッツミルクの優しさが、たまりませんね。</d>. [Shot 2] At 00:08.000, the camera tracks slightly out to give a full view of the plate and the background. overall_soundscape: Gentle, appreciative hum of the ambient kitchen sounds. non_diegetic_music: The music subtly swells, suggesting deep satisfaction."
+    },
+    {
+     "caption": "食欲を刺激する黄金比",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium shot> frames <Sakura sitting upright, smiling confidently towards the camera, the curry plate visible>. The camera tilts down slowly from her face to the curry. 料理人: さくら says: <d>[Japanese] ただのカレーじゃなくて、心まで温まる魔法の味です。</d>. [Shot 2] At 00:05.000, the camera holds steady, allowing the viewer to focus on the vibrancy of the dish. overall_soundscape: A slight, warm 'whoosh' sound effect accompanying the word 'magic'. non_diegetic_music: The melody becomes slightly more pronounced and heartwarming."
+    },
+    {
+     "caption": "アレンジのコツをお教え！",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Overhead shot> frames <Sakura is now standing near a cutting board, pointing to a fresh lime and a small bowl of leftover curry>. The camera executes a slow arc shot around the items. 料理人: さくら says: <d>[Japanese] 最後に、美味しくアレンジするコツをお伝えします。それは「ライムの絞り」です！</d>. [Shot 2] At 00:08.000, the camera cuts to a close-up of the lime being squeezed over the curry. overall_soundscape: The crisp sound of the lime being squeezed onto the rich sauce. non_diegetic_music: A light, educational feel to the background score."
+    },
+    {
+     "caption": "さらに爽やかさUP✨",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium close-up> frames <Sakura is standing, demonstrating the technique of squeezing lime juice over the curry in a small bowl>. The camera follows her hand movements. 料理人: さくら says: <d>[Japanese] 残ったカレーに、これをちょっくろだけ垂らしてみてください。味がグッと引き締まりますよ。</d>. [Shot 2] At 00:07.000, the camera focuses intensely on the lime juice dripping into the curry. overall_soundscape: The distinct, refreshing 'drip' sound of citrus juice. non_diegetic_music: The music maintains its educational, light rhythm."
+    },
+    {
+     "caption": "またお会いしましょう！",
+     "seconds": 9,
+     "prompt": "integrated_multimodal_description: [Shot 1] <Bright, warm, cozy> <Medium full shot> frames <Sakura stands in the center of the beautifully lit kitchen, smiling brightly at the camera, with the finished meal visible nearby>. The camera slowly pushes out, widening the shot. 料理人: さくら says: <d>[Japanese] 皆さんの食卓に、タイグリーンカレーの幸せを届けたいです。また次回お会いしましょう！</d>. [Shot 2] At 00:06.000, the camera holds steady on her smiling face for a farewell moment. overall_soundscape: General cheerful kitchen ambience, and a final, satisfying clink of cutlery. non_diegetic_music: The main theme music swells to a warm, conclusive crescendo and fades out."
+    }
+   ]
+  },
+  {
+   "name": "エンディング：次回への予告",
+   "plan": "Sakura thanks the viewers and wraps up the segment, teasing the next week's delicious meal.",
+   "seconds": 27,
+   "segments": [
+    {
+     "caption": "今日のタイグリーンカレーを振り返り、視聴者に感謝を伝える。",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm, and clean aesthetic, medium shot frames Sakura standing in a modern, brightly lit kitchen, with the completed curry dish visible on the counter. The camera slowly tracks left across the ingredients and the prepared meal, settling back on Sakura. Sakura (Sakura) with a cheerful, smiling face (S1) says: <d>[Japanese] 皆さん、本日はタイグリーンカレーのコーナーにお越しいただき、本当にありがとうございました！</d> [Shot 2] At 00:00.000, the camera pushes in slightly on Sakura's face, keeping the prepared dish visible in the background.\noverall_soundscape: Gentle clinking sounds from kitchen utensils being put away, combined with the soft ambient whir of a ventilation fan.\nnon_diegetic_music: A warm, plucked ukulele melody with soft, sustained ambient pads, gradually fading out."
+    },
+    {
+     "caption": "レシピの簡単さと美味しさを再確認し、視聴者に「おうちで挑戦を」と促す。",
+     "seconds": 10,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm, and clean aesthetic, medium close-up frames Sakura, who is standing near the cooking counter with the curry dish. The camera smoothly pans right, following Sakura’s hand gesture towards the curry. Sakura (Sakura) with an encouraging expression (S1) says: <d>[Japanese] このタイカレー、見た目以上に簡単に作れますよ。ぜひお家で試してみてくださいね。</d> [Shot 2] At 00:00.000, the camera tilts down momentarily to showcase the vibrant color of the curry before rising back up to Sakura.\noverall_soundscape: A very subtle, satisfied sigh from the chef, mixed with the gentle dripping sound of condensation from a nearby kettle.\nnon_diegetic_music: The ukulele melody returns briefly, becoming slightly more upbeat and motivating, then begins to dip in volume."
+    },
+    {
+     "caption": "次週の予告と、視聴者へのお別れの挨拶を行う。",
+     "seconds": 8,
+     "prompt": "integrated_multimodal_description: [Shot 1] Bright, warm, and clean aesthetic, medium close-up frames Sakura, who is facing the camera with an excited, hopeful smile. The camera executes a slight zoom in with small amplitude at slow speed. Sakura (Sakura) with an energetic, teasing voice (S1) says: <d>[Japanese] 来週は、ランチタイムにぴったりの簡単パンケーキの焼き方をご紹介します。お楽しみに！</d> [Shot 2] At 00:00.000, the camera holds a static shot on Sakura's smile, emphasizing the tease.\noverall_soundscape: A single, gentle ‘ding’ sound effect, signaling the conclusion of the segment. No other ambient sounds.\nnon_diegetic_music: A bright, sparkling chime and a sustained, positive orchestral swell that fades rapidly to silence."
+    }
+   ]
+  }
+ ],
+ "segments_total": 36,
+ "seconds_total": 303
+}

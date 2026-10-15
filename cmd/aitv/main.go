@@ -3,7 +3,7 @@
 //	aitv produce [--count N] [--formats news,nature,...] [--minutes 6] [--width 640 --height 352 --steps 8]
 //	aitv serve  [--host 127.0.0.1] [--port 8800]        # web player + playlist + HLS files
 //	aitv hls    [--segment 2]                          # ffmpeg live HLS broadcaster (needs produced clips)
-//	aitv station [--count N] [--no-hls]                # serve + hls + produce, all in one process (24/7)
+//	aitv station [--count N] [--no-hls] [--no-produce] # serve + hls + produce, all in one process (24/7)
 //	aitv renorm [--dry-run] [--limit N]                # bring the existing library to one loudness (audio only)
 //
 // Common flags (produce, station), same names and defaults as the Python CLI so scripts/run_station.ps1
@@ -20,7 +20,9 @@
 // a goroutine that restarts it after 10 s on an error or a panic ("[aitv] HLS broadcaster crashed (...);
 // restarting in 10s"), and run the producer in a loop that recreates it 30 s after an error or a panic
 // ("[aitv] producer crashed (...); restarting in 30s"). A finished --count leaves the station playing
-// ("[aitv] production finished; station keeps playing (Ctrl+C to stop)"). Ctrl+C / SIGTERM cancels the
+// ("[aitv] production finished; station keeps playing (Ctrl+C to stop)"). --no-produce never starts the
+// producer: the library airs as it is and neither ComfyUI nor the writer LLM is contacted ("[aitv]
+// production off (--no-produce); airing the library (Ctrl+C to stop)"). Ctrl+C / SIGTERM cancels the
 // context, which the render loop consults (a running comfy.Run returns at once) and stops the ffmpeg
 // children. On Windows the producer gets a RestartComfy hook that launches powershell.exe -NoProfile
 // -ExecutionPolicy Bypass -File <root>/scripts/run_comfyui.ps1 detached, with stdout/stderr appended to
@@ -67,7 +69,7 @@ const usageText = `usage: aitv {produce,serve,hls,station,renorm,rtmp} [flags]
   aitv produce [--count N] [--formats news,nature,...] [--minutes 6] [--width 640 --height 352 --steps 8]
   aitv serve  [--host 127.0.0.1] [--port 8800]        # web player + playlist + HLS files
   aitv hls    [--segment 2]                          # ffmpeg live HLS broadcaster (needs produced clips)
-  aitv station [--count N] [--no-hls]                # serve + hls + produce, all in one process (24/7)
+  aitv station [--count N] [--no-hls] [--no-produce] # serve + hls + produce, all in one process (24/7)
   aitv renorm [--dry-run] [--limit N]                # bring the existing library to one loudness (audio only)
   aitv rtmp   --url rtmp://.../<key> [--portrait]    # push the live channel to YouTube / Twitch / TikTok (AITV_RTMP_URL)
 
@@ -127,7 +129,8 @@ type config struct {
 	host string
 	port int
 	// station
-	noHLS bool
+	noHLS     bool
+	noProduce bool
 	// rtmp (and station --rtmp)
 	rtmpOn        bool
 	rtmpURL       string
@@ -191,6 +194,7 @@ func parse(args []string) (*config, int) {
 		common()
 		web()
 		fs.BoolVar(&c.noHLS, "no-hls", false, "do not run the HLS broadcaster")
+		fs.BoolVar(&c.noProduce, "no-produce", false, "do not run the producer: air the library as it is (ComfyUI and the writer LLM are not contacted)")
 		fs.BoolVar(&c.rtmpOn, "rtmp", false, "also push the channel to the ingest in AITV_RTMP_URL (or --rtmp-url)")
 		fs.StringVar(&c.rtmpURL, "rtmp-url", os.Getenv("AITV_RTMP_URL"), "ingest URL with the stream key (prefer the AITV_RTMP_URL environment variable: the command line is visible to every process)")
 		rtmpFlags(fs, c)
@@ -401,7 +405,7 @@ func restartComfyHook(root string, log logx.Logger) func() error {
 
 // station is `aitv station`: bind the web port first (a duplicate station fails fast here: exit 1), serve
 // in a goroutine, broadcast in a self-restarting goroutine unless --no-hls, then run the producer loop on
-// this goroutine until Ctrl+C.
+// this goroutine until Ctrl+C (with --no-produce: no producer, just wait for Ctrl+C).
 func station(ctx context.Context, stop context.CancelFunc, c *config) int {
 	opt := server.Options{Host: c.host, Port: c.port}
 	l, err := server.Listen(opt)
@@ -425,7 +429,12 @@ func station(ctx context.Context, stop context.CancelFunc, c *config) int {
 			wg.Go(func() { _ = rtmp.Push(ctx, rtmpOptions(c)) }) // Push relaunches ffmpeg itself until ctx ends
 		}
 	}
-	produceForever(ctx, c)
+	if c.noProduce {
+		logx.Printf("[aitv] production off (--no-produce); airing the library (Ctrl+C to stop)")
+		<-ctx.Done()
+	} else {
+		produceForever(ctx, c)
+	}
 	// Ctrl+C: let the broadcaster stop its ffmpeg children and the server drain, but not forever; and
 	// restore default signal handling so a second Ctrl+C ends the process at once.
 	stop()

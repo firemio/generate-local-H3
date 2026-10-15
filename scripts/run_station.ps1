@@ -4,6 +4,7 @@
 #   .\scripts\run_station.ps1 -Stop      # stop the station (and ComfyUI with -All)
 #   .\scripts\run_station.ps1 -Status    # what is running
 #   .\scripts\run_station.ps1 -Rtmp -Portrait   # also push to TikTok LIVE ($env:AITV_RTMP_URL), vertical 9:16
+#   .\scripts\run_station.ps1 -NoProduce  # player + HLS only: air the library as it is (no ComfyUI, no Ollama, nothing generated)
 # Logs: output\station.log, output\station.err.log, output\comfyui.err.log
 # The station is bin\aitv.exe (Go; built by scripts\build.ps1, built here when missing). ComfyUI stays a
 # Python process (scripts\run_comfyui.ps1).
@@ -18,6 +19,7 @@ param(
     [int]$Height = 352,
     [int]$Steps = 8,
     [switch]$NoTurbo,               # skip the turbo LoRA (its weight merge can OOM-crash ComfyUI; docs/pitfalls.md)
+    [switch]$NoProduce,             # air the library as it is: no production, ComfyUI and Ollama are not started
     [string]$Formats = "",          # e.g. "news,nature" replaces the daily lineup (internal/programs Lineup)
     [double]$Minutes = 0,           # programme length override (0 = each format's own: news 6, weather 4, ...)
     [string]$LlmModel = "gemma4:latest",
@@ -83,18 +85,22 @@ if ($existing) {
     return
 }
 
-# 1. ComfyUI (only if the API is not already answering). The producer relaunches it later if it dies.
-if (-not (Test-Comfy)) {
-    Write-Host "[station] starting ComfyUI"
-    Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File",(Join-Path $Root "scripts\run_comfyui.ps1") `
-        -RedirectStandardOutput (Join-Path $Root "output\comfyui.log") -RedirectStandardError (Join-Path $Root "output\comfyui.err.log") -WindowStyle Hidden | Out-Null
-    for ($i = 0; $i -lt 90; $i++) { Start-Sleep -Seconds 2; if (Test-Comfy) { break } }
+# 1. ComfyUI (only if the API is not already answering; the producer relaunches it later if it dies) and
+# 2. Ollama (writer LLM, CPU-pinned so the iGPU stays free for H3; optional, the writer falls back to built-in
+#    scripts). Neither is needed with -NoProduce: the station then only airs what is in aitv\library.
+if ($NoProduce) {
+    Write-Host "[station] -NoProduce: nothing is generated; ComfyUI and Ollama are left as they are"
+} else {
+    if (-not (Test-Comfy)) {
+        Write-Host "[station] starting ComfyUI"
+        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File",(Join-Path $Root "scripts\run_comfyui.ps1") `
+            -RedirectStandardOutput (Join-Path $Root "output\comfyui.log") -RedirectStandardError (Join-Path $Root "output\comfyui.err.log") -WindowStyle Hidden | Out-Null
+        for ($i = 0; $i -lt 90; $i++) { Start-Sleep -Seconds 2; if (Test-Comfy) { break } }
+    }
+    Write-Host ("[station] ComfyUI: " + $(if (Test-Comfy) { "up" } else { "still starting (the producer will wait and relaunch it if needed)" }))
+    try { Invoke-RestMethod -Uri http://127.0.0.1:11434/api/tags -TimeoutSec 3 | Out-Null; Write-Host "[station] Ollama OK ($LlmModel)" }
+    catch { Write-Host "[station] Ollama not answering yet; the station retries per programme (fallback scripts meanwhile)" }
 }
-Write-Host ("[station] ComfyUI: " + $(if (Test-Comfy) { "up" } else { "still starting (the producer will wait and relaunch it if needed)" }))
-
-# 2. Ollama (writer LLM, CPU-pinned so the iGPU stays free for H3). Optional: falls back to built-in scripts.
-try { Invoke-RestMethod -Uri http://127.0.0.1:11434/api/tags -TimeoutSec 3 | Out-Null; Write-Host "[station] Ollama OK ($LlmModel)" }
-catch { Write-Host "[station] Ollama not answering yet; the station retries per programme (fallback scripts meanwhile)" }
 
 # 3. Station: web player + HLS broadcaster + production loop (forever). Build the binary when it is missing.
 if (-not (Test-Path $Exe)) {
@@ -106,6 +112,7 @@ $stationArgs = @("station", "--host", "127.0.0.1", "--port", "$Port",
 if ($Formats) { $stationArgs += @("--formats", $Formats) }
 if ($Minutes -gt 0) { $stationArgs += @("--minutes", "$Minutes") }
 if ($NoTurbo) { $stationArgs += "--no-turbo" }
+if ($NoProduce) { $stationArgs += "--no-produce" }
 if ($Rtmp) {
     # The ingest URL carries the stream key: it stays in the environment (never on the command line, never in the logs).
     if (-not $env:AITV_RTMP_URL) { Write-Host "[station] -Rtmp needs `$env:AITV_RTMP_URL (rtmp://.../<stream key>)"; return }
@@ -117,5 +124,9 @@ $p = Start-Process -FilePath $Exe -ArgumentList $stationArgs -RedirectStandardOu
         -RedirectStandardError (Join-Path $Root "output\station.err.log") -WindowStyle Hidden -PassThru
 Set-Content -Path $PidFile -Value $p.Id -Encoding ascii
 Write-Host "[station] started pid $($p.Id)  ->  http://127.0.0.1:$Port/   HLS: http://127.0.0.1:$Port/hls/live.m3u8"
-Write-Host "[station] production is ~30-60x slower than real time on this GPU (one 6-minute programme takes ~3 h at ${Width}x${Height});"
-Write-Host "[station] the day's lineup airs slot by slot; a slot whose programme is not finished yet is filled from the library."
+if ($NoProduce) {
+    Write-Host "[station] -NoProduce: airing the existing library only; nothing is generated"
+} else {
+    Write-Host "[station] production is ~30-60x slower than real time on this GPU (one 6-minute programme takes ~3 h at ${Width}x${Height});"
+    Write-Host "[station] the day's lineup airs slot by slot; a slot whose programme is not finished yet is filled from the library."
+}

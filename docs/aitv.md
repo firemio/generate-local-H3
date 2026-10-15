@@ -120,6 +120,7 @@ CM も直近の商品名を渡して別のものを作らせる。
 .\scripts\run_station.ps1 -Stop
 .\scripts\run_station.ps1 -NoTurbo   # turbo LoRA を使わない（LoRA 適用時に ComfyUI が OOM で落ちる場合、docs/pitfalls.md）
 .\scripts\run_station.ps1 -Minutes 3 # 全番組を 3 分に（1 日の周回が約 2 倍速くなる）
+.\scripts\run_station.ps1 -NoProduce # 生成なし: 既存ライブラリを流すだけ（ComfyUI も Ollama も起動しない。GPU は空く）
 ```
 
 制作速度は実時間の約 1/30（640×352）〜1/60（832×480）。**1 日回して作れる新作は 45〜50 分**で、

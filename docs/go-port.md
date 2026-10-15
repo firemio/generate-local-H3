@@ -154,6 +154,7 @@ real ffmpeg). The approach:
   while it runs.
 - `aitv station` supervises three goroutines in one process: the web server, the HLS broadcaster
   (restarted 10 s after a crash) and the producer (re-created 30 s after a crash; when ComfyUI stops
-  answering it is relaunched through `scripts/run_comfyui.ps1`, detached, no console window).
+  answering it is relaunched through `scripts/run_comfyui.ps1`, detached, no console window). `--no-produce`
+  runs only the first two: the library airs as it is and nothing talks to ComfyUI or the LLM.
 - `archive/python/` is reference only. `scripts/check_gpu.py` is still Python because it probes the
   ComfyUI venv's torch install.

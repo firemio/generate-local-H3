@@ -214,8 +214,8 @@ func TestStationFlags(t *testing.T) {
 		t.Errorf("got %+v\nwant %+v", *got, want)
 	}
 	// a bool flag in the middle does not swallow the next flag
-	got, _ = parse([]string{"station", "--no-turbo", "--formats", "news", "--no-hls", "--port", "8801"})
-	if !got.noTurbo || got.formats != "news" || !got.noHLS || got.port != 8801 {
+	got, _ = parse([]string{"station", "--no-turbo", "--formats", "news", "--no-hls", "--no-produce", "--port", "8801"})
+	if !got.noTurbo || got.formats != "news" || !got.noHLS || !got.noProduce || got.port != 8801 {
 		t.Errorf("bool flags must take no value: %+v", *got)
 	}
 	// a value with a space, given as --name=value

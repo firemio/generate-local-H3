@@ -1,10 +1,10 @@
-# ComfyUI 公式 H3 ワークフローテンプレート（参照用）
+# ComfyUI 官方 H3 工作流模板（供参照）
 
-このディレクトリの `*.json` は [Comfy-Org/workflow_templates](https://github.com/Comfy-Org/workflow_templates)
-から取得したものをそのまま置いています（MIT License, Copyright (c) Comfy Org）。
+本目录下的 `*.json` 是从 [Comfy-Org/workflow_templates](https://github.com/Comfy-Org/workflow_templates)
+原样取来的文件（MIT License, Copyright (c) Comfy Org）。
 
-`h3gen/graph.py` が組み立てる API 形式グラフの元になったノード構成を、比較できるように残してあります。
-最新版は次で取り直せます。
+它们保留了 `h3gen/graph.py` 所组装的 API 格式图最初的节点构成，便于对比。
+需要最新版时用下面的命令重新拉取。
 
 ```powershell
 foreach ($n in "video_minimax_h3_t2v","video_minimax_h3_i2v","video_minimax_h3_r2v",

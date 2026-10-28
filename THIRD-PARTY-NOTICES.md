@@ -1,15 +1,15 @@
 # Third-party notices
 
-このリポジトリ本体のコードは MIT（[LICENSE](LICENSE)）ですが、以下は別の権利者・条件のものです。
+本仓库本身的代码采用 MIT 许可（[LICENSE](LICENSE)），但以下内容属于其他权利人与条件。
 
-## 同梱しているファイル
+## 随仓库分发的文件
 
 ### `workflows/templates/*.json`
 
-ComfyUI 公式のワークフローテンプレート。参照用にそのまま置いています。
+ComfyUI 官方工作流模板。为便于参照而原样放置。
 
-- 出典: [Comfy-Org/workflow_templates](https://github.com/Comfy-Org/workflow_templates)
-- ライセンス: MIT License, Copyright (c) Comfy Org
+- 出处: [Comfy-Org/workflow_templates](https://github.com/Comfy-Org/workflow_templates)
+- 许可证: MIT License, Copyright (c) Comfy Org
 
 ### `aitv/web/hls.min.js`
 
@@ -28,25 +28,25 @@ ComfyUI 公式のワークフローテンプレート。参照用にそのまま
 
 ### `input/*.png`, `report/assets/*.mp4`, `report/assets/*.jpg`, `report/assets/*.png`
 
-MiniMax H3 で生成した動画・静止画と、そのコンタクトシートです。**MIT の対象外**で、
-モデル提供元の条件に従います。
+用 MiniMax H3 生成的视频·图片及其缩略拼图（contact sheet）。**不属于 MIT 许可范围**，
+遵循模型提供方的条件。
 
-- モデル: [MiniMaxAI/MiniMax-H3](https://huggingface.co/MiniMaxAI/MiniMax-H3)
-- ライセンス: MiniMax H3 Community License Agreement
+- 模型: [MiniMaxAI/MiniMax-H3](https://huggingface.co/MiniMaxAI/MiniMax-H3)
+- 许可证: MiniMax H3 Community License Agreement
 
-## セットアップ時に取得するもの（このリポジトリには含まれません）
+## 安装时获取的内容（不包含在本仓库中）
 
-| 対象 | 取得元 | ライセンス |
+| 对象 | 获取来源 | 许可证 |
 |---|---|---|
 | ComfyUI | [comfyanonymous/ComfyUI](https://github.com/comfyanonymous/ComfyUI) | GPL-3.0 |
-| MiniMax H3 の重み | [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) | MiniMax H3 Community License Agreement |
-| PyTorch (ROCm, gfx1151) | [repo.amd.com/rocm/whl/gfx1151](https://repo.amd.com/rocm/whl/gfx1151/) | BSD-3-Clause + AMD ROCm の各ライセンス |
-| comfy-kitchen ほか ComfyUI の依存 | PyPI | 各パッケージの表示に従う |
+| MiniMax H3 权重 | [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) | MiniMax H3 Community License Agreement |
+| PyTorch (ROCm, gfx1151) | [stable.repo.amd.com/rocm/whl-next](https://stable.repo.amd.com/rocm/whl-next/)（`torch[device-gfx1151]`） | BSD-3-Clause + AMD ROCm 各项许可 |
+| comfy-kitchen 及其他 ComfyUI 依赖 | PyPI | 遵循各包自身的声明 |
 
-`scripts/setup.ps1` と `scripts/download_models.ps1` はこれらを取得するだけで、再配布はしません。
-MiniMax H3 の重みを使うには、配布元の利用条件（地域によっては申請が必要）を各自で確認してください。
+`scripts/setup.ps1` 与 `scripts/download_models.ps1` 只负责获取这些内容，不做再分发。
+使用 MiniMax H3 权重前，请自行确认分发方的使用条件（部分地区需要申请）。
 
-## 参考にした資料
+## 参考资料
 
-- 松尾公也「[MiniMax H3 高速化プロジェクト](https://www.techno-edge.net/article/2026/09/06/5468.html)」テクノエッジ, 2026-09-06
+- 松尾公也《[MiniMax H3 提速项目](https://www.techno-edge.net/article/2026/09/06/5468.html)》，TechNode, 2026-09-06
 - [matsuo-koya/minimax-h3-notes](https://github.com/matsuo-koya/minimax-h3-notes) (MIT)

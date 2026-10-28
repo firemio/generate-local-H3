@@ -108,6 +108,10 @@ type GenSpec struct {
 	RefImages    []string
 	RefAudios    []string
 	RefImageSize string // "match" | "max"
+	// ClipDevice is CLIPLoader's device ("default" or "cpu"). "cpu" keeps the 26 GB text encoder out of
+	// VRAM: long clips at 832x480 otherwise push HIGH_VRAM past the per-process cap, ComfyUI unloads the
+	// resident INT8 DiT and on ROCm 10 that unload faults (docs/pitfalls.md §8).
+	ClipDevice string
 	// FilenamePrefix is SaveVideo's filename_prefix ("h3/h3" for the CLI, "aitv/seg" for the station).
 	FilenamePrefix string
 	// Files overrides DefaultFiles entries (a copy of DefaultFiles by default).
@@ -149,6 +153,14 @@ func (s GenSpec) file(key string) string {
 		return v
 	}
 	return DefaultFiles[key]
+}
+
+// clipDevice is CLIPLoader's device: "cpu" only when asked for, else "default" (see GenSpec.ClipDevice).
+func (s GenSpec) clipDevice() string {
+	if s.ClipDevice == "cpu" {
+		return "cpu"
+	}
+	return "default"
 }
 
 // Input is one entry of a node's inputs.
@@ -309,7 +321,7 @@ func Build(spec GenSpec) Graph {
 	g := Graph{}
 
 	g.Set("unet", Node{"UNETLoader", Inputs{{"unet_name", unet}, {"weight_dtype", "default"}}})
-	g.Set("clip", Node{"CLIPLoader", Inputs{{"clip_name", spec.file("clip")}, {"type", "minimax"}, {"device", "default"}}})
+	g.Set("clip", Node{"CLIPLoader", Inputs{{"clip_name", spec.file("clip")}, {"type", "minimax"}, {"device", spec.clipDevice()}}})
 	g.Set("vae_v", Node{"VAELoader", Inputs{{"vae_name", spec.file("vae_video")}}})
 	g.Set("vae_a", Node{"VAELoader", Inputs{{"vae_name", spec.file("vae_audio")}}})
 

@@ -11,7 +11,8 @@
 // 0.4 draft, 1.0 native), --width/--height (both required to override --aspect/--mp), --seconds 5, --seed 0
 // (up to 2^64-1), --steps 8, --no-turbo, --lora-strength 1, --shift-video, --shift-audio, --attention
 // ("pytorch attention" | "comfy kitchen attention"), --scheduler simple, --first-frame, --last-frame,
-// --ref-image (repeatable), --ref-audio (repeatable), --ref-image-size match|max, --unet, --clip, --prefix
+// --ref-image (repeatable), --ref-audio (repeatable), --ref-image-size match|max, --unet, --clip, --clip-device
+// default|cpu, --prefix
 // h3/h3, --download-dir, --tag, --dry-run (print the API graph as indented JSON and exit). bench adds --runs 2
 // and uses a default beach prompt when none is given (seed increments per run; stops at the first failure,
 // prints cold/warm mean).
@@ -140,6 +141,7 @@ type genOpts struct {
 	refImageSize string
 	unet         string
 	clip         string
+	clipDevice   string
 	prefix       string
 	downloadDir  string
 	tag          string
@@ -149,7 +151,7 @@ type genOpts struct {
 
 // parseGen parses the gen / bench command line. It returns (nil, code) when there is nothing to run.
 func parseGen(cmd string, args []string) (*genOpts, int) {
-	o := &genOpts{mode: "t2v", refImageSize: "match"}
+	o := &genOpts{mode: "t2v", refImageSize: "match", clipDevice: "default"}
 	fs := flag.NewFlagSet("h3gen "+cmd, flag.ContinueOnError)
 	fs.StringVar(&o.host, "host", envOr("COMFY_HOST", "127.0.0.1"), "ComfyUI host (COMFY_HOST)")
 	fs.IntVar(&o.port, "port", envInt("COMFY_PORT", 8188), "ComfyUI port (COMFY_PORT)")
@@ -177,6 +179,8 @@ func parseGen(cmd string, args []string) (*genOpts, int) {
 	fs.Var(choice{&o.refImageSize, []string{"match", "max"}}, "ref-image-size", "match | max")
 	fs.StringVar(&o.unet, "unet", "", "override diffusion model filename")
 	fs.StringVar(&o.clip, "clip", "", "override text encoder filename")
+	fs.Var(choice{&o.clipDevice, []string{"default", "cpu"}}, "clip-device",
+		"default | cpu (cpu keeps the 26 GB text encoder out of VRAM; see docs/pitfalls.md §8)")
 	fs.StringVar(&o.prefix, "prefix", "h3/h3", "SaveVideo filename_prefix")
 	fs.StringVar(&o.downloadDir, "download-dir", "", "copy outputs here via /view (only needed for a remote ComfyUI)")
 	fs.StringVar(&o.tag, "tag", "", "free-form label written to runs.jsonl")
@@ -315,6 +319,7 @@ func specFromArgs(o *genOpts, client *comfy.Client) (comfy.GenSpec, error) {
 	spec.Attention = o.attention
 	spec.Scheduler = o.scheduler
 	spec.RefImageSize = o.refImageSize
+	spec.ClipDevice = o.clipDevice
 	spec.FilenamePrefix = o.prefix
 	spec.Files = maps.Clone(comfy.DefaultFiles)
 	if o.unet != "" {

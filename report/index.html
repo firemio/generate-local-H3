@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MiniMax H3 on EVO-X2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+SC:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root {
   --bg:#f2f4f6; --surface:#ffffff; --ink:#17212b; --ink-2:#4b5865; --line:#d6dce3; --line-2:#e7ebef;
@@ -26,7 +26,7 @@
 }
 * { box-sizing:border-box }
 html { font-size:16px }
-body { margin:0; background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans JP","Hiragino Sans","Noto Sans JP",system-ui,sans-serif; line-height:1.7; -webkit-font-smoothing:antialiased }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans SC","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif; line-height:1.7; -webkit-font-smoothing:antialiased }
 .wrap { max-width:1080px; margin:0 auto; padding:40px 24px 80px }
 header { border-bottom:2px solid var(--ink); padding-bottom:20px; margin-bottom:28px }
 .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:500 }
@@ -86,136 +86,129 @@ footer { margin-top:50px; padding-top:16px; border-top:1px solid var(--line); fo
 <body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">検証レポート · 2026-09-10 23:41</div>
-  <h1>MiniMax H3 をローカルで動かす — GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S）· Windows · ROCm</h1>
-  <p class="lede">テクノエッジ 2026/09/06 の松尾公也氏の記事（RTX 5090 で MiniMax H3 を高速化）を、NVIDIA GPU の無い AMD Strix Halo ミニPC・Windows 11 で再現し、さらにローカル LLM と組み合わせた「AIテレビ局」まで動かした記録。</p>
-  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ 61a2ca9</span><span>元記事: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
+  <div class="eyebrow">验证报告 · 2026-10-19 07:42</div>
+  <h1>在本地运行 MiniMax H3 — GMKtec EVO-X2（Ryzen AI Max+ 395 / Radeon 8060S）· Windows · ROCm</h1>
+  <p class="lede">这是把 TechNode 2026/09/06 松尾公也的文章（在 RTX 5090 上对 MiniMax H3 提速）复现在一台没有 NVIDIA GPU 的 AMD Strix Halo 迷你主机 · Windows 11 上，并进一步结合本地 LLM 跑通「AI 电视台」的记录。</p>
+  <div class="meta"><span>repo: <a href="https://github.com/firemio/generate-local-H3">github.com/firemio/generate-local-H3</a> @ 5a33473</span><span>原文: <a href="https://www.techno-edge.net/article/2026/09/06/5468.html">techno-edge.net/article/2026/09/06/5468</a></span></div>
 </header>
 
 <div class="verdict">
-  <div><b>動作</b><span class="ok">T2V / I2V / R2V すべて成功。日本語セリフ付き・音声同時生成。</span></div>
-  <div><b>速度</b><span>832×480 · 5.2 s のクリップが約 4.8 分（INT8 attention で 2.2 倍高速化）。640×352 なら 2.4 分。</span></div>
-  <div><b>AIテレビ局</b><span>LLM 台本 → H3 生成 → Web プレイヤー / HLS 配信のループが完全ローカルで稼働。</span></div>
+  <div><b>可用性</b><span class="ok">T2V / I2V / R2V 全部成功。带日语台词，音频与画面同时生成。</span></div>
+  <div><b>速度</b><span>832×480 · 5.2 s 的片段约需 4.8 分钟（INT8 attention 提速 2.2 倍）。640×352 则为 2.4 分钟。</span></div>
+  <div><b>AI 电视台</b><span>LLM 台本 → H3 生成 → Web 播放器 / HLS 播出的循环完全在本地运行。</span></div>
 </div>
 
-<h2><small>01 · 環境</small>検証環境</h2>
-<div class="tbl"><table class="env"><tr><th>PC</th><td>GMKtec NucBox EVO-X2</td></tr><tr><th>APU</th><td>AMD Ryzen AI MAX+ 395 (16C/32T) / Radeon 8060S iGPU, gfx1151 (RDNA 3.5, 40 CU)</td></tr><tr><th>メモリ</th><td>128 GB LPDDR5x — BIOS で 96 GB を iGPU 専用 VRAM に割当（Windows 側 32 GB）</td></tr><tr><th>OS</th><td>Windows 11-10.0.26200-SP0</td></tr><tr><th>GPU ドライバ</th><td>AMD 32.0.31041.1004（2026-08-17, Adrenalin 26.8 系）</td></tr><tr><th>Python</th><td>3.12.10（uv 管理の venv）</td></tr><tr><th>PyTorch</th><td>2.11.0+rocm7.13.0  (HIP 7.13.99004)  ← repo.amd.com/rocm/whl/gfx1151/</td></tr><tr><th>ComfyUI</th><td>v0.35.0 + comfy-kitchen 0.2.33（hip バックエンド: int8_linear / sol_attn / adaln）</td></tr><tr><th>モデル</th><td>Comfy-Org/MiniMax-H3: fl2va &amp; ref2va pruned int8_convrot (21 GB each), Qwen3-VL-32B int8_convrot TE (27 GB), video VAE fp16, audio VAE fp32, turbo LoRAs</td></tr><tr><th>起動フラグ</th><td>--highvram --bf16-unet --use-ck-attention --disable-pinned-memory --reserve-vram 2</td></tr></table></div>
+<h2><small>01 · 环境</small>验证环境</h2>
+<div class="tbl"><table class="env"><tr><th>PC</th><td>GMKtec NucBox EVO-X2</td></tr><tr><th>APU</th><td>AMD Ryzen AI MAX+ 395 (16C/32T) / Radeon 8060S iGPU, gfx1151 (RDNA 3.5, 40 CU)</td></tr><tr><th>内存</th><td>128 GB LPDDR5x — BIOS 中划 96 GB 作 iGPU 专用 VRAM（Windows 侧 32 GB）</td></tr><tr><th>OS</th><td>Windows 11-10.0.26300-SP0</td></tr><tr><th>GPU 驱动</th><td>AMD 32.0.31041.1004（2026-08-17, Adrenalin 26.8 系）</td></tr><tr><th>Python</th><td>3.12.13（uv 管理的 venv）</td></tr><tr><th>PyTorch</th><td>2.11.0+rocm10.0.0  (HIP 7.15.26333)  ← repo.amd.com/rocm/whl/gfx1151/</td></tr><tr><th>ComfyUI</th><td>v0.35.0 + comfy-kitchen 0.2.33（hip 后端: int8_linear / sol_attn / adaln）</td></tr><tr><th>模型</th><td>Comfy-Org/MiniMax-H3: fl2va &amp; ref2va pruned int8_convrot (21 GB each), Qwen3-VL-32B int8_convrot TE (27 GB), video VAE fp16, audio VAE fp32, turbo LoRAs</td></tr><tr><th>启动参数</th><td>--highvram --bf16-unet --use-ck-attention --disable-pinned-memory --reserve-vram 2</td></tr></table></div>
 
-<h2><small>02 · 手順</small>再現手順（リポジトリの scripts/ に集約）</h2>
-<div class="step"><b>1. ROCm 版 PyTorch（Windows ネイティブ、WSL・HIP SDK 不要）</b>
+<h2><small>02 · 步骤</small>复现步骤（都集中在仓库的 scripts/ 下）</h2>
+<div class="step"><b>1. ROCm 版 PyTorch（Windows 原生，不需要 WSL、HIP SDK）</b>
 <pre>uv venv .venv --python 3.12 --seed
 .\.venv\Scripts\python.exe -m pip install --index-url https://repo.amd.com/rocm/whl/gfx1151/ ^
     "torch==2.11.0+rocm7.13.0" "torchvision==0.26.0+rocm7.13.0" "torchaudio==2.11.0+rocm7.13.0"</pre></div>
-<div class="step"><b>2. ComfyUI v0.35.0</b>（H3 ネイティブ対応・comfy-kitchen 0.2.33 の hip バックエンドで INT8 が動く）
+<div class="step"><b>2. ComfyUI v0.35.0</b>（原生支持 H3，comfy-kitchen 0.2.33 的 hip 后端下 INT8 可跑）
 <pre>git clone --depth 1 --branch v0.35.0 https://github.com/comfyanonymous/ComfyUI.git
-pip install -r ComfyUI\requirements.txt   # torch 行を除いて入れ、AMD index から torch を再インストール</pre></div>
-<div class="step"><b>3. モデル（Comfy-Org/MiniMax-H3、約 58 GB + ref2va 21 GB）</b>
+pip install -r ComfyUI\requirements.txt   # 安装时去掉 torch 三行，再从 AMD index 重装 torch</pre></div>
+<div class="step"><b>3. 模型（Comfy-Org/MiniMax-H3，约 58 GB + ref2va 21 GB）</b>
 <pre>.\scripts\download_models.ps1 -Ref2VA</pre></div>
-<div class="step"><b>4. 起動と生成</b>
+<div class="step"><b>4. 启动与生成</b>
 <pre>.\scripts\run_comfyui.ps1      # --highvram --bf16-unet --use-ck-attention --disable-pinned-memory --reserve-vram 2
 .\.venv\Scripts\python.exe -m h3gen gen --prompt "..." --width 832 --height 480 --seconds 5 --steps 8</pre></div>
-<p><code>scripts/setup.ps1</code> が 1〜2 をまとめて実行する。<code>h3gen</code> は公式テンプレートと同じノードグラフ（UNETLoader → Turbo LoRA → BasicGuider / BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo 24 fps → SaveVideo）を API 形式で組み立て、WebSocket の <code>executing</code> イベント間隔でノード別の所要時間を記録する（記事の profile_nodes.py と同じ考え方）。</p>
+<p><code>scripts/setup.ps1</code> 把第 1〜2 步一次做完。<code>h3gen</code> 按官方模板的节点图（UNETLoader → Turbo LoRA → BasicGuider / BasicScheduler(res_multistep, simple) → SamplerCustomAdvanced → VAEDecode + VAEDecodeAudio → CreateVideo 24 fps → SaveVideo）组装成 API 格式，并用 WebSocket 的 <code>executing</code> 事件间隔记录各节点耗时（与文章中 profile_nodes.py 思路相同）。</p>
 
-<h2><small>03 · 計測</small>速度（8-step Turbo LoRA、INT8 DiT + INT8 テキストエンコーダ）</h2>
-<p>1 ステップあたりのサンプリング時間。赤が採用構成。</p>
-<div class="bars"><div class="bar"><span class="lbl">832×480 · 124f · pytorch SDPA (aotriton)</span><span class="trk"><i class="b" style="width:100.0%"></i></span><span class="val">71.4 s</span></div><div class="bar"><span class="lbl">832×480 · 124f · INT8 attention (ck/hip)</span><span class="trk"><i class="a" style="width:38.9%"></i></span><span class="val">27.8 s</span></div><div class="bar"><span class="lbl">832×480 · 124f · INT8 · ROCm 10.0</span><span class="trk"><i class="b" style="width:42.6%"></i></span><span class="val">30.4 s</span></div><div class="bar"><span class="lbl">832×480 · 158f · INT8 · 日本語セリフ</span><span class="trk"><i class="a" style="width:55.9%"></i></span><span class="val">39.9 s</span></div><div class="bar"><span class="lbl">832×480 · 158f · INT8 · R2V (参照画像+音声)</span><span class="trk"><i class="a" style="width:68.9%"></i></span><span class="val">49.2 s</span></div><div class="bar"><span class="lbl">640×352 · 124f · INT8</span><span class="trk"><i class="a" style="width:18.8%"></i></span><span class="val">13.4 s</span></div></div>
+<h2><small>03 · 测量</small>速度（8-step Turbo LoRA，INT8 DiT + INT8 文本编码器）</h2>
+<p>每一步的采样时间。红色为采用的配置。</p>
+<div class="bars"><div class="bar"><span class="lbl">832×480 · 124f · pytorch SDPA (aotriton)</span><span class="trk"><i class="b" style="width:100.0%"></i></span><span class="val">71.4 s</span></div><div class="bar"><span class="lbl">832×480 · 124f · INT8 attention (ck/hip)</span><span class="trk"><i class="a" style="width:38.9%"></i></span><span class="val">27.8 s</span></div><div class="bar"><span class="lbl">832×480 · 124f · INT8 · ROCm 10.0</span><span class="trk"><i class="b" style="width:42.6%"></i></span><span class="val">30.4 s</span></div><div class="bar"><span class="lbl">832×480 · 158f · INT8 · 日语句</span><span class="trk"><i class="a" style="width:55.9%"></i></span><span class="val">39.9 s</span></div><div class="bar"><span class="lbl">832×480 · 158f · INT8 · R2V (参考图像+音频)</span><span class="trk"><i class="a" style="width:68.9%"></i></span><span class="val">49.2 s</span></div><div class="bar"><span class="lbl">640×352 · 124f · INT8</span><span class="trk"><i class="a" style="width:18.8%"></i></span><span class="val">13.4 s</span></div></div>
 <div class="tbl"><table>
-<tr><th>mode</th><th>解像度</th><th>長さ</th><th>attention</th><th>stack</th><th>TE 読込</th><th>sampling</th><th>VAE dec</th><th>合計</th><th>tag</th></tr>
-<tr><td>t2v</td><td class=n>832×480</td><td class=n>124 f <span class=dim>(5.2 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>571<span class=dim> (71.4/step)</span></td><td class=n>59</td><td class=n><b>636</b></td><td class=tag>draft-832x480-5s</td></tr>
-<tr><td>t2v</td><td class=n>832×480</td><td class=n>124 f <span class=dim>(5.2 s)</span></td><td>INT8 (ck)</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>223<span class=dim> (27.8/step)</span></td><td class=n>59</td><td class=n><b>603</b></td><td class=tag>draft-832x480-5s-ckattn</td></tr>
-<tr><td>t2v</td><td class=n>832×480</td><td class=n>158 f <span class=dim>(6.6 s)</span></td><td>INT8 (ck)</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>319<span class=dim> (39.9/step)</span></td><td class=n>76</td><td class=n><b>616</b></td><td class=tag>news-anchor-ja-832x480-6s-ck</td></tr>
-<tr><td>t2v</td><td class=n>640×352</td><td class=n>124 f <span class=dim>(5.2 s)</span></td><td>INT8 (ck)</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>108<span class=dim> (13.4/step)</span></td><td class=n>29</td><td class=n><b>142</b></td><td class=tag>draft-640x352-5s-ck</td></tr>
-<tr><td>t2v</td><td class=n>832×480</td><td class=n>124 f <span class=dim>(5.2 s)</span></td><td>INT8 (ck)</td><td>ROCm 10.0</td><td class=n>26</td><td class=n>273<span class=dim> (34.1/step)</span></td><td class=n>50</td><td class=n><b>364</b></td><td class=tag>rocm10-832x480-5s-ck-cold</td></tr>
-<tr><td>i2v</td><td class=n>832×480</td><td class=n>124 f <span class=dim>(5.2 s)</span></td><td>INT8 (ck)</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>243<span class=dim> (30.3/step)</span></td><td class=n>36</td><td class=n><b>298</b></td><td class=tag>i2v-anchor-continuation-832x480-5s</td></tr>
-<tr><td>r2v</td><td class=n>832×480</td><td class=n>158 f <span class=dim>(6.6 s)</span></td><td>INT8 (ck)</td><td>ROCm 7.13</td><td class=n>26</td><td class=n>394<span class=dim> (49.2/step)</span></td><td class=n>73</td><td class=n><b>530</b></td><td class=tag>r2v-anchor-identity-voice-832x480-6s</td></tr>
+<tr><th>mode</th><th>分辨率</th><th>时长</th><th>attention</th><th>stack</th><th>TE 加载</th><th>sampling</th><th>VAE dec</th><th>合计</th><th>tag</th></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>29</td><td class=n>514<span class=dim> (25.7/step)</span></td><td class=n>42</td><td class=n><b>599</b></td><td class=tag>first-run-noturbo</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>29</td><td class=n>516<span class=dim> (25.8/step)</span></td><td class=n>44</td><td class=n><b>603</b></td><td class=tag>commit-probe</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>206<span class=dim> (25.7/step)</span></td><td class=n>33</td><td class=n><b>243</b></td><td class=tag>turbo-attempt</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>40</td><td class=n>517<span class=dim> (25.9/step)</span></td><td class=n>47</td><td class=n><b>625</b></td><td class=tag>skill-verify</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>31</td><td class=n>243<span class=dim> (30.4/step)</span></td><td class=n>50</td><td class=n><b>341</b></td><td class=tag>S01-mp06-turbo</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>202<span class=dim> (25.3/step)</span></td><td class=n>34</td><td class=n><b>244</b></td><td class=tag>S11-mp06-turbo</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>107 f <span class=dim>(4.5 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>–</td><td class=n>201<span class=dim> (25.2/step)</span></td><td class=n>34</td><td class=n><b>244</b></td><td class=tag>S01-v2-turbo</td></tr>
+<tr><td>t2v</td><td class=n>832×480</td><td class=n>362 f <span class=dim>(15.1 s)</span></td><td>SDPA</td><td>ROCm 7.13</td><td class=n>1</td><td class=n>1,287<span class=dim> (160.8/step)</span></td><td class=n>114</td><td class=n><b>2,182</b></td><td class=tag>amina-bridge-15s-832x480-clipcpu</td></tr>
 </table></div>
 <ul>
-<li><b>INT8 アテンション</b>（ComfyUI の <code>--use-ck-attention</code> / ModelAttentionBackend）: comfy-kitchen の hip バックエンドが gfx1151 の WMMA を使い、pytorch SDPA（aotriton）比で <b>2.6 倍</b>（71.4 → 27.8 s/step）。同一シードで画質は同等。</li>
-<li>初回のみモデル読込（TE 26 GB + DiT 20 GB + VAE 5.5 GB ≈ 60〜90 s）。以後は <code>--highvram</code> で常駐。ピーク VRAM 約 78 GB、1 プロセスの確保上限は約 85 GB。</li>
-<li>VAE デコードが全体の 20〜25 %（832×480×124f で 59 s）。記事の「サンプリング 84 % / VAE 11〜17 %」と同じ傾向。</li>
-<li>ROCm 10.0.0（torch 2.13, 2026-08 GA）でも動作: サンプリング約 10 % 遅く、VAE デコードは約 16 % 速い。既定は実績優先で 7.13。</li>
-<li>参考: 記事の RTX 5090 は 1280×704 の 12 秒級クリップが 79 s。本機は 832×480 · 5 秒で約 285 s — ざっくり 1 桁遅いが、ローカル完結・ユニファイドメモリ 96 GB で 33B モデルを丸ごと常駐できる。</li>
+<li><b>INT8 attention</b>（ComfyUI 的 <code>--use-ck-attention</code> / ModelAttentionBackend）：comfy-kitchen 的 hip 后端使用 gfx1151 的 WMMA，相比 pytorch SDPA（aotriton）<b>快 2.6 倍</b>（71.4 → 27.8 s/step）。同一随机种子下画质相当。</li>
+<li>仅首次需要加载模型（TE 26 GB + DiT 20 GB + VAE 5.5 GB ≈ 60〜90 s）。之后由 <code>--highvram</code> 常驻。峰值 VRAM 约 78 GB，单进程可分配上限约 85 GB。</li>
+<li>VAE 解码占整体的 20〜25 %（832×480×124f 时为 59 s）。与文章中「采样 84 % / VAE 11〜17 %」的趋势一致。</li>
+<li>在 ROCm 10.0.0（torch 2.13, 2026-08 GA）下同样可用：采样慢约 10 %，VAE 解码快约 16 %。默认为稳妥起见仍用 7.13。</li>
+<li>参考：文章中 RTX 5090 生成 1280×704 的 12 秒级片段只需 79 s。本机 832×480 · 5 秒约需 285 s —— 大约慢一个数量级，但完全本地运行，并且能用 96 GB 统一内存把 33B 模型整体常驻。</li>
 </ul>
 
-<h2><small>04 · 成果物</small>生成サンプル</h2>
+<h2><small>04 · 成果物</small>生成样例</h2>
 <div class="samples">
 <figure class="sample">
   <video controls preload="metadata" playsinline src="assets/run4_832x480_5s_beach_ckattn.mp4" poster="assets/run4_contact.png"></video>
-  <figcaption><b>T2V 832×480 · 5.2 s · INT8 attention</b><span>浜辺を走るゴールデンレトリバー。波・風・カモメの環境音をモデルが同時生成。サンプリング 223 s。</span></figcaption>
+  <figcaption><b>T2V 832×480 · 5.2 s · INT8 attention</b><span>金毛犬在海滩奔跑。海浪、风声、海鸥的环境音由模型同时生成。采样 223 s。</span></figcaption>
 </figure>
 
 <figure class="sample">
   <video controls preload="metadata" playsinline src="assets/run5_news_anchor_ja_832x480_6.6s.mp4" poster="assets/run5_contact.png"></video>
-  <figcaption><b>T2V 832×480 · 6.6 s · 日本語セリフ</b><span>「こんばんは、AIニュースの時間です。」— H3 のネイティブ音声（32 kHz ステレオ）で日本語を発話。口の動きも同期。</span></figcaption>
+  <figcaption><b>T2V 832×480 · 6.6 s · 日语句</b><span>「晚上好，欢迎收看 AI 新闻。」— 由 H3 的原生音频（32 kHz 立体声）念出日语，口型同步。</span></figcaption>
 </figure>
 
 <figure class="sample">
   <video controls preload="metadata" playsinline src="assets/run8_i2v_anchor_continuation.mp4" poster="assets/run8_contact.png"></video>
-  <figcaption><b>I2V 832×480 · 5.2 s · 前クリップ最終フレームから継続</b><span>上のクリップの最終フレームを first_frame に渡し、「まず、今日の主なニュースです。」と続けさせた。同一人物・同一セットを維持。</span></figcaption>
+  <figcaption><b>I2V 832×480 · 5.2 s · 从上一段末帧续接</b><span>把上一段的最后一帧作为 first_frame 传入，让它接着说「首先，是今天的主要新闻。」。人物与场景保持一致。</span></figcaption>
 </figure>
 
 <figure class="sample">
   <video controls preload="metadata" playsinline src="assets/run9_r2v_anchor_weather.mp4" poster="assets/run9_contact.png"></video>
-  <figcaption><b>R2V 832×480 · 6.6 s · 参照画像＋参照音声</b><span><Picture 1>（アンカーの静止画）と <Audio 1>（同アンカーの声）を参照に、天気図の前で「続いて、明日のお天気です。」。人物の同一性と声質を引き継ぐ。画面内の文字は崩れる（既知の制限）。</span></figcaption>
+  <figcaption><b>R2V 832×480 · 6.6 s · 参考图像＋参考音频</b><span><Picture 1>（主播的静态图）与 <Audio 1>（同一位主播的声音）作为参考，在天气图前说「接下来是明天的天气。」。继承人物同一性与音色。画面内文字会崩（已知限制）。</span></figcaption>
 </figure></div>
 
-<h2><small>05 · 応用</small>AIテレビ局（aitv）</h2>
+<h2><small>05 · 应用</small>AI 电视台（aitv）</h2>
 
-<p>ローカル LLM（Ollama / gemma4、CPU 実行で iGPU を H3 に譲る）が番組フォーマット（ニュース・天気・自然ドキュメンタリー・CM・料理・音楽・ステーションID）ごとに H3 形式のプロンプトを JSON で書き、<code>h3gen</code> が ComfyUI に投げ、ffmpeg で H.264/AAC に正規化してライブラリへ追加。Web プレイヤーは新着順に連続再生し、ffmpeg の HLS ブロードキャスタが <code>/hls/live.m3u8</code> で 24 時間ストリームを流し続ける。</p>
-<pre class="diagram">番組表(重み付き乱択) ─▶ LLM 台本 (JSON: title / segments[caption, seconds, prompt])
-                              │  &lt;d&gt;[Japanese] …&lt;/d&gt; を自動補正
+<p>本地 LLM（Ollama / gemma4，跑在 CPU 上把 iGPU 让给 H3）按节目格式（新闻 / 天气 / 自然纪录片 / 广告 / 料理 / 音乐 / 台标 ID）分别写出 H3 格式的提示词 JSON，由 <code>h3gen</code> 提交给 ComfyUI，再用 ffmpeg 规范化为 H.264/AAC 后加入素材库。Web 播放器按新到顺序连续播放，ffmpeg 的 HLS 广播进程通过 <code>/hls/live.m3u8</code> 持续推流 24 小时。</p>
+<pre class="diagram">节目单(加权随机) ─▶ LLM 台本 (JSON: title / segments[caption, seconds, prompt])
+                              │  自动补正 &lt;d&gt;[Japanese] …&lt;/d&gt;
                               ▼
                      h3gen → ComfyUI (/prompt, /ws)  ── 832×480 · 8-step turbo · INT8
-                              │  ~5 分 / 6 秒クリップ
+                              │  ~5 分 / 6 秒片段
                               ▼
                ffmpeg normalize → aitv/library/*.mp4 + index.json
                               │
               ┌───────────────┴───────────────┐
               ▼                               ▼
-   aitv.server :8800  (プレイヤー)      aitv.hls (ffmpeg -re → HLS)
+   aitv.server :8800  (播放器)          aitv.hls (ffmpeg -re → HLS)
    /playlist.json, /clips/…            /hls/live.m3u8  (VLC / OBS / hls.js)</pre>
-<figure class="shot"><img src="assets/aitv_player.png" alt="EVO-X2 TV プレイヤー画面"><figcaption>ブラウザのプレイヤー（http://127.0.0.1:8800/）。ライブラリの新着クリップから順に再生し、下部のティッカーに各番組のキャプションを流す。</figcaption></figure>
-<h3>24 時間運用の現実</h3>
-<p>制作は実時間の約 1/60（6.6 秒のクリップに約 400 秒）なので、1 日回しても新作は約 25 分ぶん。放送局として止まらないことと、毎日 24 時間ぶんの新作ができることは別で、後者はこの GPU では無理。配信側は「まだ流していないクリップを新しい順に即座に流す → 無ければ直近を避けつつ新しいものほど重みを高くしたランダム選択」という並び順で、固定ループに見えないようにしている（<code>aitv/hls.py: pick_next</code>、プレイヤーも同じ方針）。<code>scripts/run_station.ps1</code> で ComfyUI・プレイヤー・HLS・制作ループを常駐起動する（<code>-Status</code> / <code>-Stop</code> / <code>-Restart</code>）。</p>
-<p>数日の連続運転を前提にコードをレビューし、確認できた不具合を直した。主なものは、HLS エンコーダが落ちたときに remux が排出先を失ってブロックし復帰処理に到達しない件、<code>-fflags +igndts</code> がクリップ境界以降のタイムスタンプを潰していた件（実測 71 % のフレーム。<code>+genpts</code> のみにして 1/24 秒刻みに復帰）、<code>index.json</code> の置き換えが Windows の共有違反で失敗し約 400 秒かけたクリップが索引に載らない件、HIP ハング時も <code>/system_stats</code> が応答するため生成が無期限に止まる件（無反応タイムアウトと <code>/interrupt</code> を追加）、停止スクリプトがコマンドライン部分一致で無関係なプロセスまで落としていた件。詳細は <code>docs/aitv.md</code>。</p>
-<h3>制作ログ（実走）</h3>
-<pre class="log">[aitv] writer LLM: gemma4:latest @ http://127.0.0.1:11434
-[aitv] === AIニュース: EVO-X2 TV - AIニュース速報 (3 seg)
-[aitv] + news-20260910-182422-72da74.mp4  (6.6s clip, rendered in 481s, sampling 351s) 「今日のトップニュース」
-[aitv] + news-20260910-183059-58a8f3.mp4  (6.6s clip, rendered in 397s, sampling 314s) 「革新的エネルギー技術」
-[aitv] + news-20260910-183736-d7608d.mp4  (6.6s clip, rendered in 396s, sampling 314s) 「地域の緑化活動」
-[aitv] === CM: オーロラベリーブースト CM (1 seg)
-[aitv] + cm-20260910-184522-64ba79.mp4  (6.6s clip, rendered in 399s, sampling 316s) 「太陽とベリーの魔法！」
-[aitv] === ステーションID: Station Ident: EVO-X2 TV (1 seg)
-[aitv] + ident-20260910-185023-9ef62c.mp4  (4.5s clip, rendered in 238s, sampling 183s) 「EVO-X2 TV ローカルAI放送局」</pre>
-<h3>生成された番組クリップ</h3>
-<div class="samples"><figure class="sample small"><video controls preload="metadata" playsinline src="assets/sample_news-20260910-182422-72da74.mp4"></video><figcaption><b>EVO-X2 TV - AIニュース速報</b><span>今日のトップニュース</span></figcaption></figure><figure class="sample small"><video controls preload="metadata" playsinline src="assets/sample_cm-20260910-184522-64ba79.mp4"></video><figcaption><b>オーロラベリーブースト CM</b><span>太陽とベリーの魔法！</span></figcaption></figure><figure class="sample small"><video controls preload="metadata" playsinline src="assets/sample_ident-20260910-185023-9ef62c.mp4"></video><figcaption><b>Station Ident: EVO-X2 TV</b><span>EVO-X2 TV ローカルAI放送局</span></figcaption></figure></div>
+<figure class="shot"><img src="assets/aitv_player.png" alt="EVO-X2 TV 播放器画面"><figcaption>浏览器播放器（http://127.0.0.1:8800/）。按素材库新到顺序播放，底部滚动条列出各节目的标题。</figcaption></figure>
+<h3>24 小时运行的真实情况</h3>
+<p>制作速度约为实时的 1/60（6.6 秒的片段约需 400 秒），所以跑满一天也只有约 25 分钟新内容。作为电视台不停播，与每天能产出 24 小时新内容，是两回事，后者在这块 GPU 上做不到。播出侧按「优先立即播出从未播过的片段（从新到旧）→ 若没有，则在避开近期播过的内容下，按越新权重越高的随机选择」的顺序编排，使其看起来不像固定循环（<code>aitv/hls.py: pick_next</code>，播放器同策略）。用 <code>scripts/run_station.ps1</code> 常驻启动 ComfyUI、播放器、HLS 与制作循环（<code>-Status</code> / <code>-Stop</code> / <code>-Restart</code>）。</p>
+<p>按连续运行数天的前提评审了代码，修掉了确认存在的问题。主要有：HLS 编码器挂掉时 remux 失去排出口而阻塞、无法进入恢复流程；<code>-fflags +igndts</code> 压坏了片段边界之后的时间戳（实测 71 % 的帧，改为只用 <code>+genpts</code> 后恢复到 1/24 秒粒度）；<code>index.json</code> 替换时因 Windows 共享冲突失败，导致耗时约 400 秒的片段进不了索引；HIP 挂起时 <code>/system_stats</code> 仍然应答，使生成无限期卡住（增加了无响应超时与 <code>/interrupt</code>）；停止脚本按命令行子串匹配，误杀了无关进程。详见 <code>docs/aitv.md</code>。</p>
+<h3>制作日志（实际运行）</h3>
+<pre class="log">（未执行）</pre>
+<h3>已生成的节目片段</h3>
+<div class="samples"><p class=dim>（素材库为空）</p></div>
 <div class="tbl"><table>
-<tr><th>番組</th><th>キャプション（ティッカー）</th><th>長さ</th><th>生成</th><th>LLM が書いたプロンプト（冒頭）</th></tr>
-<tr><td>EVO-X2 TV - AIニュース速報</td><td>今日のトップニュース</td><td class=n>6.6 s</td><td class=n>481 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;ultra-modern, cool tones&gt;, &lt;medium&gt; frames &lt;A professional-looking, gender-neutral AI news anchor wearing a sharp suit, seated at a sleek, minimalist news desk&gt;.&lt;The camera pushes in with small amplitude at slow spe…</td></tr><tr><td>EVO-X2 TV - AIニュース速報</td><td>革新的エネルギー技術</td><td class=n>6.6 s</td><td class=n>397 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;bright, scientific, highly stylized&gt;, &lt;wide&gt; frames &lt;Abstract depiction of glowing, sustainable energy flowing through crystalline structures in a futuristic laboratory setting&gt;.&lt;The camera tracks left at slow speed…</td></tr><tr><td>EVO-X2 TV - AIニュース速報</td><td>地域の緑化活動</td><td class=n>6.6 s</td><td class=n>396 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;lush, natural, soft daytime lighting&gt;, &lt;full&gt; frames &lt;A picturesque, thriving local park filled with diverse, vibrant greenery and clean walkways&gt;.&lt;The camera pans right at slow speed, showing various types of ficti…</td></tr><tr><td>オーロラベリーブースト CM</td><td>太陽とベリーの魔法！</td><td class=n>6.6 s</td><td class=n>399 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;style words&gt;Hyper-saturated, magical realism, joyful&lt;/style&gt;, &lt;shot size&gt;medium shot&lt;/shot size&gt; frames &lt;a stylized forest sprite, glowing slightly, holding a glowing bottle of berry juice, standing in a lush, sun-d…</td></tr><tr><td>Station Ident: EVO-X2 TV</td><td>EVO-X2 TV ローカルAI放送局</td><td class=n>4.5 s</td><td class=n>238 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] neon vaporwave style, wide shot frames abstract, glowing geometric shapes rapidly assembling and rotating in deep space. The camera pushes out slowly with a small amplitude at slow speed. A friendly, bright voice (S1…</td></tr><tr><td>EVO-X2 AIニュース：未来を照らす発見</td><td>こんばんは。今夜もAIがお届けするニュースの時間です。</td><td class=n>6.6 s</td><td class=n>394 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Professional middle-aged anchor with a calm, trustworthy expression, wearing a sharp dark suit, seated at a sleek, modern news desk made of polished stone. The background features abstract blue and white digital ligh…</td></tr><tr><td>EVO-X2 AIニュース：未来を照らす発見</td><td>環境技術の革命！自己修復コンクリートの実用化が加速。</td><td class=n>6.6 s</td><td class=n>400 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] A brightly lit, futuristic outdoor laboratory setting. Engineers in clean white uniforms are examining a sample of grey, porous concrete on a white workbench. The camera tracks slowly from the workbench up to show th…</td></tr><tr><td>EVO-X2 AIニュース：未来を照らす発見</td><td>地域活性化に貢献！絶滅危惧種を助けるAIカメラが導入されました。</td><td class=n>6.6 s</td><td class=n>401 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] A serene, lush forested valley with sunlight dappling through the canopy. Several small, harmless, unidentified wildlife (e.g., brightly colored fictional birds) are visible in the background. The camera moves slowly…</td></tr><tr><td>3分クッキング：ふわとろ卵焼き</td><td>今日のメニューはふわとろ卵焼き！</td><td class=n>6.6 s</td><td class=n>400 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;bright, cheerful, cinematic&gt;, &lt;medium close up&gt; frames &lt;A friendly, middle-aged chef with a clean apron, standing in a brightly lit, modern kitchen filled with stainless steel and wooden accents&gt;. The camera pushes …</td></tr><tr><td>3分クッキング：ふわとろ卵焼き</td><td>火加減と油の量がポイントです。</td><td class=n>6.6 s</td><td class=n>404 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] &lt;high contrast, warm, detailed&gt;, &lt;extreme close up&gt; frames &lt;A pair of stainless steel chopsticks carefully folding a thin layer of yellow egg mixture in a non-stick pan, resting on a marble countertop&gt;. The camera tr…</td></tr><tr><td>エナジー・ドリンク「スパークル・シップ」CM</td><td>日常に輝きを。</td><td class=n>6.6 s</td><td class=n>404 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Highly saturated, whimsical Studio Ghibli-esque aesthetic, Medium Shot frames a stylized, bored character (male, wearing brightly colored, loose-fitting clothes) sitting alone on a park bench during a mild, cloudy af…</td></tr><tr><td>EVO-X2 TV // Blue Hour Interlude</td><td>青い時間帯の東京の光景</td><td class=n>8.0 s</td><td class=n>521 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic wide shot, establishing shot, frames 1-8. A futuristic Japanese city skyline viewed from a bridge, bathed in cool blue twilight tones. The camera slowly pans right, revealing the intricate glow of neon sign…</td></tr><tr><td>AIニュース：未来の発見と生活の変化</td><td>今夜のトップニュースです。</td><td class=n>6.6 s</td><td class=n>398 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, high-tech news studio, medium shot frames a professional news anchor sitting behind a sleek, curved desk. The camera pushes in with a small amplitude at slow speed. The anchor, a calm-looking woman in her …</td></tr><tr><td>AIニュース：未来の発見と生活の変化</td><td>次世代型太陽光パネルが実用化へ。</td><td class=n>6.6 s</td><td class=n>402 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Bright, futuristic rooftop setting, wide shot frames a newly installed, glowing solar panel array. The camera tracks slowly left across the panels, revealing complex wiring. A male scientific researcher in his early …</td></tr><tr><td>AIニュース：未来の発見と生活の変化</td><td>地域コミュニティが植物型浄水システムを導入。</td><td class=n>6.6 s</td><td class=n>401 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Lush, overgrown botanical facility, medium shot frames a community garden fountain where water is filtering through glowing, bio-engineered moss and plants. The camera tilts down at slow speed, following the flow of …</td></tr><tr><td>黄昏の海の調べ</td><td>音楽ブレイク：夕暮れの海辺</td><td class=n>8.0 s</td><td class=n>514 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic establishing shot, wide angle, showing the vast ocean and a sliver of sky at dusk. The camera tracks slowly left, following the curve of the shoreline. The light is soft, deep blues and oranges. The camera …</td></tr><tr><td>3分クッキング：ポテトグラタンの作り方</td><td>やさしいポテトグラタンのレシピ</td><td class=n>6.6 s</td><td class=n>398 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Wide shot, cinematic, 30mm lens, frames a friendly, middle-aged female chef wearing a white apron in a brightly lit, modern kitchen. The camera tracks left at slow speed, revealing fresh ingredients on a counter. The…</td></tr><tr><td>3分クッキング：ポテトグラタンの作り方</td><td>失敗しないコツは耐熱容器の準備</td><td class=n>6.6 s</td><td class=n>401 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Extreme close-up, hyper-realistic, macro lens, frames steam rising from a bubbling pot of potatoes in a glass baking dish. The camera pans right slowly, following the steam. The chef, who is wearing a white apron, is…</td></tr><tr><td>フォレストの囁き：生命の共生</td><td>熱帯雨林の深淵</td><td class=n>8.0 s</td><td class=n>528 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, highly detailed, wide shot frames the dense canopy of an equatorial rainforest. The camera slowly tracks laterally across massive, moss-covered tree trunks shrouded in mist. The camera pushes out with smal…</td></tr><tr><td>フォレストの囁き：生命の共生</td><td>水辺の営み</td><td class=n>8.0 s</td><td class=n>529 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Hyper-realistic, macro shot frames a small, vibrant poison dart frog sitting on a slick, dark green leaf over a misty jungle river. The camera slowly zooms in with large amplitude at slow speed, focusing on the frog&#x27;…</td></tr><tr><td>フォレストの囁き：生命の共生</td><td>黄昏の交響曲</td><td class=n>8.0 s</td><td class=n>521 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Warm, ethereal, wide shot frames the rainforest canopy during golden hour, with sunlight filtering through the leaves. The camera executes a slow arc shot around a cluster of giant, flowering jungle orchids. The came…</td></tr><tr><td>🌈レインボーバースト・ジュースCM</td><td>毎日、彩りチャージ！</td><td class=n>6.6 s</td><td class=n>401 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Vibrant and highly saturated color grading, medium shot frames a young, stylized character (wearing simple, bright clothing) sitting at a clean, marble countertop. The character smiles while holding a bottle of brigh…</td></tr><tr><td>EVO-X2 TV AIニュース：持続可能な未来へ</td><td>2026年9月10日 ニュースをお届けします</td><td class=n>6.6 s</td><td class=n>402 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] A mid-30s Japanese professional anchor, wearing a sharp navy suit, sits behind a modern, lit news desk. The background features sleek, abstract digital display panels. The camera pushes in with small amplitude at slo…</td></tr><tr><td>EVO-X2 TV AIニュース：持続可能な未来へ</td><td>太陽光発電の新たな可能性</td><td class=n>6.6 s</td><td class=n>404 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] A brightly lit, clean manufacturing facility. Close up on a robotic arm precisely spraying a shimmering, dark paint onto a large metal surface. The camera performs a slow, deliberate arc shot following the path of th…</td></tr><tr><td>EVO-X2 TV AIニュース：持続可能な未来へ</td><td>地域活性化に向けた緑化プロジェクト</td><td class=n>6.6 s</td><td class=n>400 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] A sunny, tree-lined local park undergoing revitalization. Wide shot of volunteers planting saplings near a stream. The camera pans left to capture the cooperative efforts of the group. The camera tracks slowly follow…</td></tr><tr><td>EVO-X2 Station Ident: The Flow of Data</td><td>未来を繋ぐ、ローカルAI放送局。</td><td class=n>4.5 s</td><td class=n>245 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Deep blue and electric cyan abstract geometric lattice patterns, resembling interconnected neural pathways, fill the frame. The camera tracks slowly and smoothly across the depth of the glowing structures. A bright, …</td></tr><tr><td>都会の黄昏：ノスタルジック・インターリュード</td><td>【22:21】City Twilight Interlude</td><td class=n>8.0 s</td><td class=n>525 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, wide-angle shot, showing a dense metropolis street during the golden hour approaching dusk. Neon lights begin to flicker on as the sky fades from orange to deep indigo. The camera tracks slowly left to rig…</td></tr><tr><td>温かい雲のふわふわスナックCM</td><td>寒さなんて、ふわふわで溶かして！</td><td class=n>6.6 s</td><td class=n>404 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, highly stylized vaporwave aesthetic, medium shot frames a stylized, fashionable character wearing oversized pastel knitwear sitting on a rustic bench in a softly lit, autumnal park. The character has a sli…</td></tr><tr><td>深淵の囁き：深海生物の営み</td><td>夜の帳に包まれた深海の世界</td><td class=n>8.0 s</td><td class=n>525 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, ultra-high contrast, underwater shot of a vast abyssal plain with bioluminescent flora and strange deep-sea rock formations. The camera tracks left at slow speed, revealing massive, alien structures. A dee…</td></tr><tr><td>深淵の囁き：深海生物の営み</td><td>光を纏う生命のドラマ</td><td class=n>8.0 s</td><td class=n>528 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Mysterious, intensely glowing, underwater close-up shot focusing on several small, gelatinous bioluminescent creatures forming a cluster. The camera arcs shot slowly, moving around the group. A deep-sea siphonophore …</td></tr><tr><td>深淵の囁き：深海生物の営み</td><td>沈黙と共存する深海の鼓動</td><td class=n>8.0 s</td><td class=n>531 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, grand scale, underwater panoramic shot of the abyssal plain, showing slow-moving benthic fauna and faint plumes of sediment. The camera pans right at slow speed, revealing the scale of the environment. A l…</td></tr><tr><td>EVO-X2 TV 2026年9月10日夜版ニュース</td><td>こんばんは。2026年9月10日夜のトップニュースです。</td><td class=n>6.6 s</td><td class=n>399 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Cinematic, polished news anchor desk style, medium shot frames a professional male anchor (30s, wearing a charcoal suit, calm expression) seated behind a sleek, glowing blue news desk. The camera tracks slowly left t…</td></tr><tr><td>EVO-X2 TV 2026年9月10日夜版ニュース</td><td>【科学】次世代太陽光パネルの実用化に成功か？</td><td class=n>6.6 s</td><td class=n>402 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Bright, futuristic, clean energy research facility, wide shot frames massive arrays of geometric, iridescent solar panels under a bright sky. The camera arcs slowly from left to right, following the line of panels. A…</td></tr><tr><td>EVO-X2 TV 2026年9月10日夜版ニュース</td><td>地域密着型イベント：公園に新しいコミュニティスペースが誕生。</td><td class=n>6.6 s</td><td class=n>402 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Sunny, sprawling modern urban park setting, medium wide shot frames diverse people enjoying a newly opened, beautifully designed community pavilion and green space. The camera tilts up slightly at slow speed, showing…</td></tr><tr><td>EVO-X2 TV Station Ident</td><td>ようこそ、EVO-X2 TVへ</td><td class=n>4.5 s</td><td class=n>240 s</td><td class=prompt>integrated_multimodal_description: [Shot 1] Abstract, neon-lit motion graphics, wide shot, a glowing, amorphous &#x27;Lumen Blob&#x27; creature that pulses with vibrant, shifting colors and energy particles. The camera arcs shot around the creature at medium speed. A wh…</td></tr>
+<tr><th>节目</th><th>标题（滚动条）</th><th>时长</th><th>生成</th><th>LLM 写的提示词（开头）</th></tr>
+<tr><td colspan=5 class=dim>（未执行）</td></tr>
 </table></div>
 
 
-<h2><small>06 · 知見</small>つまずきポイント</h2>
+<h2><small>06 · 经验</small>踩坑记录</h2>
 <ol class="pit">
-<li><b><code>PYTORCH_HIP_ALLOC_CONF=expandable_segments:True</code> は Windows/HIP で禁止。</b> 94 GB 空いているのにテキストエンコーダ読込中 13〜14 GB で OOM。環境変数を二分探索して特定（<code>scripts/vram_probe3.py</code>）。既定アロケータなら 85 GB まで確保可。</li>
-<li><b>nvfp4_awq テキストエンコーダは NVIDIA 専用。</b> 公式テンプレートの既定だが hip バックエンドに nvfp4 カーネルが無い。AMD では int8_convrot 版（27 GB）を使う。</li>
-<li><b>HF の Comfy-Org/MiniMax-H3 は <code>split_files/</code> プレフィックス無し。</b> <code>diffusion_models/</code>, <code>text_encoders/</code> 直下。</li>
-<li><b>pip が torch を CUDA 版に置き換える。</b> requirements から torch 3 点を除いて入れ、AMD index から再インストールして担保。</li>
-<li><b>ComfyUI の <code>/view</code> ダウンロードはローカルでは使わない。</b> aiohttp の sendfile が Windows で落ちる上、出力先と同じパスに書くと生成物を 0 バイトに潰す（実際にやらかした）。ローカルは出力ディレクトリを直接参照。</li>
-<li><b>量子化モデルのアンロードで access violation（ROCm 10.0）。</b> <code>/free</code> → INT8 テンソルの GPU→CPU 移動でサーバごと落ちた。fl2va ↔ ref2va の切替はサーバ再起動で行う。</li>
-<li><b>同一グラフは ComfyUI がキャッシュ</b>して 0 秒で返す。ベンチはシードを変える。</li>
-<li><b>画面内の日本語文字は崩れる</b>（天気図の見出し等）。テロップは後段の ffmpeg で載せる設計にする。</li>
+<li><b><code>PYTORCH_HIP_ALLOC_CONF=expandable_segments:True</code> 在 Windows/HIP 上禁止使用。</b> 明明还空着 94 GB，加载文本编码器时却在 13〜14 GB 处 OOM。通过二分查找环境变量定位（<code>scripts/vram_probe3.py</code>）。换成默认分配器后可分配到 85 GB。</li>
+<li><b>nvfp4_awq 文本编码器是 NVIDIA 专用的。</b> 虽是官方模板的默认值，但 hip 后端没有 nvfp4 内核。AMD 上应使用 int8_convrot 版（27 GB）。</li>
+<li><b>HF 上的 Comfy-Org/MiniMax-H3 没有 <code>split_files/</code> 前缀。</b> 直接位于 <code>diffusion_models/</code>, <code>text_encoders/</code> 之下。</li>
+<li><b>pip 会把 torch 换成 CUDA 版。</b> 安装 requirements 时去掉 torch 三件套，再从 AMD index 重装来保证。</li>
+<li><b>ComfyUI 的 <code>/view</code> 下载在本地不要用。</b> aiohttp 的 sendfile 在 Windows 上会挂，而且写到与输出相同的路径会把生成物截成 0 字节（实际踩过）。本地直接引用输出目录。</li>
+<li><b>卸载量化模型会触发 access violation（ROCm 10.0）。</b> <code>/free</code> → INT8 张量 GPU→CPU 搬运时整个服务端崩溃。fl2va ↔ ref2va 的切换改为重启服务端。</li>
+<li><b>同一个图会被 ComfyUI 缓存</b>并 0 秒返回。做基准时要换随机种子。</li>
+<li><b>画面内的日文字符会崩</b>（天气图的标题等）。字幕改为在后段用 ffmpeg 叠加。</li>
 </ol>
 
-<h2><small>07 · 参考</small>参考リンク</h2>
+<h2><small>07 · 参考</small>参考链接</h2>
 <ul>
-<li><a href="https://www.techno-edge.net/article/2026/09/06/5468.html">テクノエッジ: MiniMax H3 高速化プロジェクト（松尾公也, 2026-09-06）</a> / <a href="https://github.com/matsuo-koya/minimax-h3-notes">matsuo-koya/minimax-h3-notes</a></li>
-<li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3">Comfy-Org/MiniMax-H3（ComfyUI 用リパック）</a> / <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3">MiniMaxAI/MiniMax-H3</a> / <a href="https://docs.comfy.org/tutorials/video/minimax/minimax-h3">ComfyUI H3 チュートリアル</a></li>
+<li><a href="https://www.techno-edge.net/article/2026/09/06/5468.html">TechNode: MiniMax H3 提速项目（松尾公也, 2026-09-06）</a> / <a href="https://github.com/matsuo-koya/minimax-h3-notes">matsuo-koya/minimax-h3-notes</a></li>
+<li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3">Comfy-Org/MiniMax-H3（ComfyUI 用重打包）</a> / <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3">MiniMaxAI/MiniMax-H3</a> / <a href="https://docs.comfy.org/tutorials/video/minimax/minimax-h3">ComfyUI H3 教程</a></li>
 <li><a href="https://repo.amd.com/rocm/whl/gfx1151/">AMD ROCm PyTorch wheels for gfx1151</a> / <a href="https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html">ROCm 10 multi-arch PyTorch</a></li>
-<li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/33">HF discussion #33: Strix Halo 8060S での H3</a></li>
+<li><a href="https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/33">HF discussion #33: 在 Strix Halo 8060S 上跑 H3</a></li>
 </ul>
-<footer>generate-local-H3 · 2026-09-10 23:41 · 全ての計測はこの PC 上の実行ログ（output/runs.jsonl）から生成</footer>
+<footer>generate-local-H3 · 2026-10-19 07:42 · 所有测量数据均由本机执行日志（output/runs.jsonl）生成</footer>
 </div>
 </body>
 </html>

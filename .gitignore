@@ -23,3 +23,7 @@ output/station.pid
 
 # Go build output (scripts/build.ps1)
 bin/
+
+# local scratch and tool artefacts
+work/
+.dsh-acl-report/
